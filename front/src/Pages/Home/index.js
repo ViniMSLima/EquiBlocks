@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import logo from "../../assents/img/logo.png";
+import logo from "../../Img/logo.png";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
 
