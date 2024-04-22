@@ -21,3 +21,13 @@ const components = document.querySelectorAll('????');
 components.forEach(componente => {
     componente.addEventListener('click', diminuirNumero);
 });
+
+function Timer() {
+    setTimeout(() => {
+        setTimeout(() => {
+            alert("Passaram-se 30 minutos!");
+        }, 30 * 60 * 1000); 
+    }, 30 * 60 * 1000); 
+}
+
+Timer();
