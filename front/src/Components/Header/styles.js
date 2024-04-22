@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
-import { gray20, white } from '../../styles/colors';
+import { gray20, white } from '../colors';
 
 export const Supergraphic = styled.div``;
 
