@@ -6,27 +6,27 @@ Bem-vindo ao Jogo das Balanças! Este é um jogo em React onde você precisa des
 
 1. Clone este repositório em sua máquina local.
 
-´´´ bash 
+```bash 
 git clone https://github.com/ViniMSLima/EquiBlocks.git
-´´´
+```
 
 2. Certifique-se de ter o Node.js instalado em sua máquina. 
     - [Download Node](https://nodejs.org/en/download).
 
 3. Abra o terminal e navegue até o diretório do projeto.
-´´´ bash
+```bash
 cd equiblocks
-´´´
+```
 
 4. Instale todas as dependências do projeto.
-´´´ bash
+```bash
 npm install
-´´´
+```
 
 5. Após a instalação das dependências, inicie o jogo.
-´´´ bash
+```bash
 npm start
-´´´
+```
 
 6. Uma vez que o jogo esteja rodando, você verá duas balanças e cinco formas disponíveis para serem colocadas nelas.
 7. Uma das formas tem um peso conhecido, as outras têm pesos desconhecidos.
