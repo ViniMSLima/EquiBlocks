@@ -1,0 +1,22 @@
+.supergraphic{
+    background-image: url('./img/Bosch-Supergraphic_RGB.svg');
+    background-repeat: no-repeat;
+    height: 0.37rem;
+    width: 100%;
+    background-position:center;
+    background-size: 100vw 100vh;
+    object-fit: cover;
+}
+
+.logo{
+    background-image: url('./img/Bosch_symbol_logo_black_red.svg');
+    height: 5rem;
+    position: relative;
+    transform: scale(1.02);
+    top: 7px;
+    left: 35px;
+    z-index: 5;
+    display: flex;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
