@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 
 import styles from "./styles.module.scss";
 
-export default function ShapeInput({ shapeImg, shapeValue }) {
+export default function ShapeInput({ shapeImg, shapeValue, oC }) {
   return (
     <div className={styles.bg}>
       <div className={styles.cardBody}>
@@ -10,7 +10,7 @@ export default function ShapeInput({ shapeImg, shapeValue }) {
         <div className={styles.text}>
           <Form>
             <Form.Group controlId="Input">
-              <Form.Control type="number" placeholder="???" />
+              <Form.Control type="number" placeholder="???" onChange={oC}/>
             </Form.Group>
           </Form>
         </div>

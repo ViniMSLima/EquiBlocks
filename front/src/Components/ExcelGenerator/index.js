@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-export default function ExcelEditor() {
+export default function ExcelEditor({nome, data, tempo, f1, f2, f3, f4, f5}) {
     const [workbook, setWorkbook] = useState(null);
 
     useEffect(() => {
         if (workbook) {
             const ws = workbook.Sheets[workbook.SheetNames[0]];
-            XLSX.utils.sheet_add_aoa(ws, [["Novo Nome", 40, "Nova Profissão"], ["Novo Nome", 40, "Nova Profissão"], ["Novo Nome", 40, "Nova Profissão"], ["Novo Nome", 40, "Nova Profissão"]], { origin: -1 });
+            XLSX.utils.sheet_add_aoa(ws, [[nome, data, tempo, f1, f2, f3, f4, f5]], { origin: -1 });
         }
     }, [workbook]);
 
