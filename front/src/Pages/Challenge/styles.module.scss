@@ -25,3 +25,24 @@
     align-items: center;
     padding: 1em;
 }
+
+.btnDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2em;
+}
+
+.button {
+    width: 100%;
+    padding: 1em;
+    background-color: #007BC0;
+    color: white;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "League Gothic", sans-serif;
+    font-size: 2.4em;
+  }

@@ -6,7 +6,7 @@ export default function ShapeInput({ shapeImg, shapeValue }) {
   return (
     <div className={styles.bg}>
       <div className={styles.cardBody}>
-        <img src={shapeImg} className={styles.imgFormat}></img>
+        <img src={shapeImg} className={styles.imgFormat} alt="Shape"></img>
         <div className={styles.text}>
           <Form>
             <Form.Group controlId="Input">
