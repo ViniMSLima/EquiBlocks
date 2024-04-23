@@ -18,11 +18,28 @@ export default function Challenge() {
         <Col></Col>
       </Row>
       <Row style={{ marginTop: "0.5em" }}>
-        <Col className={styles.align} sm="6" lg="4">
-        </Col>
-        <Col className={styles.title} sm="6" lg="4">
-        </Col>
+        <Col className={styles.align} sm="6" lg="4"></Col>
+        <Col className={styles.title} sm="6" lg="4"></Col>
         <Col></Col>
+      </Row>
+      <Row>
+        <Col className={styles.title} sm="12" lg="4">
+          Foto balança
+        </Col>
+        <Col className={styles.align} sm="1" lg="1"></Col>
+        <Col className={styles.title} sm="12" lg="4">
+          Foto balança
+        </Col>
+        <Col className={styles.align} sm="1" lg="1"></Col>
+        <Col className={styles.title} sm="12" lg="2">
+          Componente com inputs
+        </Col>
+      </Row>
+      <Row style={{ marginTop: "0.5em" }}>
+        <Col className={styles.align} sm="1" lg="1"></Col>
+        <Col className={styles.title} sm="6" lg="10">Componente com as formas</Col>
+        <Col className={styles.align} sm="1" lg="1">
+        </Col>
       </Row>
     </Container>
   );
