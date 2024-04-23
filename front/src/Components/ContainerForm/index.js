@@ -16,8 +16,9 @@ export default function ContainerForm() {
       <Row>
         {formas.map((forma, index) => (
           <Col key={index}>
-            <div>
+            <div className={styles.divForm}>
               <img className={styles.forms} src={forma} alt={`Forma ${index}`} />
+              <p className={styles.qtd}>5</p>
             </div>
           </Col>
         ))}
