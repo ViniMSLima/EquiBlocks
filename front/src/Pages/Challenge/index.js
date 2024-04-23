@@ -6,6 +6,7 @@ import styles from "./styles.module.scss";
 import Timer from "../../Components/Timer";
 
 export default function Challenge() {
+
   return (
     <Container>
       <Row style={{ marginTop: "0.5em" }}>

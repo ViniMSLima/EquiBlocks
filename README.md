@@ -18,6 +18,10 @@ git clone https://github.com/ViniMSLima/EquiBlocks.git
 cd equiblocks
 ```
 
+```bash
+cd front
+```
+
 4. Instale todas as dependências do projeto.
 ```bash
 npm install
