@@ -2,20 +2,23 @@ import React, { useState, useRef, useEffect } from 'react';
 import styles from "./styles.module.scss";
 import clock from "../../Img/clock.svg"
 
-export default function Timer() {
+export default function Timer({ startTimer }) {
     const [timer, setTimer] = useState(0);
     const startTimeRef = useRef(null);
 
     useEffect(() => {
-        startTimeRef.current = Date.now(); // Armazena o tempo de início quando o componente é montado
-        const intervalId = setInterval(() => {
-            const currentTime = Date.now();
-            const elapsedTime = currentTime - startTimeRef.current;
-            setTimer(elapsedTime); // Atualiza o timer com o tempo decorrido
-        }, 1000); // Atualiza a cada segundo
+        let intervalId;
 
+        if(startTimer) {
+            startTimeRef.current = Date.now(); // Armazena o tempo de início quando o componente é montado
+            intervalId = setInterval(() => {
+                const currentTime = Date.now();
+                const elapsedTime = currentTime - startTimeRef.current;
+                setTimer(elapsedTime); // Atualiza o timer com o tempo decorrido
+            }, 1000); // Atualiza a cada segundo
+        }
         return () => clearInterval(intervalId);
-    }, []);
+    }, [startTimer]);
 
     const formatTime = (milliseconds) => {
         const totalSeconds = Math.floor(milliseconds / 1000);
