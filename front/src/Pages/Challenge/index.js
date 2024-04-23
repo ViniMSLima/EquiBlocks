@@ -19,8 +19,12 @@ export default function Challenge() {
 
   const startReal = () => {
     if (status === "Finalizar") {
-      navigate("/");
-      setTimerStarted(false);
+      if(window.confirm("Deseja Finalizar?")) {
+        navigate("/");
+        setTimerStarted(false);
+      }
+      else 
+        return;
     }
     setStatus("Finalizar");
     setPhase("Desafio");

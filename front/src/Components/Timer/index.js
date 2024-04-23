@@ -10,12 +10,12 @@ export default function Timer({ startTimer }) {
         let intervalId;
 
         if(startTimer) {
-            startTimeRef.current = Date.now(); // Armazena o tempo de início quando o componente é montado
+            startTimeRef.current = Date.now();
             intervalId = setInterval(() => {
                 const currentTime = Date.now();
                 const elapsedTime = currentTime - startTimeRef.current;
-                setTimer(elapsedTime); // Atualiza o timer com o tempo decorrido
-            }, 1000); // Atualiza a cada segundo
+                setTimer(elapsedTime);
+            }, 1000);
         }
         return () => clearInterval(intervalId);
     }, [startTimer]);
