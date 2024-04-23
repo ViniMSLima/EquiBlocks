@@ -70,3 +70,19 @@ function dragEnd() {
 }
 
 dragMe.addEventListener("mousedown", dragStart);
+
+//coordenadas da tela
+
+function showCoords(event) {
+  var x = event.clientX;
+  var y = event.clientY;
+  var coor = "X coords: " + x + ", Y coords: " + y;
+  document.getElementById("demo").innerHTML = coor;
+}
+
+function getCoor(event) {  
+  var x = event.clientX;
+  var y = event.clientY;
+  var coor = "X coords: " + x + ", Y coords: " + y;
+  document.getElementById("demo2").innerHTML = coor;
+}
