@@ -21,16 +21,32 @@ components.forEach((componente) => {
 });
 
 function Timer() {
-  setTimeout(() => {
-    setTimeout(() => {
+  let remainingTime = 30 * 60; // Tempo em segundos
+  const timerElement = document.getElementById('timer'); 
+
+  const updateTimerDisplay = () => {
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+    timerElement.textContent = `${minutes}min ${seconds}s`;
+  };
+
+  const countdown = () => {
+    updateTimerDisplay();
+    if (remainingTime > 0) {
+      remainingTime--;
+      setTimeout(countdown, 1000); 
+    } else {
       alert("Passaram-se 30 minutos!");
-    }, 30 * 60 * 1000);
-  }, 30 * 60 * 1000);
+    }
+  };
+  
+  console.log(countdown)
+  countdown(); 
 }
 
-Timer();
-
 //arrastar elementos para a balança
+
+var clones = 0;
 
 var dragMe = document.getElementById("drag_me"),
   dragOfX = 0,
@@ -38,18 +54,22 @@ var dragMe = document.getElementById("drag_me"),
   clone = null;
 
 function dragStart(e) {
-  dragOfX = e.pageX - dragMe.offsetLeft;
-  dragOfY = e.pageY - dragMe.offsetTop;
+    if (clones >= 5) return; 
 
- 
-  clone = dragMe.cloneNode(true);
-  clone.classList.add("dragged");
-  document.body.appendChild(clone);
+    dragOfX = e.pageX - dragMe.offsetLeft;
+    dragOfY = e.pageY - dragMe.offsetTop;
 
-  dragMe.classList.add("dragging");
+    clone = dragMe.cloneNode(true);
+    clone.classList.add("dragged");
+    document.body.appendChild(clone);
 
-  addEventListener("mousemove", dragMove);
-  addEventListener("mouseup", dragEnd);
+    dragMe.classList.add("dragging");
+
+    addEventListener("mousemove", dragMove);
+    addEventListener("mouseup", dragEnd);
+
+
+  clones++;
 }
 
 function dragMove(e) {
@@ -62,8 +82,7 @@ function dragEnd() {
   removeEventListener("mouseup", dragEnd);
 
   dragMe.classList.remove("dragging");
-
-  if (clone) {
+  if (clones > 5) {
     clone.parentNode.removeChild(clone);
     clone = null;
   }
@@ -71,18 +90,17 @@ function dragEnd() {
 
 dragMe.addEventListener("mousedown", dragStart);
 
-//coordenadas da tela
+//posição do mouse em relação da imagem
 
-function showCoords(event) {
-  var x = event.clientX;
-  var y = event.clientY;
-  var coor = "X coords: " + x + ", Y coords: " + y;
-  document.getElementById("demo").innerHTML = coor;
-}
+function detectarPosicao(event) {
+  var imagem = document.getElementById("imagem");
+  var retangulo = imagem.getBoundingClientRect();
+  var posicaoX = event.clientX - retangulo.left;
+  var larguraImagem = retangulo.right - retangulo.left;
 
-function getCoor(event) {  
-  var x = event.clientX;
-  var y = event.clientY;
-  var coor = "X coords: " + x + ", Y coords: " + y;
-  document.getElementById("demo2").innerHTML = coor;
+  if (posicaoX < larguraImagem / 2) {
+    console.log("Mouse está mais para a esquerda.");
+  } else {
+    console.log("Mouse está mais para a direita.");
+  }
 }
