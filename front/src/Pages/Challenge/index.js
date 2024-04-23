@@ -9,6 +9,7 @@ import ContainerForm from "../../Components/ContainerForm";
 import styles from "./styles.module.scss";
 import Timer from "../../Components/Timer";
 import Inputs from "../../Components/InputsArea";
+import Balance from "../../Components/Balance";
 
 export default function Challenge() {
   const [status, setStatus] = useState("Começar");
@@ -41,11 +42,11 @@ export default function Challenge() {
         <Row className={styles.row}>
           <Container className={styles.cont}>
             <Col className={styles.title} sm="12" lg="4">
-              Foto balança
+              <Balance/>
             </Col>
             <Col className={styles.align} sm="1" lg="1"></Col>
             <Col className={styles.title} sm="12" lg="4">
-              Foto balança
+              <Balance/>
             </Col>
             <Col className={styles.align} sm="1" lg="1"></Col>
             <Col className={styles.title} sm="10" lg="2">
