@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import ContainerForm from "../../Components/ContainerForm"
 
 import styles from "./styles.module.scss";
 import Timer from "../../Components/Timer";
@@ -37,7 +38,9 @@ export default function Challenge() {
       </Row>
       <Row style={{ marginTop: "0.5em" }}>
         <Col className={styles.align} sm="1" lg="1"></Col>
-        <Col className={styles.title} sm="6" lg="10">Componente com as formas</Col>
+        <Col className={styles.title} sm="6" lg="10">
+            <ContainerForm></ContainerForm>
+        </Col>
         <Col className={styles.align} sm="1" lg="1">
         </Col>
       </Row>
