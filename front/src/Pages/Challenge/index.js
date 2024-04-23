@@ -12,12 +12,13 @@ import Inputs from "../../Components/InputsArea";
 
 export default function Challenge() {
   const [status, setStatus] = useState("Começar");
+  const [phase, setPhase] = useState("Fase de Teste")
   const navigate = useNavigate();
 
   const startReal = () => {
     if (status === "Finalizar") navigate("/");
     setStatus("Finalizar");
-    // startTimer()
+    setPhase("Desafio");
   };
 
   return (
@@ -27,7 +28,7 @@ export default function Challenge() {
           <Timer />
         </Col>
         <Col className={styles.title} sm="12" lg="4">
-          Fase de Teste
+          {phase}
         </Col>
         <Col></Col>
       </Row>
