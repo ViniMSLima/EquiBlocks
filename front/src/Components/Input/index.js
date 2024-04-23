@@ -1,10 +1,15 @@
 import styles from "./styles.module.scss";
 
-export default function Input({ placeholder, label }) {
+export default function Input({ placeholder, label, onChange, type }) {
   return (
     <div className={styles.inputContainer}>
       <label className={styles.label}>{label}</label>
-      <input type="text" className={styles.input} placeholder={placeholder} />
+      <input
+        type={type}
+        className={styles.input}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
     </div>
   );
 }
