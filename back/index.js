@@ -46,61 +46,85 @@ function Timer() {
 
 //arrastar elementos para a balança
 
-var clones = 0;
+var Draggable = function (elemento) {
+  var that = this;
+  this.elemento = elemento;
+  this.posX = 0;
+  this.posY = 0;
+  this.top = 0;
+  this.left = 0;
+  this.usosRestantes = 5; 
+  this.clone = null;
 
-var dragMe = document.getElementById("drag_me"),
-  dragOfX = 0,
-  dragOfY = 0,
-  clone = null;
+  this.refMouseUp = function (event) {
+    that.onMouseUp(event);
+  }
 
-function dragStart(e) {
-    if (clones >= 5) return; 
+  this.refMouseMove = function (event) {
+    that.onMouseMove(event);
+  }
 
-    dragOfX = e.pageX - dragMe.offsetLeft;
-    dragOfY = e.pageY - dragMe.offsetTop;
-
-    clone = dragMe.cloneNode(true);
-    clone.classList.add("dragged");
-    document.body.appendChild(clone);
-
-    dragMe.classList.add("dragging");
-
-    addEventListener("mousemove", dragMove);
-    addEventListener("mouseup", dragEnd);
-
-
-  clones++;
+  this.elemento.addEventListener("mousedown", function (event) {
+    that.onMouseDown(event);
+  });
 }
 
-function dragMove(e) {
-  clone.style.left = e.pageX - dragOfX + "px";
-  clone.style.top = e.pageY - dragOfY + "px";
-}
+Draggable.prototype.onMouseDown = function (event) {
+  if (this.usosRestantes > 0) {
+    this.posX = event.x;
+    this.posY = event.y;
 
-function dragEnd() {
-  removeEventListener("mousemove", dragMove);
-  removeEventListener("mouseup", dragEnd);
+    this.elemento.classList.add("dragging");
 
-  dragMe.classList.remove("dragging");
-  if (clones > 5) {
-    clone.parentNode.removeChild(clone);
-    clone = null;
+    this.clone = this.elemento.cloneNode(true);
+    this.clone.style.position = "absolute";
+    this.clone.style.pointerEvents = "none";
+    document.body.appendChild(this.clone);
+
+    window.addEventListener("mousemove", this.refMouseMove);
+    window.addEventListener("mouseup", this.refMouseUp);
   }
 }
 
-dragMe.addEventListener("mousedown", dragStart);
+Draggable.prototype.onMouseMove = function (event) {
+  if (this.usosRestantes > 0) {
+    var diffX = event.x - this.posX;
+    var diffY = event.y - this.posY;
 
-//posição do mouse em relação da imagem
+    this.clone.style.top = (event.clientY - this.elemento.offsetHeight / 2) + "px";
+    this.clone.style.left = (event.clientX - this.elemento.offsetWidth / 2) + "px";
+  }
+}
+
+Draggable.prototype.onMouseUp = function (event) {
+  if (this.usosRestantes > 0) {
+    this.usosRestantes--; 
+
+    this.top = parseInt(this.elemento.style.top.replace(/\D/g, '')) || 0;
+    this.left = parseInt(this.elemento.style.left.replace(/\D/g, '')) || 0;
+    this.elemento.classList.remove("dragging");
+  
+    window.removeEventListener("mousemove", this.refMouseMove);
+    window.removeEventListener("mouseup", this.refMouseUp);
+  }
+}
+
+var draggables = document.querySelectorAll(".draggable");
+[].forEach.call(draggables, function (draggable, indice) {
+  new Draggable(draggable);
+});
+
+//posição do desenho em relação da imagem 
 
 function detectarPosicao(event) {
-  var imagem = document.getElementById("imagem");
-  var retangulo = imagem.getBoundingClientRect();
-  var posicaoX = event.clientX - retangulo.left;
-  var larguraImagem = retangulo.right - retangulo.left;
+var imagem = document.getElementById("imagem");
+var retangulo = imagem.getBoundingClientRect();
+var posicaoX = event.clientX - retangulo.left;
+var larguraImagem = retangulo.right - retangulo.left;
 
-  if (posicaoX < larguraImagem / 2) {
-    console.log("Mouse está mais para a esquerda.");
-  } else {
-    console.log("Mouse está mais para a direita.");
-  }
+if (posicaoX < larguraImagem / 2) {
+  console.log("Mouse está mais para a esquerda.");
+} else {
+  console.log("Mouse está mais para a direita.");
+}
 }
