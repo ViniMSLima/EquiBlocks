@@ -1,7 +1,22 @@
+.cont {
+    display: flex;
+    flex-direction: row;
+}
+
 .title {
     text-align: center;
     font-family: "League Gothic", sans-serif;
     font-size: 5em;
+}
+
+.row {
+    margin-top: 0.5em;
+     width: 100%; 
+}
+
+.cardInputs {
+    padding-inline: 2em;
+    height: auto;
 }
 
 .align {
