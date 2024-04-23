@@ -9,12 +9,14 @@ import ContainerForm from "../../Components/ContainerForm";
 import styles from "./styles.module.scss";
 import Timer from "../../Components/Timer";
 import Inputs from "../../Components/InputsArea";
-
+import Balance from "../../Components/Balance";
 import ExcelGenerator from "../../Components/ExcelGenerator";
+
 
 export default function Challenge() {
   const [status, setStatus] = useState("Começar");
-  const [phase, setPhase] = useState("Fase de Teste")
+  const [phase, setPhase] = useState("Fase de Teste");
+  const [timerStarted, setTimerStarted] = useState(false);
   const navigate = useNavigate();
 
   const [fig1, setFig1] = useState("");
@@ -23,7 +25,7 @@ export default function Challenge() {
   const [fig4, setFig4] = useState("");
   const [fig5, setFig5] = useState("");
 
-  const startReal = () => { 
+  const startReal = () => {
     if (status === "Finalizar") {
       console.log(fig1);
       console.log(fig2);
@@ -31,8 +33,8 @@ export default function Challenge() {
       console.log(fig4);
       console.log(fig5);
 
-      var nome = sessionStorage.getItem('nome'); 
-      var data = sessionStorage.getItem('data'); 
+      var nome = sessionStorage.getItem('nome');
+      var data = sessionStorage.getItem('data');
 
 
       // sessionStorage.setItem('playerInfo', {nome: nome, date: data, f1: fig1, f2: fig2, f3: fig3, f4: fig4, f5: fig5});
@@ -47,7 +49,10 @@ export default function Challenge() {
       //   f5={fig5}
       // />
 
-      navigate("/");
+      if (window.confirm("Deseja Finalizar?")) {
+        navigate("/");
+        setTimerStarted(false);
+      }
     }
 
     setStatus("Finalizar");
@@ -58,7 +63,7 @@ export default function Challenge() {
     <div>
       <Row className={styles.row}>
         <Col className={styles.align} sm="12" lg="4">
-          <Timer />
+          <Timer startTimer={timerStarted} />
         </Col>
         <Col className={styles.title} sm="12" lg="4">
           {phase}
@@ -69,11 +74,11 @@ export default function Challenge() {
         <Row className={styles.row}>
           <Container className={styles.cont}>
             <Col className={styles.title} sm="12" lg="4">
-              Foto balança
+              <Balance />
             </Col>
             <Col className={styles.align} sm="1" lg="1"></Col>
             <Col className={styles.title} sm="12" lg="4">
-              Foto balança
+              <Balance />
             </Col>
             <Col className={styles.align} sm="1" lg="1"></Col>
             <Col className={styles.title} sm="10" lg="2">
