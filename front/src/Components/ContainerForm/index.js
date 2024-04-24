@@ -20,7 +20,7 @@ export default function ContainerForm() {
   const [balance1, setBalance1] = useState({ left: 0, right: 0 });
   const [balance2, setBalance2] = useState({ left: 0, right: 0 });
 
-  const handleDrop = (index, balanca, lado) => {
+  const handleDrop = (forma, balanca, lado) => {
     if (balanca === 1) {
       setBalance1((prevBalance) => ({
         ...prevBalance,
