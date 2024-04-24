@@ -21,12 +21,12 @@ export default function ContainerForm() {
   const [balance2, setBalance2] = useState({ left: 0, right: 0 });
 
   const handleDrop = (forma, balanca, lado) => {
-    if(!forma)
-      return;
+    console.log(forma);
+    if (!forma) return;
     if (balanca === 1) {
       setBalance1((prevBalance) => ({
         ...prevBalance,
-        [lado]: prevBalance[lado] +  parseInt(forma),
+        [lado]: prevBalance[lado] + parseInt(forma),
       }));
     } else {
       setBalance2((prevBalance) => ({
@@ -46,17 +46,15 @@ export default function ContainerForm() {
         <Row>
           {formas.map((item, index) => (
             <Col key={index}>
-              <div
-                className={styles.divForm}
-                draggable
-                onDragStart={(e) => {
-                  e.dataTransfer.setData("forma", item.peso);
-                }}
-              >
+              <div className={styles.divForm}>
                 <img
                   className={styles.forms}
                   src={item.imagem}
                   alt={`Forma ${index}`}
+                  draggable
+                  onDragStart={(e) => {
+                    e.dataTransfer.setData("forma", item.peso);
+                  }}
                   onDragEnd={(e) => {
                     const updatedFormas = [...formas];
                     updatedFormas[index] = {
