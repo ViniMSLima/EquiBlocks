@@ -20,13 +20,11 @@ export default function ContainerForm() {
   const [balance1, setBalance1] = useState({ left: 0, right: 0 });
   const [balance2, setBalance2] = useState({ left: 0, right: 0 });
 
-  const handleDrop = (forma, balanca, lado) => {
-    if(!forma)
-      return;
+  const handleDrop = (index, balanca, lado) => {
     if (balanca === 1) {
       setBalance1((prevBalance) => ({
         ...prevBalance,
-        [lado]: prevBalance[lado] +  parseInt(forma),
+        [lado]: prevBalance[lado] + 1,
       }));
     } else {
       setBalance2((prevBalance) => ({
@@ -46,9 +44,7 @@ export default function ContainerForm() {
         <Row>
           {formas.map((item, index) => (
             <Col key={index}>
-              <div
-                className={styles.divForm}
-              >
+              <div className={styles.divForm}>
                 <img
                   className={styles.forms}
                   src={item.imagem}
