@@ -33,7 +33,7 @@ export default function Balance({ balance, balanca, handleDrop }) {
           height: "2em",
           top: "1.3em",
           left: "0.08em",
-          backgroundColor: "blue",
+          // backgroundColor: "blue",
           zIndex: "2"
         }}
         onDragOver={handleDragOver}
@@ -46,7 +46,7 @@ export default function Balance({ balance, balanca, handleDrop }) {
           height: "2em",
           top: "1.3em",
           left: "3.72em",
-          backgroundColor: "red",
+          // backgroundColor: "red",
           zIndex: "2"
         }}
         onDragOver={handleDragOver}
