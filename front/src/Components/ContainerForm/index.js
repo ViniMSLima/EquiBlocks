@@ -112,7 +112,7 @@ export default function ContainerForm() {
             <Col key={index}>
               <div className={styles.divForm}>
                 <img
-                  className={styles.forms}
+                  className={styles.forms }
                   src={item.imagem}
                   alt={`Forma ${index}`}
                   draggable={item.quantidade > 0 && !item.onBalance}
