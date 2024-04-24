@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import balancee from "../../Img/balanca3.png";
+import quadrado from "../../Img/formas/square.png";
 
 export default function Balance({ balance, balanca, handleDrop }) {
   const handleHitBoxClick = (hitBoxName) => {
@@ -21,39 +22,29 @@ export default function Balance({ balance, balanca, handleDrop }) {
     e.preventDefault();
     const forma = e.dataTransfer.getData("forma");
     handleDrop(forma, balanca, "right");
-
   };
 
   return (
     <div style={{ position: "relative", display: "inline-block" }}>
       <div
-        style={{
-          position: "absolute",
-          width: "2em",
-          height: "2em",
-          top: "1.3em",
-          left: "0.08em",
-          // backgroundColor: "blue",
-          zIndex: "2"
-        }}
+        className={styles.hitbox1}
         onDragOver={handleDragOver}
         onDrop={handleDropOnLeft}
-      ></div>
+      >
+        <img className={styles.forms} src={quadrado}/>
+      </div>
       <div
-        style={{
-          position: "absolute",
-          width: "2em",
-          height: "2em",
-          top: "1.3em",
-          left: "3.72em",
-          // backgroundColor: "red",
-          zIndex: "2"
-        }}
+        className={styles.hitbox2}
         onDragOver={handleDragOver}
         onDrop={handleDropOnRight}
       ></div>
-      <img className={styles.balance} src={balancee} alt="Balance" style={{ zIndex: "1" }} />
-      <div style={{ display: "flex", flexDirection: 'column' }}>
+      <img
+        className={styles.balance}
+        src={balancee}
+        alt="Balance"
+        style={{ zIndex: "1" }}
+      />
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <p>Lado A: {balance.left}</p>
         <p>Lado B: {balance.right}</p>
       </div>

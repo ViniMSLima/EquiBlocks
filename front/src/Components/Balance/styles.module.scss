@@ -3,3 +3,29 @@
   height: 5em;
   position: relative;
 }
+
+.hitbox1 {
+  width: 2em;
+  height: 2em;
+  position: absolute;
+  top: 1.3em;
+  left: 0.08em;
+  // background-color: blue;
+  z-index: 2;
+}
+
+.hitbox2 {
+  width: 2em;
+  height: 2em;
+  position: absolute;
+  top: 1.3em;
+  left: 3.72em;
+  background-color: red;
+  z-index: 2;
+}
+
+.forms {
+  margin-top: 1.31em;
+  width: 0.2em;
+  height: auto;
+}
