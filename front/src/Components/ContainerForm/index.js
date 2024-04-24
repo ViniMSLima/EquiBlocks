@@ -3,7 +3,6 @@ import styles from "./styles.module.scss";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Balance from "../Balance";
-
 import quadrado from "../../Img/formas/square.png";
 import circulo from "../../Img/formas/circle.png";
 import triangulo from "../../Img/formas/triangulo.png";
@@ -12,25 +11,27 @@ import estrela from "../../Img/formas/star.png";
 
 export default function ContainerForm() {
   const [formas, setFormas] = useState([
-    { imagem: quadrado, quantidade: 5 },
-    { imagem: circulo, quantidade: 5 },
-    { imagem: triangulo, quantidade: 5 },
-    { imagem: pentagono, quantidade: 5 },
-    { imagem: estrela, quantidade: 5 }
+    { imagem: quadrado, quantidade: 5, peso: 100 },
+    { imagem: circulo, quantidade: 5, peso: 200 },
+    { imagem: triangulo, quantidade: 5, peso: 500 },
+    { imagem: pentagono, quantidade: 5, peso: 700 },
+    { imagem: estrela, quantidade: 5, peso: 1000 },
   ]);
   const [balance1, setBalance1] = useState({ left: 0, right: 0 });
   const [balance2, setBalance2] = useState({ left: 0, right: 0 });
-  
-  const handleDrop = (index, balanca, lado) => {
+
+  const handleDrop = (forma, balanca, lado) => {
+    if(!forma)
+      return;
     if (balanca === 1) {
       setBalance1((prevBalance) => ({
         ...prevBalance,
-        [lado]: prevBalance[lado] + 1
+        [lado]: prevBalance[lado] +  parseInt(forma),
       }));
     } else {
       setBalance2((prevBalance) => ({
         ...prevBalance,
-        [lado]: prevBalance[lado] + 1
+        [lado]: prevBalance[lado] + parseInt(forma),
       }));
     }
   };
@@ -49,7 +50,7 @@ export default function ContainerForm() {
                 className={styles.divForm}
                 draggable
                 onDragStart={(e) => {
-                  e.dataTransfer.setData("forma", item.imagem);
+                  e.dataTransfer.setData("forma", item.peso);
                 }}
               >
                 <img
@@ -60,7 +61,10 @@ export default function ContainerForm() {
                     const updatedFormas = [...formas];
                     updatedFormas[index] = {
                       ...updatedFormas[index],
-                      quantidade: Math.max(0, updatedFormas[index].quantidade - 1)
+                      quantidade: Math.max(
+                        0,
+                        updatedFormas[index].quantidade - 1
+                      ),
                     };
                     setFormas(updatedFormas);
                   }}
