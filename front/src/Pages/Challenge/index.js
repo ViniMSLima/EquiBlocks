@@ -48,9 +48,8 @@ export default function Challenge() {
       // />
 
       if (window.confirm("Deseja Finalizar?")) {
+        setTimerStarted(false);
         navigate("/finished");
-        setTimerStarted(false);
-        setTimerStarted(false);
       }
     }
     setTimerStarted(true);

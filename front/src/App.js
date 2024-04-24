@@ -23,15 +23,7 @@ function App() {
             />
           }
         />
-        <Route
-          path="/finished"
-          element={
-            <ProtectedRoute
-              errorPage={<ErrorPage />}
-              targetPage={<Finalized />}
-            />
-          }
-        />
+        <Route path="/finished" element={<Finalized />} />
         <Route path="/exceltest" element={<Excel />} />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
