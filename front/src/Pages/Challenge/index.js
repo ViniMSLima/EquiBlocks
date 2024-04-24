@@ -12,7 +12,6 @@ import Inputs from "../../Components/InputsArea";
 import Balance from "../../Components/Balance";
 import ExcelGenerator from "../../Components/ExcelGenerator";
 
-
 export default function Challenge() {
   const [status, setStatus] = useState("Começar");
   const [phase, setPhase] = useState("Fase de Teste");
@@ -33,13 +32,12 @@ export default function Challenge() {
       console.log(fig4);
       console.log(fig5);
 
-      var nome = sessionStorage.getItem('nome');
-      var data = sessionStorage.getItem('data');
-
+      var nome = sessionStorage.getItem("nome");
+      var data = sessionStorage.getItem("data");
 
       // sessionStorage.setItem('playerInfo', {nome: nome, date: data, f1: fig1, f2: fig2, f3: fig3, f4: fig4, f5: fig5});
 
-      // <ExcelGenerator 
+      // <ExcelGenerator
       //   nome={nome}
       //   data={data}
       //   f1={fig1}
@@ -76,30 +74,31 @@ export default function Challenge() {
             <Col className={styles.align} sm="1" lg="3"></Col>
             <Col className={styles.title} sm="12" lg="4">
               <ContainerForm />
-              
             </Col>
             <Col className={styles.align} sm="1" lg="3"></Col>
-            <Col className={styles.title} sm="10" lg="2">
+            <Col className={styles.inputCol} sm="10" lg="2">
               <Inputs
-                oC1={(e) => { setFig1(e.target.value) }}
-                oC2={(e) => { setFig2(e.target.value) }}
-                oC3={(e) => { setFig3(e.target.value) }}
-                oC4={(e) => { setFig4(e.target.value) }}
-                oC5={(e) => { setFig5(e.target.value) }}
+                oC1={(e) => {
+                  setFig1(e.target.value);
+                }}
+                oC2={(e) => {
+                  setFig2(e.target.value);
+                }}
+                oC3={(e) => {
+                  setFig3(e.target.value);
+                }}
+                oC4={(e) => {
+                  setFig4(e.target.value);
+                }}
+                oC5={(e) => {
+                  setFig5(e.target.value);
+                }}
               />
+              <div className={styles.button} onClick={startReal}>
+                {status}
+              </div>
             </Col>
           </Container>
-        </Row>
-        <Row className={styles.row}>
-          <Col className={styles.align} sm="0" lg="3"></Col>
-          <Col className={styles.title} sm="10" lg="6">
-          </Col>
-          <Col className={styles.align} sm="0" lg="1"></Col>
-          <Col className={styles.btnDiv} sm="0" lg="2">
-            <div className={styles.button} onClick={startReal}>
-              {status}
-            </div>
-          </Col>
         </Row>
       </div>
     </div>
