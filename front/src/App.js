@@ -8,25 +8,28 @@ import ErrorPage from "./Pages/Error";
 import Finalized from "./Pages/Finalized";
 import ProtectedRoute from "./Pages/ProtectedRoute";
 import Challenge from "./Pages/Challenge";
+import { TimerProvider } from "./Context/timerContext";
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/challenge"
-          element={
-            <ProtectedRoute
-              errorPage={<ErrorPage />}
-              targetPage={<Challenge />}
-            />
-          }
-        />
-        <Route path="/finished" element={ <Finalized /> } />
-        <Route path="/exceltest" element={<Excel />} />
-        <Route path="/*" element={<ErrorPage />} />
-      </Routes>
+      <TimerProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/challenge"
+            element={
+              <ProtectedRoute
+                errorPage={<ErrorPage />}
+                targetPage={<Challenge />}
+              />
+            }
+          />
+          <Route path="/finished" element={<Finalized />} />
+          <Route path="/exceltest" element={<Excel />} />
+          <Route path="/*" element={<ErrorPage />} />
+        </Routes>
+      </TimerProvider>
     </>
   );
 }

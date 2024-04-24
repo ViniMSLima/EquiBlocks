@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Row from "react-bootstrap/Row";
@@ -12,11 +12,15 @@ import Inputs from "../../Components/InputsArea";
 import Balance from "../../Components/Balance";
 import ExcelGenerator from "../../Components/ExcelGenerator";
 
+import { TimerContext } from "../../Context/timerContext";
+
 export default function Challenge() {
   const [status, setStatus] = useState("Começar");
   const [phase, setPhase] = useState("Fase de Teste");
   const [timerStarted, setTimerStarted] = useState(false);
   const navigate = useNavigate();
+
+  const { contextTimer, setContextTimer } = useContext(TimerContext);
 
   const [fig1, setFig1] = useState("");
   const [fig2, setFig2] = useState("");
@@ -65,6 +69,15 @@ export default function Challenge() {
     setStatus("Finalizar");
     setPhase("Desafio");
   };
+
+  useEffect(() => {
+    if (contextTimer > 0) {
+      setStatus("Finalizar");
+      startReal();
+
+    }
+  }, [contextTimer]);
+
 
   return (
     <div>

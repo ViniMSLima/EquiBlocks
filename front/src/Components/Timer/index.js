@@ -1,8 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import styles from "./styles.module.scss";
 import clock from "../../Img/clock.svg"
 
+import { TimerContext } from '../../Context/timerContext';
+
 export default function Timer({ startTimer }) {
+
+    const {contextTimer, setContextTimer} = useContext(TimerContext);
+
     const [timer, setTimer] = useState(0);
     const startTimeRef = useRef(null);
 
@@ -33,7 +38,8 @@ export default function Timer({ startTimer }) {
     return (
         <div className={styles.card}>
             <img src={clock} className={styles.clockIcon} alt="Clock Icon" />
-            <div className={styles.time}>{minutes}m{seconds}s</div>
+            <div className={styles.time}>{minutes}:{seconds}</div>
+            {setContextTimer(parseInt(minutes))}
             {localStorage.setItem("tempo", minutes + ":" + seconds)}
         </div>
     );
