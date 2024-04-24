@@ -15,7 +15,7 @@ export default function ContainerForm() {
     { imagem: circulo, quantidade: 5, peso: 200 },
     { imagem: triangulo, quantidade: 5, peso: 500 },
     { imagem: pentagono, quantidade: 5, peso: 700 },
-    { imagem: estrela, quantidade: 5, peso: 1000 },
+    { imagem: estrela, quantidade: 5, peso: 1000 }
   ]);
   const [balance1, setBalance1] = useState({ left: 0, right: 0 });
   const [balance2, setBalance2] = useState({ left: 0, right: 0 });

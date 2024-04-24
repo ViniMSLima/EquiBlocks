@@ -13,9 +13,9 @@ export default function Inputs({oC1, oC2, oC3, oC4, oC5}) {
           <div className={styles.card}>
             <ShapeInput oC={oC1} shapeImg={square} shapeValue='500'/>
             <ShapeInput oC={oC2} shapeImg={circle} shapeValue='?'/>
+            <ShapeInput oC={oC5} shapeImg={triangle} shapeValue='1000000'/>
             <ShapeInput oC={oC3} shapeImg={pentagon} shapeValue='?'/>
             <ShapeInput oC={oC4} shapeImg={star} shapeValue='1000000'/>
-            <ShapeInput oC={oC5} shapeImg={triangle} shapeValue='1000000'/>
           </div>
         </>
       );
