@@ -48,7 +48,7 @@ export default function Challenge() {
       // />
 
       if (window.confirm("Deseja Finalizar?")) {
-        navigate("/");
+        navigate("/finished");
         setTimerStarted(false);
         setTimerStarted(false);
       }
