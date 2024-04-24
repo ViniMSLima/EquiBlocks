@@ -8,7 +8,6 @@ import ErrorPage from "./Pages/Error";
 import Finalized from "./Pages/Finalized";
 import Challenge from "./Pages/Challenge";
 import ProtectedRoute from "./Pages/ProtectedRoute";
-import Challenge from "./Pages/Challenge";
 
 import Header from "./Components/Header"
 import { TimerProvider } from "./Context/timerContext";
