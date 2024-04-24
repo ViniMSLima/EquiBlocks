@@ -15,23 +15,59 @@ export default function ContainerForm() {
     { imagem: circulo, quantidade: 5, peso: 200 },
     { imagem: triangulo, quantidade: 5, peso: 500 },
     { imagem: pentagono, quantidade: 5, peso: 700 },
-    { imagem: estrela, quantidade: 5, peso: 1000 }
+    { imagem: estrela, quantidade: 5, peso: 1000 },
   ]);
   const [balance1, setBalance1] = useState({ left: 0, right: 0 });
   const [balance2, setBalance2] = useState({ left: 0, right: 0 });
+  const [figures, setFigures] = useState({
+    circulo: 0,
+    triangulo: 0,
+    quadrado: 0,
+    pentagono: 0,
+    estrela: 0,
+  });
 
   const handleDrop = (forma, balanca, lado) => {
-    console.log(forma);
     if (!forma) return;
+    forma = parseInt(forma)
+    switch (forma) {
+      case 100:
+        setFigures((prevFigures) => ({
+          ...prevFigures,
+          quadrado: prevFigures.quadrado + 1,
+        }));
+      case 200:
+        setFigures((prevFigures) => ({
+          ...prevFigures,
+          circulo: prevFigures.circulo + 1,
+        }));
+      case 500:
+        setFigures((prevFigures) => ({
+          ...prevFigures,
+          triangulo: prevFigures.triangulo + 1,
+        }));
+      case 700:
+        setFigures((prevFigures) => ({
+          ...prevFigures,
+          pentagono: prevFigures.pentagono + 1,
+        }));
+      case 1000:
+        setFigures((prevFigures) => ({
+          ...prevFigures,
+          estrela: prevFigures.estrela + 1,
+        }));
+        break;
+    }
+    console.log(figures.estrela);
     if (balanca === 1) {
       setBalance1((prevBalance) => ({
         ...prevBalance,
-        [lado]: prevBalance[lado] + parseInt(forma),
+        [lado]: prevBalance[lado] + forma,
       }));
     } else {
       setBalance2((prevBalance) => ({
         ...prevBalance,
-        [lado]: prevBalance[lado] + parseInt(forma),
+        [lado]: prevBalance[lado] + forma,
       }));
     }
   };
@@ -39,8 +75,18 @@ export default function ContainerForm() {
   return (
     <>
       <div style={{ display: "flex" }}>
-        <Balance balance={balance1} balanca={1} handleDrop={handleDrop} />
-        <Balance balance={balance2} balanca={2} handleDrop={handleDrop} />
+        <Balance
+          balance={balance1}
+          balanca={1}
+          handleDrop={handleDrop}
+          figures={figures}
+        />
+        <Balance
+          balance={balance2}
+          balanca={2}
+          handleDrop={handleDrop}
+          figures={figures}
+        />
       </div>
       <div className={styles.container}>
         <Row>
