@@ -4,10 +4,10 @@ import { Route, Routes } from "react-router-dom";
 
 import Home from "./Pages/Home";
 import Excel from "./Pages/ExcelTest";
-import Challenge from "./Pages/Challenge";
+import ErrorPage from "./Pages/Error";
 import Finalized from "./Pages/Finalized";
 import ProtectedRoute from "./Pages/ProtectedRoute";
-import ErrorPage from "./Pages/Error";
+import Challenge from "./Pages/Challenge";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
             />
           }
         />
-        <Route path="/finished" element={<Finalized />} />
+        <Route path="/finished" element={ <Finalized /> } />
         <Route path="/exceltest" element={<Excel />} />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
