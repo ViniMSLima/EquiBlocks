@@ -11,7 +11,7 @@
 }
 
 .forms {
-  
+  z-index: 500;
   border-radius: 10px;
   width: 1em;
 }
@@ -27,4 +27,5 @@
   position: relative;
   top: 1em;
   font-size: 0.5em;
+  z-index: 500;
 }

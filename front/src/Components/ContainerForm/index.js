@@ -48,15 +48,15 @@ export default function ContainerForm() {
             <Col key={index}>
               <div
                 className={styles.divForm}
-                draggable
-                onDragStart={(e) => {
-                  e.dataTransfer.setData("forma", item.peso);
-                }}
               >
                 <img
                   className={styles.forms}
                   src={item.imagem}
                   alt={`Forma ${index}`}
+                  draggable
+                  onDragStart={(e) => {
+                    e.dataTransfer.setData("forma", item.imagem);
+                  }}
                   onDragEnd={(e) => {
                     const updatedFormas = [...formas];
                     updatedFormas[index] = {
