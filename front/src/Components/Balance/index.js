@@ -21,6 +21,7 @@ export default function Balance({ balance, balanca, handleDrop }) {
     e.preventDefault();
     const forma = e.dataTransfer.getData("forma");
     handleDrop(forma, balanca, "right");
+
   };
 
   return (
@@ -52,8 +53,10 @@ export default function Balance({ balance, balanca, handleDrop }) {
         onDrop={handleDropOnRight}
       ></div>
       <img className={styles.balance} src={balancee} alt="Balance" style={{ zIndex: "1" }} />
-      <p>Left: {balance.left}</p>
-      <p>Right: {balance.right}</p>
+      <div style={{ display: "flex", flexDirection: 'column' }}>
+        <p>Lado A: {balance.left}</p>
+        <p>Lado B: {balance.right}</p>
+      </div>
     </div>
   );
 }

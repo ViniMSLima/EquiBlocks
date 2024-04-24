@@ -69,9 +69,8 @@ export default function Challenge() {
       setFig5("");
 
       if (window.confirm("Deseja Finalizar?")) {
-        navigate("/");
         setTimerStarted(false);
-        setTimerStarted(false);
+        navigate("/finished");
       }
     }
     setTimerStarted(true);
