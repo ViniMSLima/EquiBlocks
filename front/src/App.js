@@ -6,12 +6,15 @@ import Home from "./Pages/Home";
 import Excel from "./Pages/ExcelTest";
 import ErrorPage from "./Pages/Error";
 import Finalized from "./Pages/Finalized";
-import ProtectedRoute from "./Pages/ProtectedRoute";
 import Challenge from "./Pages/Challenge";
+import ProtectedRoute from "./Pages/ProtectedRoute";
+
+import Header from "./Components/Header"
 
 function App() {
   return (
     <>
+    <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
