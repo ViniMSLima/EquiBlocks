@@ -10,19 +10,18 @@ import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 
-const formas = [
-  { imagem: quadrado, quantidade: 5 },
-  { imagem: circulo, quantidade: 5 },
-  { imagem: triangulo, quantidade: 5 },
-  { imagem: pentagono, quantidade: 5 },
-  { imagem: estrela, quantidade: 5 }
-];
-
 export default function ContainerForm() {
+  const [formas, setFormas] = useState([
+    { imagem: quadrado, quantidade: 5 },
+    { imagem: circulo, quantidade: 5 },
+    { imagem: triangulo, quantidade: 5 },
+    { imagem: pentagono, quantidade: 5 },
+    { imagem: estrela, quantidade: 5 }
+  ]);
   const [balance1, setBalance1] = useState({ left: 0, right: 0 });
   const [balance2, setBalance2] = useState({ left: 0, right: 0 });
-
-  const handleDrop = (forma, balanca, lado) => {
+  
+  const handleDrop = (index, balanca, lado) => {
     if (balanca === 1) {
       setBalance1((prevBalance) => ({
         ...prevBalance,
@@ -57,10 +56,13 @@ export default function ContainerForm() {
                   className={styles.forms}
                   src={item.imagem}
                   alt={`Forma ${index}`}
-                  onDragEnd={() => {
+                  onDragEnd={(e) => {
                     const updatedFormas = [...formas];
-                    updatedFormas[index].quantidade--;
-                    formas[index].quantidade = Math.max(0, updatedFormas[index].quantidade);
+                    updatedFormas[index] = {
+                      ...updatedFormas[index],
+                      quantidade: Math.max(0, updatedFormas[index].quantidade - 1)
+                    };
+                    setFormas(updatedFormas);
                   }}
                 />
                 <p className={styles.qtd}>{item.quantidade}</p>
