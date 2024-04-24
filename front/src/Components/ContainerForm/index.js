@@ -21,10 +21,12 @@ export default function ContainerForm() {
   const [balance2, setBalance2] = useState({ left: 0, right: 0 });
 
   const handleDrop = (forma, balanca, lado) => {
+    console.log(forma);
+    if (!forma) return;
     if (balanca === 1) {
       setBalance1((prevBalance) => ({
         ...prevBalance,
-        [lado]: prevBalance[lado] + 1,
+        [lado]: prevBalance[lado] + parseInt(forma),
       }));
     } else {
       setBalance2((prevBalance) => ({
@@ -51,7 +53,7 @@ export default function ContainerForm() {
                   alt={`Forma ${index}`}
                   draggable
                   onDragStart={(e) => {
-                    e.dataTransfer.setData("forma", item.imagem);
+                    e.dataTransfer.setData("forma", item.peso);
                   }}
                   onDragEnd={(e) => {
                     const updatedFormas = [...formas];
