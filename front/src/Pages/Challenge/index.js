@@ -24,14 +24,6 @@ export default function Challenge() {
   const [fig4, setFig4] = useState("");
   const [fig5, setFig5] = useState("");
 
-  const [players, setPlayers] = useState([]);
-
-  useEffect(() => {
-    // Load existing playerInfo from localStorage
-    const playerInfoStr = localStorage.getItem("playerInfo");
-    setPlayers(playerInfoStr);
-  }, []);
-
   const startReal = () => {
     if (status === "Finalizar") {
 
@@ -51,24 +43,20 @@ export default function Challenge() {
         f5: fig5
       };
 
-      // Retrieve existing player information from local storage
       const existingPlayersJSON = localStorage.getItem("playerInfo");
       const existingPlayers = existingPlayersJSON ? JSON.parse(existingPlayersJSON) : [];
 
-      // Add the new player information to the existing array
       const updatedPlayers = [...existingPlayers, playerInfo];
 
-      // Store the updated array back into local storage
       localStorage.setItem("playerInfo", JSON.stringify(updatedPlayers));
 
-      // Reset input fields
-      setFig1("");
-      setFig2("");
-      setFig3("");
-      setFig4("");
-      setFig5("");
-
       if (window.confirm("Deseja Finalizar?")) {
+        setFig1("");
+        setFig2("");
+        setFig3("");
+        setFig4("");
+        setFig5("");
+
         setTimerStarted(false);
         navigate("/finished");
       }
