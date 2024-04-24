@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Row from "react-bootstrap/Row";
@@ -24,28 +24,49 @@ export default function Challenge() {
   const [fig4, setFig4] = useState("");
   const [fig5, setFig5] = useState("");
 
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    // Load existing playerInfo from localStorage
+    const playerInfoStr = localStorage.getItem("playerInfo");
+    setPlayers(playerInfoStr);
+  }, []);
+
   const startReal = () => {
     if (status === "Finalizar") {
-      console.log(fig1);
-      console.log(fig2);
-      console.log(fig3);
-      console.log(fig4);
-      console.log(fig5);
 
-      var nome = sessionStorage.getItem("nome");
-      var data = sessionStorage.getItem("data");
+      var nome = localStorage.getItem("nome");
+      var data = localStorage.getItem("data");
+      var tempo = localStorage.getItem("tempo");
 
-      // sessionStorage.setItem('playerInfo', {nome: nome, date: data, f1: fig1, f2: fig2, f3: fig3, f4: fig4, f5: fig5});
+      // Update playerInfo with new information
+      const playerInfo = {
+        nome,
+        data,
+        tempo,
+        f1: fig1,
+        f2: fig2,
+        f3: fig3,
+        f4: fig4,
+        f5: fig5
+      };
 
-      // <ExcelGenerator
-      //   nome={nome}
-      //   data={data}
-      //   f1={fig1}
-      //   f2={fig2}
-      //   f3={fig3}
-      //   f4={fig4}
-      //   f5={fig5}
-      // />
+      // Retrieve existing player information from local storage
+      const existingPlayersJSON = localStorage.getItem("playerInfo");
+      const existingPlayers = existingPlayersJSON ? JSON.parse(existingPlayersJSON) : [];
+
+      // Add the new player information to the existing array
+      const updatedPlayers = [...existingPlayers, playerInfo];
+
+      // Store the updated array back into local storage
+      localStorage.setItem("playerInfo", JSON.stringify(updatedPlayers));
+
+      // Reset input fields
+      setFig1("");
+      setFig2("");
+      setFig3("");
+      setFig4("");
+      setFig5("");
 
       if (window.confirm("Deseja Finalizar?")) {
         navigate("/");

@@ -2,13 +2,19 @@ import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-export default function ExcelEditor({nome, data, tempo, f1, f2, f3, f4, f5}) {
+export default function ExcelGenerator() {
     const [workbook, setWorkbook] = useState(null);
 
     useEffect(() => {
         if (workbook) {
             const ws = workbook.Sheets[workbook.SheetNames[0]];
-            XLSX.utils.sheet_add_aoa(ws, [[nome, data, tempo, f1, f2, f3, f4, f5]], { origin: -1 });
+            const players = JSON.parse(localStorage.getItem("playerInfo"));
+
+            players.forEach(player => {
+                XLSX.utils.sheet_add_aoa(ws, [[player.nome, player.data, player.tempo, player.f1, player.f2, player.f3, player.f4, player.f5]], { origin: -1 });
+            });
+
+            alert("Dados salvos no .xlsx");
         }
     }, [workbook]);
 

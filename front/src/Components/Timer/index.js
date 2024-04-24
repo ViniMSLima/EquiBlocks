@@ -34,6 +34,7 @@ export default function Timer({ startTimer }) {
         <div className={styles.card}>
             <img src={clock} className={styles.clockIcon} alt="Clock Icon" />
             <div className={styles.time}>{minutes}m{seconds}s</div>
+            {localStorage.setItem("tempo", minutes + ":" + seconds)}
         </div>
     );
 }

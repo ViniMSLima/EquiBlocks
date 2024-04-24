@@ -11,27 +11,46 @@ export default function Home() {
   const [data, setData] = useState(localStorage.getItem('data') || "");
 
   function play() {
-    console.log(nome);
-    console.log(data);
-    localStorage.setItem('nome', nome); // Salva o valor de 'nome' no localStorage
-    localStorage.setItem('data', data); // Salva o valor de 'data' no localStorage
-    navigate("/challenge");
+
+    const d = new Date();
+
+    var bool = false;
+
+    if (nome == "" || data == "") {
+      alert("Nome ou Data inválidos");
+      bool = true;
+    }
+
+    if (parseInt(data.substr(0, 4)) < d.getFullYear() - 22) {
+      alert("Ano inválido! Idade máxima: 22")
+      bool = true;
+    }
+
+    if (parseInt(data.substr(0, 4)) > d.getFullYear() - 16) {
+      alert("Ano inválido! Idade mínima: 16")
+      bool = true;
+    }
+
+    if (bool == false) {
+      localStorage.setItem('nome', nome);
+      localStorage.setItem('data', data);
+      navigate("/challenge");
+    }
   }
-  
+
   return (
     <div className={styles.home}>
       <img src={logo} className={styles.logo} alt="Logo" />
       <div>
         <Input
           type="text"
-          placeholder="Digite seu Nome:"
+          placeholder="Digite seu Nome"
           label="Nome:"
           value={nome}
           onChange={(e) => setNome(e.target.value)}
         />
         <Input
           type="date"
-          placeholder="Digite sua Data de Nascimento:"
           label="Data de Nascimento:"
           value={data}
           onChange={(e) => setData(e.target.value)}
