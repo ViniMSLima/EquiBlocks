@@ -73,14 +73,12 @@ export default function Challenge() {
       <div>
         <Row className={styles.row}>
           <Container className={styles.cont}>
+            <Col className={styles.align} sm="1" lg="3"></Col>
             <Col className={styles.title} sm="12" lg="4">
-              <Balance />
+              <ContainerForm />
+              
             </Col>
-            <Col className={styles.align} sm="1" lg="1"></Col>
-            <Col className={styles.title} sm="12" lg="4">
-              <Balance />
-            </Col>
-            <Col className={styles.align} sm="1" lg="1"></Col>
+            <Col className={styles.align} sm="1" lg="3"></Col>
             <Col className={styles.title} sm="10" lg="2">
               <Inputs
                 oC1={(e) => { setFig1(e.target.value) }}
@@ -95,7 +93,6 @@ export default function Challenge() {
         <Row className={styles.row}>
           <Col className={styles.align} sm="0" lg="3"></Col>
           <Col className={styles.title} sm="10" lg="6">
-            <ContainerForm />
           </Col>
           <Col className={styles.align} sm="0" lg="1"></Col>
           <Col className={styles.btnDiv} sm="0" lg="2">
