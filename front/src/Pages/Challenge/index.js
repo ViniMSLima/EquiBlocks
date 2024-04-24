@@ -50,9 +50,10 @@ export default function Challenge() {
       if (window.confirm("Deseja Finalizar?")) {
         navigate("/");
         setTimerStarted(false);
+        setTimerStarted(false);
       }
     }
-
+    setTimerStarted(true);
     setStatus("Finalizar");
     setPhase("Desafio");
   };
