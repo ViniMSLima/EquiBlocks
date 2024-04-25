@@ -11,11 +11,11 @@ import estrela from "../../Img/formas/star.png";
 
 export default function ContainerForm() {
   const [formas, setFormas] = useState([
-    { imagem: quadrado, quantidade: 5, peso: 100 },
-    { imagem: circulo, quantidade: 5, peso: 200 },
-    { imagem: triangulo, quantidade: 5, peso: 500 },
-    { imagem: pentagono, quantidade: 5, peso: 700 },
-    { imagem: estrela, quantidade: 5, peso: 1000 },
+    { imagem: quadrado, quantidade: 5, peso: 100, naBalanca: false },
+    { imagem: circulo, quantidade: 5, peso: 200, naBalanca: false },
+    { imagem: triangulo, quantidade: 5, peso: 500, naBalanca: false },
+    { imagem: pentagono, quantidade: 5, peso: 700, naBalanca: false },
+    { imagem: estrela, quantidade: 5, peso: 1000, naBalanca: false },
   ]);
   const [balance1, setBalance1] = useState( { left: { total: 0, figures: {} }, right: { total: 0, figures: {} } });
   const [balance2, setBalance2] = useState({ left: { total: 0, figures: {} }, right: { total: 0, figures: {} } });
@@ -23,7 +23,7 @@ export default function ContainerForm() {
   const handleDrop = (forma, balanca, lado) => {
     if (!forma) return;
     forma = parseInt(forma);
-    const formaKey = Object.keys(formas.reduce((acc, item) => ({ ...acc, [item.peso]: item.imagem }), {})).find(key => parseInt(key) === forma);
+    const formaKey = Object.keys(formas.reduce((acc, item) => ({ ...acc, [item.peso]: item }), {})).find(key => parseInt(key) === forma);
 
     const updateBalance = (balance) => ({
       ...balance,
@@ -41,6 +41,29 @@ export default function ContainerForm() {
       setBalance1(prevBalance => updateBalance(prevBalance));
     } else {
       setBalance2(prevBalance => updateBalance(prevBalance));
+    }
+
+    const updatedFormas = formas.map(item => {
+      if (item.peso === forma && item.quantidade > 0) {
+        return {
+          ...item,
+          quantidade: item.quantidade - 1,
+          naBalanca: true
+        };
+      }
+      return item;
+    });
+    setFormas(updatedFormas);
+  };
+
+  const handleDragEnd = (index) => {
+    if (formas[index].naBalanca) {
+      const updatedFormas = [...formas];
+      updatedFormas[index] = {
+        ...updatedFormas[index],
+        naBalanca: false
+      };
+      setFormas(updatedFormas);
     }
   };
 
@@ -67,21 +90,14 @@ export default function ContainerForm() {
                   className={styles.forms}
                   src={item.imagem}
                   alt={`Forma ${index}`}
-                  draggable
+                  draggable={item.quantidade > 0 && !item.naBalanca}
                   onDragStart={(e) => {
-                    e.dataTransfer.setData("forma", item.peso);
+                    if(item.quantidade > 0 && !item.naBalanca)
+                    {
+                      e.dataTransfer.setData("forma", item.peso);
+                    }
                   }}
-                  onDragEnd={(e) => {
-                    const updatedFormas = [...formas];
-                    updatedFormas[index] = {
-                      ...updatedFormas[index],
-                      quantidade: Math.max(
-                        0,
-                        updatedFormas[index].quantidade - 1
-                      ),
-                    };
-                    setFormas(updatedFormas);
-                  }}
+                  onDragEnd={() => handleDragEnd(index)}
                 />
                 <p className={styles.qtd}>{item.quantidade}</p>
               </div>
