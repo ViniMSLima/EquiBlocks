@@ -1,4 +1,5 @@
 import React from "react";
+import Container from "react-bootstrap/Container";
 import styles from "./styles.module.scss";
 import balancee from "../../Img/balanca1.png";
 import balancee2 from "../../Img/balanca2.png";
@@ -8,6 +9,8 @@ import circulo from "../../Img/formas/circle.png";
 import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
+import Row from "react-bootstrap/esm/Row";
+import Col from "react-bootstrap/Col";
 
 const images = {
   100: quadrado,
@@ -74,14 +77,14 @@ export default function Balance({ balance, balanca, handleDrop }) {
 
   return (
     <div style={{ position: "relative", display: "inline-block" }}>
-      <div
+      <Container
         className={styles.hitbox1}
         style={hitboxStyles.hitbox1}
         onDragOver={handleDragOver}
         onDrop={handleDropOnLeft}
       >
         {renderFigures(balance.left.figures)}
-      </div>
+      </Container>
       <div
         className={styles.hitbox2}
         style={hitboxStyles.hitbox2}
