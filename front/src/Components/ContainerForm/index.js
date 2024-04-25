@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef  } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -10,41 +10,26 @@ import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 
 export default function ContainerForm() {
-  const [formas, setFormas] = useState([
+  const [formas, setFormas] = useState(getLocalStorageItem("formas", [
     { imagem: quadrado, quantidade: 5, peso: 100, onBalance: false },
     { imagem: circulo, quantidade: 5, peso: 200, onBalance: false },
     { imagem: triangulo, quantidade: 5, peso: 500, onBalance: false },
     { imagem: pentagono, quantidade: 5, peso: 700, onBalance: false },
     { imagem: estrela, quantidade: 5, peso: 1000, onBalance: false },
-  ]);
-  const [balance1, setBalance1] = useState( { left: { total: 0, figures: {} }, right: { total: 0, figures: {} } });
-  const [balance2, setBalance2] = useState({ left: { total: 0, figures: {} }, right: { total: 0, figures: {} } });
+  ]));
 
-  const disableF5 = useRef(null);
+  const [balance1, setBalance1] = useState(getLocalStorageItem("balance1", { left: { total: 0, figures: {} }, right: { total: 0, figures: {} } }));
+  const [balance2, setBalance2] = useState(getLocalStorageItem("balance2", { left: { total: 0, figures: {} }, right: { total: 0, figures: {} } }));
 
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      event.preventDefault();
-      event.returnValue = "Tem a certeza que quer sair da página?";
-    };
+  function getLocalStorageItem(key, defaultValue) {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : defaultValue;
+  }
 
-    const handleKeyDown = (event) => {
-      if (event.keyCode === 116 || event.keyCode === 82) {
-        event.preventDefault();
-      }
-    };
+  function updateLocalStorageItem(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    disableF5.current = handleKeyDown;
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-      document.removeEventListener("keydown", disableF5.current);
-    };
-  }, []);
-  
   const handleDrop = (forma, balanca, lado) => {
     if (!forma) return;
     forma = parseInt(forma);
@@ -63,9 +48,17 @@ export default function ContainerForm() {
     });
 
     if (balanca === 1) {
-      setBalance1(prevBalance => updateBalance(prevBalance));
+      setBalance1(prevBalance => {
+        const updatedBalance = updateBalance(prevBalance);
+        updateLocalStorageItem("balance1", updatedBalance);
+        return updatedBalance;
+      });
     } else {
-      setBalance2(prevBalance => updateBalance(prevBalance));
+      setBalance2(prevBalance => {
+        const updatedBalance = updateBalance(prevBalance);
+        updateLocalStorageItem("balance2", updatedBalance);
+        return updatedBalance;
+      });
     }
 
     const updatedFormas = formas.map(item => {
@@ -79,6 +72,7 @@ export default function ContainerForm() {
       return item;
     });
     setFormas(updatedFormas);
+    updateLocalStorageItem("formas", updatedFormas);
   };
 
   const handleDragEnd = (index) => {
@@ -89,6 +83,7 @@ export default function ContainerForm() {
         onBalance: false
       };
       setFormas(updatedFormas);
+      updateLocalStorageItem("formas", updatedFormas);
     }
   };
 
@@ -112,7 +107,7 @@ export default function ContainerForm() {
             <Col key={index}>
               <div className={styles.divForm}>
                 <img
-                  className={styles.forms}
+                  className={styles.forms }
                   src={item.imagem}
                   alt={`Forma ${index}`}
                   draggable={item.quantidade > 0 && !item.onBalance}

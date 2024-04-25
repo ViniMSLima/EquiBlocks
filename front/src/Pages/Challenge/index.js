@@ -12,7 +12,7 @@ import Inputs from "../../Components/InputsArea";
 import Balance from "../../Components/Balance";
 import ExcelGenerator from "../../Components/ExcelGenerator";
 
-import axios from 'axios';
+import axios from "axios";
 
 import { TimerContext } from "../../Context/timerContext";
 
@@ -32,48 +32,47 @@ export default function Challenge() {
 
   const startReal = async () => {
     if (status === "Finalizar") {
-
-      var nome = localStorage.getItem("nome");
-      var data = localStorage.getItem("data");
-      var tempo = localStorage.getItem("tempo");
-
-      // Update playerInfo with new information
-      const playerInfo = {
-        nome,
-        data,
-        tempo,
-        f1: fig1,
-        f2: fig2,
-        f3: fig3,
-        f4: fig4,
-        f5: fig5
-      };
-
-      try {
-        const res = await axios.post(
-          'http://localhost:8080/api/postplayer',
-          playerInfo
-        );
-
-      } catch (error) {
-        console.error('Error fetching game data:', error);
-      }
-
-      const existingPlayersJSON = localStorage.getItem("playerInfo");
-      const existingPlayers = existingPlayersJSON ? JSON.parse(existingPlayersJSON) : [];
-
-      const updatedPlayers = [...existingPlayers, playerInfo];
-
-      localStorage.setItem("playerInfo", JSON.stringify(updatedPlayers));
-
       if (window.confirm("Deseja Finalizar?")) {
+        
+        var nome = localStorage.getItem("nome");
+        var data = localStorage.getItem("data");
+        var tempo = localStorage.getItem("tempo");
+
+        // Update playerInfo with new information
+        const playerInfo = {
+          nome,
+          data,
+          tempo,
+          f1: fig1,
+          f2: fig2,
+          f3: fig3,
+          f4: fig4,
+          f5: fig5,
+        };
+
+        try {
+          const res = await axios.post(
+            "http://localhost:8080/api/postplayer",
+            playerInfo
+          );
+        } catch (error) {
+          console.error("Error fetching game data:", error);
+        }
+
+        const existingPlayersJSON = localStorage.getItem("playerInfo");
+        const existingPlayers = existingPlayersJSON
+          ? JSON.parse(existingPlayersJSON)
+          : [];
+
+        const updatedPlayers = [...existingPlayers, playerInfo];
+
+        localStorage.setItem("playerInfo", JSON.stringify(updatedPlayers));
+        setTimerStarted(false);
         setFig1("");
         setFig2("");
         setFig3("");
         setFig4("");
         setFig5("");
-
-        setTimerStarted(false);
         navigate("/finished");
       }
     }
@@ -86,10 +85,8 @@ export default function Challenge() {
     if (contextTimer > 0) {
       setStatus("Finalizar");
       startReal();
-
     }
   }, [contextTimer]);
-
 
   return (
     <div>
