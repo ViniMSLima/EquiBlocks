@@ -34,6 +34,11 @@ export default function Challenge() {
   }, [phase]);
 
   useEffect(() => {
+    if(localStorage.getItem("fase") == "Desafio")
+      setTimerStarted(true);
+  }, []);
+
+  useEffect(() => {
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -44,9 +49,7 @@ export default function Challenge() {
   
     const pesos = [100, 200, 500, 700, 1000];
     const newPesos = shuffleArray(pesos);
-  
-    console.log(newPesos);
-  
+      
     setContextPeso(newPesos);
   }, []);
 
@@ -59,7 +62,6 @@ export default function Challenge() {
   const startReal = async () => {
     if (status === "Finalizar") {
       if (window.confirm("Deseja Finalizar?")) {
-        
         var nome = localStorage.getItem("nome");
         var data = localStorage.getItem("data");
         var tempo = localStorage.getItem("tempo");
@@ -101,14 +103,12 @@ export default function Challenge() {
           navigate("/finished");
         }
       }
-    localStorage.setItem("fase", "Desafio");
     localStorage.setItem("balance1", JSON.stringify({ left: { total: 0, figures: {} }, right: { total: 0, figures: {} } }))
     localStorage.setItem("balance2", JSON.stringify( { left: { total: 0, figures: {} }, right: { total: 0, figures: {} } }))
     localStorage.removeItem("formas")
     setTimerStarted(true);
     setStatus("Finalizar");
     setPhase("Desafio");
-    console.log(phase)
   };
 
   useEffect(() => {
