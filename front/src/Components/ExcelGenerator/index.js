@@ -1,28 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import axios from 'axios';
 
 import './ExcelGenerator.css'; // Importando o arquivo de estilos
 
 export default function ExcelGenerator() {
     const [workbook, setWorkbook] = useState(null);
     const [playersData, setPlayersData] = useState([]);
+    const [sortBy, setSortBy] = useState({ column: null, ascending: true });
+
+    async function getPlayers() {
+        try {
+            const res = await axios.get('http://localhost:8080/api/getplayers');
+            // Transforma as strings de tempo e data em valores comparáveis
+            const formattedPlayers = res.data.players.map(player => ({
+                ...player,
+                tempoValue: convertTimeToValue(player.tempo),
+                dataValue: convertDateToValue(player.data)
+            }));
+            setPlayersData(formattedPlayers);
+        } catch (error) {
+            console.error('Error fetching game data:', error);
+        }
+    }
 
     useEffect(() => {
-        if (workbook) {
-            const ws = workbook.Sheets[workbook.SheetNames[0]];
-            const players = JSON.parse(localStorage.getItem("playerInfo"));
-            const newPlayersData = [];
+        getPlayers();
+    }, []);
 
-            players.forEach(player => {
-                XLSX.utils.sheet_add_aoa(ws, [[player.nome, player.data, player.tempo, player.f1, player.f2, player.f3, player.f4, player.f5]], { origin: -1 });
-                newPlayersData.push([player.nome, player.data, player.tempo, player.f1, player.f2, player.f3, player.f4, player.f5]);
-            });
+    function convertTimeToValue(timeString) {
+        const [hours, minutes] = timeString.split(':').map(Number);
+        return hours * 60 + minutes;
+    }
 
-            setPlayersData(newPlayersData);
-            alert("Dados salvos no .xlsx");
-        }
-    }, [workbook]);
+    function convertDateToValue(dateString) {
+        return new Date(dateString);
+    }
+
+    function sortPlayers(column) {
+        const ascending = sortBy.column === column ? !sortBy.ascending : true;
+        const sortedPlayers = [...playersData].sort((a, b) => {
+            const valueA = a[column + 'Value'];
+            const valueB = b[column + 'Value'];
+            return ascending ? valueA - valueB : valueB - valueA;
+        });
+        setSortBy({ column, ascending });
+        setPlayersData(sortedPlayers);
+    }
+
+    function resetSort() {
+        setSortBy({ column: null, ascending: true });
+        // Recarrega os dados para restaurar a ordem padrão
+        getPlayers();
+    }
 
     function loadExcelFile(event) {
         const file = event.target.files[0];
@@ -63,9 +94,9 @@ export default function ExcelGenerator() {
                     <table>
                         <thead>
                             <tr>
-                                <th>Nome</th>
-                                <th>Data</th>
-                                <th>Tempo</th>
+                                <th onClick={() => sortPlayers('nome')}>Nome</th>
+                                <th onClick={() => sortPlayers('data')}>Data</th>
+                                <th onClick={() => sortPlayers('tempo')}>Tempo</th>
                                 <th>F1</th>
                                 <th>F2</th>
                                 <th>F3</th>
@@ -76,15 +107,21 @@ export default function ExcelGenerator() {
                         <tbody>
                             {playersData.map((player, index) => (
                                 <tr key={index}>
-                                    {player.map((data, dataIndex) => (
-                                        <td key={dataIndex}>{data}</td>
-                                    ))}
+                                    <td>{player.nome}</td>
+                                    <td>{player.data}</td>
+                                    <td>{player.tempo}</td>
+                                    <td>{player.f1}</td>
+                                    <td>{player.f2}</td>
+                                    <td>{player.f3}</td>
+                                    <td>{player.f4}</td>
+                                    <td>{player.f5}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
             )}
+            <button onClick={resetSort}>Voltar para a ordem padrão</button>
         </div>
     );
 }

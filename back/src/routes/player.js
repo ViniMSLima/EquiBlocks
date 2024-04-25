@@ -4,6 +4,6 @@ const router = express.Router();
 
 router
   .post("/postplayer", PlayerController.postPlayer)
-  .post("/getplayers", PlayerController.getPlayers)
+  .get("/getplayers", PlayerController.getPlayers)
   
 module.exports = router;
