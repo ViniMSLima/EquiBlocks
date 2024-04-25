@@ -33,6 +33,23 @@ export default function Challenge() {
     localStorage.setItem("fase", phase);
   }, [phase]);
 
+  useEffect(() => {
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+  
+    const pesos = [100, 200, 500, 700, 1000];
+    const newPesos = shuffleArray(pesos);
+  
+    console.log(newPesos);
+  
+    setContextPeso(newPesos);
+  }, []);
+
   const [fig1, setFig1] = useState("");
   const [fig2, setFig2] = useState("");
   const [fig3, setFig3] = useState("");

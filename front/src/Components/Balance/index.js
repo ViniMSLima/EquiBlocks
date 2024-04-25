@@ -12,15 +12,21 @@ import estrela from "../../Img/formas/star.png";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/Col";
 
-const images = {
-  100: quadrado,
-  200: circulo,
-  500: triangulo,
-  700: pentagono,
-  1000: estrela,
-};
+import { useContext } from "react";
+import { PesoContext } from "../../Context/pesoContext";
 
 export default function Balance({ balance, balanca, handleDrop }) {
+  const { contextPeso, setContextPeso } = useContext(PesoContext);
+
+  const pesos = contextPeso;
+  const images = {
+    [pesos[0]]: quadrado,
+    [pesos[1]]: circulo,
+    [pesos[2]]: triangulo,
+    [pesos[3]]: pentagono,
+    [pesos[4]]: estrela,
+  };
+
   const handleDragOver = (e) => {
     e.preventDefault();
   };

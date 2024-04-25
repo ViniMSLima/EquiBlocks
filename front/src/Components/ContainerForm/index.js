@@ -14,34 +14,20 @@ import estrela from "../../Img/formas/star.png";
 
 export default function ContainerForm() {
   const { contextPeso, setContextPeso } = useContext(PesoContext);
+  const newPesos = contextPeso;
+  const [formas, setFormas] = useState([]);
 
   useEffect(() => {
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
+    if (contextPeso.length === 5) {
+      setFormas([
+        { imagem: quadrado, quantidade: 5, peso: parseInt(contextPeso[0]), onBalance: false },
+        { imagem: circulo, quantidade: 5, peso: parseInt(contextPeso[1]), onBalance: false },
+        { imagem: triangulo, quantidade: 5, peso: parseInt(contextPeso[2]), onBalance: false },
+        { imagem: pentagono, quantidade: 5, peso: parseInt(contextPeso[3]), onBalance: false },
+        { imagem: estrela, quantidade: 5, peso: parseInt(contextPeso[4]), onBalance: false },
+      ]);
     }
-  
-    const pesos = [100, 200, 500, 700, 1000];
-    const newPesos = shuffleArray(pesos);
-  
-    console.log(newPesos);
-  
-    setContextPeso(newPesos);
-  }, []);
-
-  const newPesos = contextPeso;
-  console.log('new pesos',newPesos);
-
-  const [formas, setFormas] = useState([
-    { imagem: quadrado, quantidade: 5, peso: newPesos[0], onBalance: false },
-    { imagem: circulo, quantidade: 5, peso: newPesos[1], onBalance: false },
-    { imagem: triangulo, quantidade: 5, peso: newPesos[2], onBalance: false },
-    { imagem: pentagono, quantidade: 5, peso: newPesos[3], onBalance: false },
-    { imagem: estrela, quantidade: 5, peso: newPesos[4], onBalance: false },
-  ]);
+  }, [contextPeso]);
 
   const [balance1, setBalance1] = useState({
     left: { total: 0, figures: {} },
@@ -57,7 +43,7 @@ export default function ContainerForm() {
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       event.preventDefault();
-      event.returnValue = "Tem a certeza que quer sair da página?";
+      event.returnValue = "Tem certeza que quer sair da página?";
     };
 
     const handleKeyDown = (event) => {
@@ -78,6 +64,7 @@ export default function ContainerForm() {
   }, []);
 
   const handleDrop = (forma, balanca, lado) => {
+    // console.log(forma);
     if (!forma) return;
     forma = parseInt(forma);
     const formaKey = Object.keys(
