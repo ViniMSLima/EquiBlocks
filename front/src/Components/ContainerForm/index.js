@@ -31,40 +31,39 @@ export default function ContainerForm() {
     }
   }, [contextPeso]);
 
-  const [balance1, setBalance1] = useState({
-    left: { total: 0, figures: {} },
-    right: { total: 0, figures: {} },
-  });
-  const [balance2, setBalance2] = useState({
-    left: { total: 0, figures: {} },
-    right: { total: 0, figures: {} },
-  });
+  const [balance1, setBalance1] = useState(
+    getLocalStorageItem("balance1", {
+      left: { total: 0, figures: {} },
+      right: { total: 0, figures: {} },
+    })
+  );
+  const [balance2, setBalance2] = useState(
+    getLocalStorageItem("balance2", {
+      left: { total: 0, figures: {} },
+      right: { total: 0, figures: {} },
+    })
+  );
 
+  function getLocalStorageItem(key, defaultValue) {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : defaultValue;
+  }
+
+  function updateLocalStorageItem(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
   const disableF5 = useRef(null);
 
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 116 || event.keyCode === 82) {
       event.preventDefault();
-      event.returnValue = "Tem certeza que quer sair da página?";
-    };
+    }
+  };
 
-    const handleKeyDown = (event) => {
-      if (event.keyCode === 116 || event.keyCode === 82) {
-        event.preventDefault();
-      }
-    };
+  disableF5.current = handleKeyDown;
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    disableF5.current = handleKeyDown;
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-      document.removeEventListener("keydown", disableF5.current);
-    };
-  }, []);
-
+  document.addEventListener("keydown", handleKeyDown);
+  
   const handleDrop = (forma, balanca, lado) => {
     console.log(forma);
     if (!forma) return;
