@@ -9,14 +9,13 @@ import Finalized from "./Pages/Finalized";
 import Challenge from "./Pages/Challenge";
 import ProtectedRoute from "./Pages/ProtectedRoute";
 
-import Header from "./Components/Header"
+import Header from "./Components/Header";
 import { TimerProvider } from "./Context/timerContext";
-
 
 function App() {
   return (
     <>
-    <Header/>
+      <Header />
       <TimerProvider>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -29,8 +28,16 @@ function App() {
               />
             }
           />
+          <Route
+            path="/results"
+            element={
+              <ProtectedRoute
+                errorPage={<ErrorPage />}
+                targetPage={<Excel />}
+              />
+            }
+          />
           <Route path="/finished" element={<Finalized />} />
-          <Route path="/exceltest" element={<Excel />} />
           <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </TimerProvider>
