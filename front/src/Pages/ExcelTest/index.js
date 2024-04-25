@@ -13,7 +13,7 @@ export default function Excel() {
   }
   return (
     <div>
-      <button onClick={() => logOut()} style={{ marginLeft: '2em' }}>Sair</button>
+      <button onClick={() => logOut()} style={{ marginLeft: '1em' }}>Sair</button>
       <ExcelGenerator />
     </div>
   );

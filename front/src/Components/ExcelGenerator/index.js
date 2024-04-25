@@ -3,23 +3,19 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import axios from 'axios';
 
-import './ExcelGenerator.css'; // Importando o arquivo de estilos
+import './ExcelGenerator.css';
 
 export default function ExcelGenerator() {
     const [workbook, setWorkbook] = useState(null);
     const [playersData, setPlayersData] = useState([]);
+    const [sortedData, setSortedData] = useState(null);
     const [sortBy, setSortBy] = useState({ column: null, ascending: true });
 
     async function getPlayers() {
         try {
             const res = await axios.get('http://localhost:8080/api/getplayers');
-            // Transforma as strings de tempo e data em valores comparáveis
-            const formattedPlayers = res.data.players.map(player => ({
-                ...player,
-                tempoValue: convertTimeToValue(player.tempo),
-                dataValue: convertDateToValue(player.data)
-            }));
-            setPlayersData(formattedPlayers);
+            setPlayersData(res.data.players);
+            setSortedData(res.data.players);
         } catch (error) {
             console.error('Error fetching game data:', error);
         }
@@ -29,30 +25,32 @@ export default function ExcelGenerator() {
         getPlayers();
     }, []);
 
-    function convertTimeToValue(timeString) {
-        const [hours, minutes] = timeString.split(':').map(Number);
-        return hours * 60 + minutes;
-    }
-
-    function convertDateToValue(dateString) {
-        return new Date(dateString);
-    }
-
-    function sortPlayers(column) {
+    function sortData(column) {
         const ascending = sortBy.column === column ? !sortBy.ascending : true;
-        const sortedPlayers = [...playersData].sort((a, b) => {
-            const valueA = a[column + 'Value'];
-            const valueB = b[column + 'Value'];
-            return ascending ? valueA - valueB : valueB - valueA;
+        const sortedPlayers = [...sortedData].sort((a, b) => {
+            if (column === 'tempo' || column === 'data') {
+                return ascending ? a[column].localeCompare(b[column]) : b[column].localeCompare(a[column]);
+            } else {
+                return ascending ? a[column] - b[column] : b[column] - a[column];
+            }
         });
         setSortBy({ column, ascending });
-        setPlayersData(sortedPlayers);
+        setSortedData(sortedPlayers);
     }
 
     function resetSort() {
-        setSortBy({ column: null, ascending: true });
-        // Recarrega os dados para restaurar a ordem padrão
-        getPlayers();
+        setSortedData(playersData); // Reseta para os dados originais
+        setSortBy({ column: null, ascending: true }); // Reseta para a ordem padrão
+    }
+
+    async function clearMongoDB() {
+        try {
+            const res = await axios.get('http://localhost:8080/api/deleteplayers');
+            setPlayersData([]);
+            setSortedData([]);
+        } catch (error) {
+            console.error('Error fetching game data:', error);
+        }
     }
 
     function loadExcelFile(event) {
@@ -70,14 +68,21 @@ export default function ExcelGenerator() {
 
     function saveExcelFile() {
         if (workbook) {
+            const ws = workbook.Sheets[workbook.SheetNames[0]];
+            XLSX.utils.sheet_add_aoa(ws, [["Nome", "Data de Nascimento", "Tempo", "F1", "F2", "F3", "F4", "F5"]]);
+
+            playersData.forEach(player => {
+                XLSX.utils.sheet_add_aoa(ws, [[player.nome, player.data, player.tempo, player.f1, player.f2, player.f3, player.f4, player.f5]], { origin: -1 });
+            });
+
             const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
             saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), "dados_editados.xlsx");
+            alert("Dados salvos no .xlsx");
         } else {
             alert("Por favor, selecione um arquivo Excel antes de salvar.");
         }
     }
 
-    // Função para converter de string para ArrayBuffer
     function s2ab(s) {
         const buf = new ArrayBuffer(s.length);
         const view = new Uint8Array(buf);
@@ -87,25 +92,33 @@ export default function ExcelGenerator() {
 
     return (
         <div className="excel-generator-container">
-            <input type="file" onChange={loadExcelFile} />
-            <button onClick={saveExcelFile}>Salvar arquivo</button>
+            <div className='excel-btn'>
+                <div>
+                    <button onClick={resetSort}>Redefinir ordem</button>
+                    <button onClick={clearMongoDB}>Limpar MongoDB</button>
+                </div>
+                <div>
+                    <input type="file" onChange={loadExcelFile} />
+                    <button onClick={saveExcelFile}>Salvar arquivo</button>
+                </div>
+            </div>
             {playersData.length > 0 && (
                 <div className="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th onClick={() => sortPlayers('nome')}>Nome</th>
-                                <th onClick={() => sortPlayers('data')}>Data</th>
-                                <th onClick={() => sortPlayers('tempo')}>Tempo</th>
-                                <th>F1</th>
-                                <th>F2</th>
-                                <th>F3</th>
-                                <th>F4</th>
-                                <th>F5</th>
+                                <th onClick={() => sortData('nome')}>Nome</th>
+                                <th onClick={() => sortData('data')}>Data</th>
+                                <th onClick={() => sortData('tempo')}>Tempo</th>
+                                <th onClick={() => sortData('f1')}>F1</th>
+                                <th onClick={() => sortData('f2')}>F2</th>
+                                <th onClick={() => sortData('f3')}>F3</th>
+                                <th onClick={() => sortData('f4')}>F4</th>
+                                <th onClick={() => sortData('f5')}>F5</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {playersData.map((player, index) => (
+                            {sortedData.map((player, index) => (
                                 <tr key={index}>
                                     <td>{player.nome}</td>
                                     <td>{player.data}</td>
@@ -121,7 +134,6 @@ export default function ExcelGenerator() {
                     </table>
                 </div>
             )}
-            <button onClick={resetSort}>Voltar para a ordem padrão</button>
         </div>
     );
 }

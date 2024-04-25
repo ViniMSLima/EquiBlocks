@@ -42,6 +42,17 @@ class PlayerController {
         }
 
     }
+
+    static async clearPlayers(req, res) {
+        try {
+            await Player.deleteMany({});
+            return res.status(200).send({ message: 'All players deleted successfully' });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send({ message: 'Something went wrong while clearing players' });
+        }
+    }
+    
 }
 
 module.exports = PlayerController;
