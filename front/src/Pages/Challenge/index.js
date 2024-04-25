@@ -33,22 +33,45 @@ export default function Challenge() {
   const startReal = async () => {
     if (status === "Finalizar") {
       if (window.confirm("Deseja Finalizar?")) {
-        
+
         var nome = localStorage.getItem("nome");
         var data = localStorage.getItem("data");
         var tempo = localStorage.getItem("tempo");
 
-        // Update playerInfo with new information
+        const formas1 = localStorage.getItem("formas");
+
+        const formas2 = JSON.parse(formas1);
+
+        console.log(formas2);
+
+        const palpites = [fig1, fig2, fig3, fig4, fig5]
+
+        let count = 0;
+
+        formas2.forEach(element => {
+          console.log(palpites[count] + " = " + element.peso);
+          if (palpites[count] == element.peso)
+            palpites[count] = 2;
+          else
+            palpites[count] = 1;
+
+          count += 1;
+        });
+
+        console.log(palpites);
+
         const playerInfo = {
           nome,
           data,
           tempo,
-          f1: fig1,
-          f2: fig2,
-          f3: fig3,
-          f4: fig4,
-          f5: fig5,
+          f1: parseInt(palpites[0]),
+          f2: parseInt(palpites[1]),
+          f3: parseInt(palpites[2]),
+          f4: parseInt(palpites[3]),
+          f5: parseInt(palpites[4]),
         };
+
+        console.log(playerInfo);
 
         try {
           const res = await axios.post(

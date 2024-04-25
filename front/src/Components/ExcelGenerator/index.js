@@ -123,11 +123,11 @@ export default function ExcelGenerator() {
                                     <td>{player.nome}</td>
                                     <td>{player.data}</td>
                                     <td>{player.tempo}</td>
-                                    <td>{player.f1}</td>
-                                    <td>{player.f2}</td>
-                                    <td>{player.f3}</td>
-                                    <td>{player.f4}</td>
-                                    <td>{player.f5}</td>
+                                    <td style={{ backgroundColor: player.f1 === 2 ? '#C6F7D0' : '#FFC6C6'}}></td>
+                                    <td style={{ backgroundColor: player.f2 === 2 ? '#C6F7D0' : '#FFC6C6'}}></td>
+                                    <td style={{ backgroundColor: player.f3 === 2 ? '#C6F7D0' : '#FFC6C6'}}></td>
+                                    <td style={{ backgroundColor: player.f4 === 2 ? '#C6F7D0' : '#FFC6C6'}}></td>
+                                    <td style={{ backgroundColor: player.f5 === 2 ? '#C6F7D0' : '#FFC6C6'}}></td>
                                 </tr>
                             ))}
                         </tbody>
