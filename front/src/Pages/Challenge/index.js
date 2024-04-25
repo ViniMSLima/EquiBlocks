@@ -121,9 +121,8 @@ export default function Challenge() {
       <div>
         <Row className={styles.row}>
           <Container className={styles.cont}>
-            <Col className={styles.align} sm="1" lg="3"></Col>
-            <Col className={styles.title} sm="12" lg="4">
-              <ContainerForm/>
+            <Col className={styles.title} sm="12" lg="10">
+              <ContainerForm />
             </Col>
             <Col className={styles.inputCol} sm="10" lg="2">
               <Inputs
