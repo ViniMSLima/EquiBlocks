@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 
 import { PesoContext } from "../../Context/pesoContext";
 
+import Container from "react-bootstrap/Container";
 import styles from "./styles.module.scss";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -11,6 +12,7 @@ import circulo from "../../Img/formas/circle.png";
 import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
+import Score from "../Score";
 
 export default function ContainerForm() {
   const { contextPeso, setContextPeso } = useContext(PesoContext);
@@ -115,10 +117,20 @@ export default function ContainerForm() {
 
   return (
     <>
-      <div style={{ display: "flex" }}>
-        <Balance balance={balance1} balanca={1} handleDrop={handleDrop} />
-        <Balance balance={balance2} balanca={2} handleDrop={handleDrop} />
-      </div>
+      <Container>
+        <Row>
+          <Col sm="12" lg="6" className={styles.coluna}>
+            {/* <Score balance={ balance1 }/> */}
+            <Balance balance={balance1} balanca={1} handleDrop={handleDrop} />
+            {/* <Score balance={ balance1 }/> */}
+          </Col>
+          <Col sm="12" lg="6" className={styles.coluna}>
+            {/* <Score balance={ balance2 }/> */}
+            <Balance balance={balance2} balanca={2} handleDrop={handleDrop} />
+            {/* <Score balance={ balance2 }/> */}
+          </Col>
+        </Row>
+      </Container>
       <div className={styles.container}>
         <Row>
           {formas.map((item, index) => (

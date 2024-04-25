@@ -59,20 +59,20 @@ export default function Balance({ balance, balanca, handleDrop }) {
     if (balance.right.total > balance.left.total) {
       balanceImage = balancee;
       hitboxStyles = {
-        hitbox1: { top: "0.8em", left: "0.09em" },
-        hitbox2: { top: "1.69em", left: "3.70em" },
+        hitbox1: { top: "0.77em", left: "0.39em" },
+        hitbox2: { top: "1.69em", left: "4em" },
       };
     } else if (balance.right.total < balance.left.total) {
       balanceImage = balancee2;
       hitboxStyles = {
-        hitbox1: { top: "1.7em", left: "-0.01em" },
-        hitbox2: { top: "0.75em", left: "3.80em" },
+        hitbox1: { top: "1.7em", left: "0.28em" },
+        hitbox2: { top: "0.75em", left: "4.09em" },
       };
     } else {
       balanceImage = balancee3;
       hitboxStyles = {
-        hitbox1: { top: "1.3em", left: "0.08em" },
-        hitbox2: { top: "1.3em", left: "3.72em" },
+        hitbox1: { top: "1.26em", left: "0.39em" },
+        hitbox2: { top: "1.26em", left: "4.02em" },
       };
     }
 
