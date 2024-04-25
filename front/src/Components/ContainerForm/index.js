@@ -68,19 +68,24 @@ export default function ContainerForm() {
                   src={item.imagem}
                   alt={`Forma ${index}`}
                   draggable
-                  onDragStart={(e) => {
-                    e.dataTransfer.setData("forma", item.peso);
+                  onDragStart={(e) => { if(item.quantidade > 0)
+                    {
+                      e.dataTransfer.setData("forma", item.peso);
+                    }
                   }}
                   onDragEnd={(e) => {
-                    const updatedFormas = [...formas];
-                    updatedFormas[index] = {
-                      ...updatedFormas[index],
-                      quantidade: Math.max(
-                        0,
-                        updatedFormas[index].quantidade - 1
-                      ),
-                    };
-                    setFormas(updatedFormas);
+                    if(item.quantidade > 0)
+                    {
+                      const updatedFormas = [...formas];
+                      updatedFormas[index] = {
+                        ...updatedFormas[index],
+                        quantidade: Math.max(
+                          0,
+                          updatedFormas[index].quantidade - 1
+                        ),
+                      };
+                      setFormas(updatedFormas);
+                    }
                   }}
                 />
                 <p className={styles.qtd}>{item.quantidade}</p>
