@@ -6,8 +6,10 @@ export default function Excel() {
   const navigate = useNavigate();
 
   const logOut = () => {
-    localStorage.clear();
-    navigate('/');
+    if (window.confirm("Deseja Sair?")) {
+      localStorage.clear();
+      navigate('/');
+    }
   }
   return (
     <div>
