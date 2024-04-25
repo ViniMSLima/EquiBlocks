@@ -16,6 +16,7 @@ import { TimerProvider } from "./Context/timerContext";
 function App() {
   return (
     <>
+    <Header/>
       <TimerProvider>
         <Routes>
           <Route path="/" element={<Home />} />

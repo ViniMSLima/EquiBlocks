@@ -7,7 +7,15 @@ import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 
-export default function Balance({ balance, balanca, handleDrop, figures }) {
+const images = {
+  100: quadrado,
+  200: circulo,
+  500: triangulo,
+  700: pentagono,
+  1000: estrela
+};
+
+export default function Balance({ balance, balanca, handleDrop }) {
   const handleDragOver = (e) => {
     e.preventDefault();
   };
@@ -24,33 +32,27 @@ export default function Balance({ balance, balanca, handleDrop, figures }) {
     handleDrop(forma, balanca, "right");
   };
 
+  const renderFigures = (figures) => {
+    return Object.entries(figures).map(([key, count]) => {
+      const src = images[key];
+      return [...Array(count)].map((_, index) => (
+        <img key={index} className={styles.forms} src={src} />
+      ));
+    });
+  };
+
   return (
     <div style={{ position: "relative", display: "inline-block" }}>
-      <div
-        className={styles.hitbox1}
-        onDragOver={handleDragOver}
-        onDrop={handleDropOnLeft}
-      >
-        {/* {figures.circulo > 0 && <img className={styles.forms} src={circulo}/>}
-        {figures.quadrado > 0 && <img className={styles.forms} src={quadrado}/>}
-        {figures.triangulo > 0 && <img className={styles.forms} src={triangulo}/>}
-        {figures.pentagono > 0 && <img className={styles.forms} src={pentagono}/>} */}
-        {figures.estrela > 0 && <img className={styles.forms} src={estrela}/>}
+      <div className={styles.hitbox1} onDragOver={handleDragOver} onDrop={handleDropOnLeft}>
+        {renderFigures(balance.left.figures)}
       </div>
-      <div
-        className={styles.hitbox2}
-        onDragOver={handleDragOver}
-        onDrop={handleDropOnRight}
-      ></div>
-      <img
-        className={styles.balance}
-        src={balancee}
-        alt="Balance"
-        style={{ zIndex: "1" }}
-      />
+      <div className={styles.hitbox2} onDragOver={handleDragOver} onDrop={handleDropOnRight}>
+        {renderFigures(balance.right.figures)}
+      </div>
+      <img className={styles.balance} src={balancee} alt="Balance" style={{ zIndex: "1" }} />
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <p>Lado A: {balance.left}</p>
-        <p>Lado B: {balance.right}</p>
+        <p>Lado A: {balance.left.total}</p>
+        <p>Lado B: {balance.right.total}</p>
       </div>
     </div>
   );

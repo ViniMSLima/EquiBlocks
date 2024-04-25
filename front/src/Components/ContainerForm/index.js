@@ -17,58 +17,30 @@ export default function ContainerForm() {
     { imagem: pentagono, quantidade: 5, peso: 700 },
     { imagem: estrela, quantidade: 5, peso: 1000 },
   ]);
-  const [balance1, setBalance1] = useState({ left: 0, right: 0 });
-  const [balance2, setBalance2] = useState({ left: 0, right: 0 });
-  const [figures, setFigures] = useState({
-    circulo: 0,
-    triangulo: 0,
-    quadrado: 0,
-    pentagono: 0,
-    estrela: 0,
-  });
+  const [balance1, setBalance1] = useState( { left: { total: 0, figures: {} }, right: { total: 0, figures: {} } });
+  const [balance2, setBalance2] = useState({ left: { total: 0, figures: {} }, right: { total: 0, figures: {} } });
 
   const handleDrop = (forma, balanca, lado) => {
     if (!forma) return;
-    forma = parseInt(forma)
-    switch (forma) {
-      case 100:
-        setFigures((prevFigures) => ({
-          ...prevFigures,
-          quadrado: prevFigures.quadrado + 1,
-        }));
-      case 200:
-        setFigures((prevFigures) => ({
-          ...prevFigures,
-          circulo: prevFigures.circulo + 1,
-        }));
-      case 500:
-        setFigures((prevFigures) => ({
-          ...prevFigures,
-          triangulo: prevFigures.triangulo + 1,
-        }));
-      case 700:
-        setFigures((prevFigures) => ({
-          ...prevFigures,
-          pentagono: prevFigures.pentagono + 1,
-        }));
-      case 1000:
-        setFigures((prevFigures) => ({
-          ...prevFigures,
-          estrela: prevFigures.estrela + 1,
-        }));
-        break;
-    }
-    console.log(figures.estrela);
+    forma = parseInt(forma);
+    const formaKey = Object.keys(formas.reduce((acc, item) => ({ ...acc, [item.peso]: item.imagem }), {})).find(key => parseInt(key) === forma);
+
+    const updateBalance = (balance) => ({
+      ...balance,
+      [lado]: {
+        ...balance[lado],
+        total: balance[lado].total + forma,
+        figures: {
+          ...balance[lado].figures,
+          [formaKey]: (balance[lado].figures[formaKey] || 0) + 1
+        }
+      }
+    });
+
     if (balanca === 1) {
-      setBalance1((prevBalance) => ({
-        ...prevBalance,
-        [lado]: prevBalance[lado] + forma,
-      }));
+      setBalance1(prevBalance => updateBalance(prevBalance));
     } else {
-      setBalance2((prevBalance) => ({
-        ...prevBalance,
-        [lado]: prevBalance[lado] + forma,
-      }));
+      setBalance2(prevBalance => updateBalance(prevBalance));
     }
   };
 
@@ -79,13 +51,11 @@ export default function ContainerForm() {
           balance={balance1}
           balanca={1}
           handleDrop={handleDrop}
-          figures={figures}
         />
         <Balance
           balance={balance2}
           balanca={2}
           handleDrop={handleDrop}
-          figures={figures}
         />
       </div>
       <div className={styles.container}>
