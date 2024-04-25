@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Row from "react-bootstrap/Row";
@@ -15,14 +15,43 @@ import ExcelGenerator from "../../Components/ExcelGenerator";
 import axios from "axios";
 
 import { TimerContext } from "../../Context/timerContext";
+import { PesoContext } from "../../Context/pesoContext";
 
 export default function Challenge() {
   const [status, setStatus] = useState("Começar");
-  const [phase, setPhase] = useState("Fase de Teste");
+  const [phase, setPhase] = useState(localStorage.getItem("fase") || "Fase de Teste");
+  
   const [timerStarted, setTimerStarted] = useState(false);
   const navigate = useNavigate();
 
   const { contextTimer, setContextTimer } = useContext(TimerContext);
+  const { contextPeso, setContextPeso } = useContext(PesoContext);
+  
+  const prevPhaseRef = useRef(phase);
+
+  useEffect(() => {
+    localStorage.setItem("fase", phase);
+  }, [phase]);
+
+  useEffect(() => {
+    if(localStorage.getItem("fase") == "Desafio")
+      setTimerStarted(true);
+  }, []);
+
+  useEffect(() => {
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+  
+    const pesos = [100, 200, 500, 700, 1000];
+    const newPesos = shuffleArray(pesos);
+      
+    setContextPeso(newPesos);
+  }, []);
 
   const [fig1, setFig1] = useState("");
   const [fig2, setFig2] = useState("");
@@ -70,35 +99,36 @@ export default function Challenge() {
           f4: parseInt(palpites[3]),
           f5: parseInt(palpites[4]),
         };
-
-        console.log(playerInfo);
-
+        
         try {
           const res = await axios.post(
             "http://localhost:8080/api/postplayer",
             playerInfo
-          );
-        } catch (error) {
-          console.error("Error fetching game data:", error);
-        }
-
-        const existingPlayersJSON = localStorage.getItem("playerInfo");
-        const existingPlayers = existingPlayersJSON
+            );
+          } catch (error) {
+            console.error("Error fetching game data:", error);
+          }
+          
+          const existingPlayersJSON = localStorage.getItem("playerInfo");
+          const existingPlayers = existingPlayersJSON
           ? JSON.parse(existingPlayersJSON)
           : [];
-
-        const updatedPlayers = [...existingPlayers, playerInfo];
-
-        localStorage.setItem("playerInfo", JSON.stringify(updatedPlayers));
-        setTimerStarted(false);
-        setFig1("");
-        setFig2("");
-        setFig3("");
-        setFig4("");
-        setFig5("");
-        navigate("/finished");
+          
+          const updatedPlayers = [...existingPlayers, playerInfo];
+          
+          localStorage.setItem("playerInfo", JSON.stringify(updatedPlayers));
+          setTimerStarted(false);
+          setFig1("");
+          setFig2("");
+          setFig3("");
+          setFig4("");
+          setFig5("");
+          navigate("/finished");
+        }
       }
-    }
+    localStorage.setItem("balance1", JSON.stringify({ left: { total: 0, figures: {} }, right: { total: 0, figures: {} } }))
+    localStorage.setItem("balance2", JSON.stringify( { left: { total: 0, figures: {} }, right: { total: 0, figures: {} } }))
+    localStorage.removeItem("formas")
     setTimerStarted(true);
     setStatus("Finalizar");
     setPhase("Desafio");
@@ -110,6 +140,13 @@ export default function Challenge() {
       startReal();
     }
   }, [contextTimer]);
+
+  useEffect(() => {
+    if (prevPhaseRef.current !== phase && phase === "Desafio") {
+      window.location.reload();
+    }
+    prevPhaseRef.current = phase;
+  }, [phase]);
 
   return (
     <div>

@@ -1,6 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import styles from "./styles.module.scss";
+import React, { useState, useEffect, useRef, useContext } from "react";
+
+import { PesoContext } from "../../Context/pesoContext";
+
 import Container from "react-bootstrap/Container";
+import styles from "./styles.module.scss";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Balance from "../Balance";
@@ -9,41 +12,61 @@ import circulo from "../../Img/formas/circle.png";
 import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
+import Score from "../Score";
 
 export default function ContainerForm() {
-  const [formas, setFormas] = useState(
-    getLocalStorageItem("formas", [
-      { imagem: quadrado, quantidade: 5, peso: 100, onBalance: false },
-      { imagem: circulo, quantidade: 5, peso: 200, onBalance: false },
-      { imagem: triangulo, quantidade: 5, peso: 500, onBalance: false },
-      { imagem: pentagono, quantidade: 5, peso: 700, onBalance: false },
-      { imagem: estrela, quantidade: 5, peso: 1000, onBalance: false },
-    ])
-  );
+  const { contextPeso, setContextPeso } = useContext(PesoContext);
+  const newPesos = contextPeso;
+  const [formas, setFormas] = useState([]);
 
-  const [balance1, setBalance1] = useState(
-    getLocalStorageItem("balance1", {
-      left: { total: 0, figures: {} },
-      right: { total: 0, figures: {} },
-    })
-  );
-  const [balance2, setBalance2] = useState(
-    getLocalStorageItem("balance2", {
-      left: { total: 0, figures: {} },
-      right: { total: 0, figures: {} },
-    })
-  );
+  useEffect(() => {
+    if (contextPeso.length === 5) {
+      setFormas([
+        { imagem: quadrado, quantidade: 5, peso: parseInt(contextPeso[0]), onBalance: false },
+        { imagem: circulo, quantidade: 5, peso: parseInt(contextPeso[1]), onBalance: false },
+        { imagem: triangulo, quantidade: 5, peso: parseInt(contextPeso[2]), onBalance: false },
+        { imagem: pentagono, quantidade: 5, peso: parseInt(contextPeso[3]), onBalance: false },
+        { imagem: estrela, quantidade: 5, peso: parseInt(contextPeso[4]), onBalance: false },
+      ]);
+    }
+  }, [contextPeso]);
 
-  function getLocalStorageItem(key, defaultValue) {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : defaultValue;
-  }
+  const [balance1, setBalance1] = useState({
+    left: { total: 0, figures: {} },
+    right: { total: 0, figures: {} },
+  });
+  const [balance2, setBalance2] = useState({
+    left: { total: 0, figures: {} },
+    right: { total: 0, figures: {} },
+  });
 
-  function updateLocalStorageItem(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-  }
+  const disableF5 = useRef(null);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = "Tem certeza que quer sair da página?";
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.keyCode === 116 || event.keyCode === 82) {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    disableF5.current = handleKeyDown;
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("keydown", disableF5.current);
+    };
+  }, []);
 
   const handleDrop = (forma, balanca, lado) => {
+    // console.log(forma);
     if (!forma) return;
     forma = parseInt(forma);
     const formaKey = Object.keys(
@@ -63,17 +86,9 @@ export default function ContainerForm() {
     });
 
     if (balanca === 1) {
-      setBalance1((prevBalance) => {
-        const updatedBalance = updateBalance(prevBalance);
-        updateLocalStorageItem("balance1", updatedBalance);
-        return updatedBalance;
-      });
+      setBalance1((prevBalance) => updateBalance(prevBalance));
     } else {
-      setBalance2((prevBalance) => {
-        const updatedBalance = updateBalance(prevBalance);
-        updateLocalStorageItem("balance2", updatedBalance);
-        return updatedBalance;
-      });
+      setBalance2((prevBalance) => updateBalance(prevBalance));
     }
 
     const updatedFormas = formas.map((item) => {
@@ -87,7 +102,6 @@ export default function ContainerForm() {
       return item;
     });
     setFormas(updatedFormas);
-    updateLocalStorageItem("formas", updatedFormas);
   };
 
   const handleDragEnd = (index) => {
@@ -98,7 +112,6 @@ export default function ContainerForm() {
         onBalance: false,
       };
       setFormas(updatedFormas);
-      updateLocalStorageItem("formas", updatedFormas);
     }
   };
 
@@ -106,11 +119,15 @@ export default function ContainerForm() {
     <>
       <Container>
         <Row>
-          <Col sm="12" lg="6">
+          <Col sm="12" lg="6" className={styles.coluna}>
+            {/* <Score balance={ balance1 }/> */}
             <Balance balance={balance1} balanca={1} handleDrop={handleDrop} />
+            {/* <Score balance={ balance1 }/> */}
           </Col>
-          <Col sm="12" lg="6">
+          <Col sm="12" lg="6" className={styles.coluna}>
+            {/* <Score balance={ balance2 }/> */}
             <Balance balance={balance2} balanca={2} handleDrop={handleDrop} />
+            {/* <Score balance={ balance2 }/> */}
           </Col>
         </Row>
       </Container>
