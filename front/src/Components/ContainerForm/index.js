@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef  } from "react";
 import styles from "./styles.module.scss";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -11,15 +11,40 @@ import estrela from "../../Img/formas/star.png";
 
 export default function ContainerForm() {
   const [formas, setFormas] = useState([
-    { imagem: quadrado, quantidade: 5, peso: 100, naBalanca: false },
-    { imagem: circulo, quantidade: 5, peso: 200, naBalanca: false },
-    { imagem: triangulo, quantidade: 5, peso: 500, naBalanca: false },
-    { imagem: pentagono, quantidade: 5, peso: 700, naBalanca: false },
-    { imagem: estrela, quantidade: 5, peso: 1000, naBalanca: false },
+    { imagem: quadrado, quantidade: 5, peso: 100, onBalance: false },
+    { imagem: circulo, quantidade: 5, peso: 200, onBalance: false },
+    { imagem: triangulo, quantidade: 5, peso: 500, onBalance: false },
+    { imagem: pentagono, quantidade: 5, peso: 700, onBalance: false },
+    { imagem: estrela, quantidade: 5, peso: 1000, onBalance: false },
   ]);
   const [balance1, setBalance1] = useState( { left: { total: 0, figures: {} }, right: { total: 0, figures: {} } });
   const [balance2, setBalance2] = useState({ left: { total: 0, figures: {} }, right: { total: 0, figures: {} } });
 
+  const disableF5 = useRef(null);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = "Tem a certeza que quer sair da página?";
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.keyCode === 116 || event.keyCode === 82) {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    disableF5.current = handleKeyDown;
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("keydown", disableF5.current);
+    };
+  }, []);
+  
   const handleDrop = (forma, balanca, lado) => {
     if (!forma) return;
     forma = parseInt(forma);
@@ -48,7 +73,7 @@ export default function ContainerForm() {
         return {
           ...item,
           quantidade: item.quantidade - 1,
-          naBalanca: true
+          onBalance: true
         };
       }
       return item;
@@ -57,11 +82,11 @@ export default function ContainerForm() {
   };
 
   const handleDragEnd = (index) => {
-    if (formas[index].naBalanca) {
+    if (formas[index].onBalance) {
       const updatedFormas = [...formas];
       updatedFormas[index] = {
         ...updatedFormas[index],
-        naBalanca: false
+        onBalance: false
       };
       setFormas(updatedFormas);
     }
@@ -90,9 +115,9 @@ export default function ContainerForm() {
                   className={styles.forms}
                   src={item.imagem}
                   alt={`Forma ${index}`}
-                  draggable={item.quantidade > 0 && !item.naBalanca}
+                  draggable={item.quantidade > 0 && !item.onBalance}
                   onDragStart={(e) => {
-                    if(item.quantidade > 0 && !item.naBalanca)
+                    if(item.quantidade > 0 && !item.onBalance)
                     {
                       e.dataTransfer.setData("forma", item.peso);
                     }
