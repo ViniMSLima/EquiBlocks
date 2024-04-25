@@ -15,6 +15,7 @@ import ExcelGenerator from "../../Components/ExcelGenerator";
 import axios from "axios";
 
 import { TimerContext } from "../../Context/timerContext";
+import { PesoContext } from "../../Context/pesoContext";
 
 export default function Challenge() {
   const [status, setStatus] = useState("Começar");
@@ -24,7 +25,8 @@ export default function Challenge() {
   const navigate = useNavigate();
 
   const { contextTimer, setContextTimer } = useContext(TimerContext);
-
+  const { contextPeso, setContextPeso } = useContext(PesoContext);
+  
   const prevPhaseRef = useRef(phase);
 
   useEffect(() => {
@@ -44,8 +46,7 @@ export default function Challenge() {
         var nome = localStorage.getItem("nome");
         var data = localStorage.getItem("data");
         var tempo = localStorage.getItem("tempo");
-        
-        // Update playerInfo with new information
+
         const playerInfo = {
           nome,
           data,

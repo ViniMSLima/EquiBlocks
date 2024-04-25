@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+
+import { PesoContext } from "../../Context/pesoContext";
+
 import styles from "./styles.module.scss";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Balance from "../Balance";
@@ -11,37 +13,69 @@ import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 
 export default function ContainerForm() {
-  const [formas, setFormas] = useState(
-    getLocalStorageItem("formas", [
-      { imagem: quadrado, quantidade: 5, peso: 100, onBalance: false },
-      { imagem: circulo, quantidade: 5, peso: 200, onBalance: false },
-      { imagem: triangulo, quantidade: 5, peso: 500, onBalance: false },
-      { imagem: pentagono, quantidade: 5, peso: 700, onBalance: false },
-      { imagem: estrela, quantidade: 5, peso: 1000, onBalance: false },
-    ])
-  );
+  const { contextPeso, setContextPeso } = useContext(PesoContext);
 
-  const [balance1, setBalance1] = useState(
-    getLocalStorageItem("balance1", {
-      left: { total: 0, figures: {} },
-      right: { total: 0, figures: {} },
-    })
-  );
-  const [balance2, setBalance2] = useState(
-    getLocalStorageItem("balance2", {
-      left: { total: 0, figures: {} },
-      right: { total: 0, figures: {} },
-    })
-  );
+  useEffect(() => {
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+  
+    const pesos = [100, 200, 500, 700, 1000];
+    const newPesos = shuffleArray(pesos);
+  
+    console.log(newPesos);
+  
+    setContextPeso(newPesos);
+  }, []);
 
-  function getLocalStorageItem(key, defaultValue) {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : defaultValue;
-  }
+  const newPesos = contextPeso;
+  console.log('new pesos',newPesos);
 
-  function updateLocalStorageItem(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-  }
+  const [formas, setFormas] = useState([
+    { imagem: quadrado, quantidade: 5, peso: newPesos[0], onBalance: false },
+    { imagem: circulo, quantidade: 5, peso: newPesos[1], onBalance: false },
+    { imagem: triangulo, quantidade: 5, peso: newPesos[2], onBalance: false },
+    { imagem: pentagono, quantidade: 5, peso: newPesos[3], onBalance: false },
+    { imagem: estrela, quantidade: 5, peso: newPesos[4], onBalance: false },
+  ]);
+
+  const [balance1, setBalance1] = useState({
+    left: { total: 0, figures: {} },
+    right: { total: 0, figures: {} },
+  });
+  const [balance2, setBalance2] = useState({
+    left: { total: 0, figures: {} },
+    right: { total: 0, figures: {} },
+  });
+
+  const disableF5 = useRef(null);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = "Tem a certeza que quer sair da página?";
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.keyCode === 116 || event.keyCode === 82) {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    disableF5.current = handleKeyDown;
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("keydown", disableF5.current);
+    };
+  }, []);
 
   const handleDrop = (forma, balanca, lado) => {
     if (!forma) return;
@@ -63,17 +97,9 @@ export default function ContainerForm() {
     });
 
     if (balanca === 1) {
-      setBalance1((prevBalance) => {
-        const updatedBalance = updateBalance(prevBalance);
-        updateLocalStorageItem("balance1", updatedBalance);
-        return updatedBalance;
-      });
+      setBalance1((prevBalance) => updateBalance(prevBalance));
     } else {
-      setBalance2((prevBalance) => {
-        const updatedBalance = updateBalance(prevBalance);
-        updateLocalStorageItem("balance2", updatedBalance);
-        return updatedBalance;
-      });
+      setBalance2((prevBalance) => updateBalance(prevBalance));
     }
 
     const updatedFormas = formas.map((item) => {
@@ -87,7 +113,6 @@ export default function ContainerForm() {
       return item;
     });
     setFormas(updatedFormas);
-    updateLocalStorageItem("formas", updatedFormas);
   };
 
   const handleDragEnd = (index) => {
@@ -98,22 +123,15 @@ export default function ContainerForm() {
         onBalance: false,
       };
       setFormas(updatedFormas);
-      updateLocalStorageItem("formas", updatedFormas);
     }
   };
 
   return (
     <>
-      <Container>
-        <Row>
-          <Col sm="12" lg="6">
-            <Balance balance={balance1} balanca={1} handleDrop={handleDrop} />
-          </Col>
-          <Col sm="12" lg="6">
-            <Balance balance={balance2} balanca={2} handleDrop={handleDrop} />
-          </Col>
-        </Row>
-      </Container>
+      <div style={{ display: "flex" }}>
+        <Balance balance={balance1} balanca={1} handleDrop={handleDrop} />
+        <Balance balance={balance2} balanca={2} handleDrop={handleDrop} />
+      </div>
       <div className={styles.container}>
         <Row>
           {formas.map((item, index) => (

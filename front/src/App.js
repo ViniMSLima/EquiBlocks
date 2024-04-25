@@ -11,35 +11,38 @@ import ProtectedRoute from "./Pages/ProtectedRoute";
 
 import Header from "./Components/Header";
 import { TimerProvider } from "./Context/timerContext";
+import { PesoProvider } from "./Context/pesoContext";
 
 function App() {
   return (
     <>
       <Header />
       <TimerProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/challenge"
-            element={
-              <ProtectedRoute
-                errorPage={<ErrorPage />}
-                targetPage={<Challenge />}
-              />
-            }
-          />
-          <Route
-            path="/results"
-            element={
-              <ProtectedRoute
-                errorPage={<ErrorPage />}
-                targetPage={<Excel />}
-              />
-            }
-          />
-          <Route path="/finished" element={<Finalized />} />
-          <Route path="/*" element={<ErrorPage />} />
-        </Routes>
+        <PesoProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/challenge"
+              element={
+                <ProtectedRoute
+                  errorPage={<ErrorPage />}
+                  targetPage={<Challenge />}
+                />
+              }
+            />
+            <Route
+              path="/results"
+              element={
+                <ProtectedRoute
+                  errorPage={<ErrorPage />}
+                  targetPage={<Excel />}
+                />
+              }
+            />
+            <Route path="/finished" element={<Finalized />} />
+            <Route path="/*" element={<ErrorPage />} />
+          </Routes>
+        </PesoProvider>
       </TimerProvider>
     </>
   );
