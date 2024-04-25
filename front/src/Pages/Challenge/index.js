@@ -12,6 +12,8 @@ import Inputs from "../../Components/InputsArea";
 import Balance from "../../Components/Balance";
 import ExcelGenerator from "../../Components/ExcelGenerator";
 
+import axios from 'axios';
+
 import { TimerContext } from "../../Context/timerContext";
 
 export default function Challenge() {
@@ -28,7 +30,7 @@ export default function Challenge() {
   const [fig4, setFig4] = useState("");
   const [fig5, setFig5] = useState("");
 
-  const startReal = () => {
+  const startReal = async () => {
     if (status === "Finalizar") {
 
       var nome = localStorage.getItem("nome");
@@ -46,6 +48,16 @@ export default function Challenge() {
         f4: fig4,
         f5: fig5
       };
+
+      try {
+        const res = await axios.post(
+          'http://localhost:8080/api/postplayer',
+          playerInfo
+        );
+
+      } catch (error) {
+        console.error('Error fetching game data:', error);
+      }
 
       const existingPlayersJSON = localStorage.getItem("playerInfo");
       const existingPlayers = existingPlayersJSON ? JSON.parse(existingPlayersJSON) : [];

@@ -12,7 +12,11 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "config": "^3.3.11",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "mongo": "^0.1.0",
+    "mongoose": "^8.3.2",
     "nodemon": "^3.1.0"
   }
 }
