@@ -117,7 +117,7 @@ export default function ContainerForm() {
 
   return (
     <>
-      <Container>
+      <Container style={{margin: 0, padding: 0}}>
         <Row>
           <Col sm="12" lg="6" className={styles.coluna}>
             {/* <Score balance={ balance1 }/> */}
