@@ -25,7 +25,9 @@ import { PesoContext } from "../../Context/pesoContext";
 
 export default function Challenge() {
   const [status, setStatus] = useState("Começar");
-  const [phase, setPhase] = useState(localStorage.getItem("fase") || "Fase de Teste");
+  const [phase, setPhase] = useState(
+    localStorage.getItem("fase") || "Fase de Teste"
+  );
 
   const [timerStarted, setTimerStarted] = useState(false);
   const navigate = useNavigate();
@@ -38,19 +40,43 @@ export default function Challenge() {
   useEffect(() => {
     localStorage.setItem("fase", phase);
     const updatedFormas = [
-      { imagem: quadrado, quantidade: 5, peso: parseInt(contextPeso[0]), onBalance: false },
-      { imagem: circulo, quantidade: 5, peso: parseInt(contextPeso[1]), onBalance: false },
-      { imagem: triangulo, quantidade: 5, peso: parseInt(contextPeso[2]), onBalance: false },
-      { imagem: pentagono, quantidade: 5, peso: parseInt(contextPeso[3]), onBalance: false },
-      { imagem: estrela, quantidade: 5, peso: parseInt(contextPeso[4]), onBalance: false },
-    ]
+      {
+        imagem: quadrado,
+        quantidade: 5,
+        peso: parseInt(contextPeso[0]),
+        onBalance: false,
+      },
+      {
+        imagem: circulo,
+        quantidade: 5,
+        peso: parseInt(contextPeso[1]),
+        onBalance: false,
+      },
+      {
+        imagem: triangulo,
+        quantidade: 5,
+        peso: parseInt(contextPeso[2]),
+        onBalance: false,
+      },
+      {
+        imagem: pentagono,
+        quantidade: 5,
+        peso: parseInt(contextPeso[3]),
+        onBalance: false,
+      },
+      {
+        imagem: estrela,
+        quantidade: 5,
+        peso: parseInt(contextPeso[4]),
+        onBalance: false,
+      },
+    ];
 
     localStorage.setItem("formas", JSON.stringify(updatedFormas));
   }, [phase]);
 
   useEffect(() => {
-    if (localStorage.getItem("fase") == "Desafio")
-      setStatus("Finalizar");
+    if (localStorage.getItem("fase") == "Desafio") setStatus("Finalizar");
     setTimerStarted(true);
   }, []);
 
@@ -69,11 +95,11 @@ export default function Challenge() {
     setContextPeso(newPesos);
   }, []);
 
-  const [fig1, setFig1] = useState(1);
-  const [fig2, setFig2] = useState(1);
-  const [fig3, setFig3] = useState(1);
-  const [fig4, setFig4] = useState(1);
-  const [fig5, setFig5] = useState(1);
+  const [fig1, setFig1] = useState("");
+  const [fig2, setFig2] = useState("");
+  const [fig3, setFig3] = useState("");
+  const [fig4, setFig4] = useState("");
+  const [fig5, setFig5] = useState("");
 
   async function playersToMongoDB() {
     var nome = localStorage.getItem("nome");
@@ -82,16 +108,14 @@ export default function Challenge() {
 
     const formas1 = localStorage.getItem("formas");
     const formas2 = JSON.parse(formas1);
-    const palpites = [fig1, fig2, fig3, fig4, fig5]
+    const palpites = [fig1, fig2, fig3, fig4, fig5];
 
     let count = 0;
 
-    formas2.forEach(element => {
+    formas2.forEach((element) => {
       console.log(palpites[count] + " = " + element.peso);
-      if (palpites[count] == element.peso)
-        palpites[count] = 2;
-      else
-        palpites[count] = 1;
+      if (palpites[count] == element.peso) palpites[count] = 2;
+      else palpites[count] = 1;
 
       count += 1;
     });
@@ -139,16 +163,37 @@ export default function Challenge() {
     setFig5("");
   }
 
+  function checkInputs() {
+    if (!fig1 || !fig2 || !fig3 || !fig4 || !fig5) return false;
+    return true;
+  }
+
   const startReal = async () => {
     if (status === "Finalizar") {
       if (window.confirm("Deseja Finalizar?")) {
+        if (!checkInputs()) {
+          alert("Não é possível finalizar a atividade com valores em branco.");
+          return;
+        }
         playersToMongoDB();
-        localStorage.clear()
+        localStorage.clear();
         navigate("/finished");
       }
     }
-    localStorage.setItem("balance1", JSON.stringify({ left: { total: 0, figures: {} }, right: { total: 0, figures: {} } }))
-    localStorage.setItem("balance2", JSON.stringify({ left: { total: 0, figures: {} }, right: { total: 0, figures: {} } }))
+    localStorage.setItem(
+      "balance1",
+      JSON.stringify({
+        left: { total: 0, figures: {} },
+        right: { total: 0, figures: {} },
+      })
+    );
+    localStorage.setItem(
+      "balance2",
+      JSON.stringify({
+        left: { total: 0, figures: {} },
+        right: { total: 0, figures: {} },
+      })
+    );
     setTimerStarted(true);
     setStatus("Finalizar");
     setPhase("Desafio");
@@ -213,6 +258,3 @@ export default function Challenge() {
     </div>
   );
 }
-
-
-
