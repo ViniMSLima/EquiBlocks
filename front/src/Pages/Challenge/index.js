@@ -35,6 +35,7 @@ export default function Challenge() {
 
   useEffect(() => {
     if(localStorage.getItem("fase") == "Desafio")
+      setStatus("Finalizar");
       setTimerStarted(true);
   }, []);
 
@@ -58,6 +59,10 @@ export default function Challenge() {
   const [fig3, setFig3] = useState("");
   const [fig4, setFig4] = useState("");
   const [fig5, setFig5] = useState("");
+
+  async function playersToMongoDB() {
+
+  }
 
   const startReal = async () => {
     if (status === "Finalizar") {
@@ -124,13 +129,6 @@ export default function Challenge() {
           setFig4("");
           setFig5("");
 
-          // localStorage.removeItem("formas")
-          // localStorage.removeItem("nome")
-          // localStorage.removeItem("data")
-          // localStorage.removeItem("tempo")
-          // localStorage.removeItem("balance1")
-          // localStorage.removeItem("balance2")
-          // localStorage.removeItem("playerInfo")
           localStorage.clear()
 
           navigate("/finished");
