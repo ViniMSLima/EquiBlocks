@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "./styles.module.scss";
 import logo from "../../Img/logo.png";
 import Input from "../../Components/Input";
@@ -9,6 +9,10 @@ export default function Home() {
 
   const [nome, setNome] = useState(localStorage.getItem('nome') || "");
   const [data, setData] = useState(localStorage.getItem('data') || "");
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   function play() {
     const d = new Date();
