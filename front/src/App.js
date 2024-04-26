@@ -13,9 +13,6 @@ import Header from "./Components/Header";
 import { TimerProvider } from "./Context/timerContext";
 import { PesoProvider } from "./Context/pesoContext";
 
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/react"
-
 function App() {
   return (
     <>
