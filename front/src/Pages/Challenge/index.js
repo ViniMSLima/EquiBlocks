@@ -102,7 +102,7 @@ export default function Challenge() {
         
         try {
           const res = await axios.post(
-            "https://10.196.20.101:8080/api/postplayer",
+            "http://10.196.20.101:8080/api/postplayer",
             playerInfo
             );
           } catch (error) {
