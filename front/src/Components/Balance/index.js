@@ -82,7 +82,7 @@ export default function Balance({ balance, balanca, handleDrop }) {
   const { balanceImage, hitboxStyles } = determineBalanceImage();
 
   return (
-    <div style={{ position: "relative", display: "inline-block" }}>
+    <div style={{ position: "relative", display: "inline-block", margin: "0.7em 0 1.9em 0"}}>
       <Container
         className={styles.hitbox1}
         style={hitboxStyles.hitbox1}
@@ -106,8 +106,8 @@ export default function Balance({ balance, balanca, handleDrop }) {
         style={{ zIndex: "1" }}
       />
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <p>Lado A: {balance.left.total}</p>
-        <p>Lado B: {balance.right.total}</p>
+        {/* <p>Lado A: {balance.left.total}</p> */}
+        {/* <p>Lado B: {balance.right.total}</p> */}
       </div>
     </div>
   );
