@@ -13,7 +13,7 @@ export default function ExcelGenerator() {
 
     async function getPlayers() {
         try {
-            const res = await axios.get('http://10.196.20.101:8080/api/getplayers');
+            const res = await axios.get('https://10.196.20.101:8080/api/getplayers');
             setPlayersData(res.data.players);
             setSortedData(res.data.players);
         } catch (error) {
@@ -45,7 +45,7 @@ export default function ExcelGenerator() {
 
     async function clearMongoDB() {
         try {
-            const res = await axios.get('http://10.196.20.101:8080/api/deleteplayers');
+            const res = await axios.get('https://10.196.20.101:8080/api/deleteplayers');
             setPlayersData([]);
             setSortedData([]);
         } catch (error) {
