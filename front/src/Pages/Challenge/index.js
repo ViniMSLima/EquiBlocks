@@ -123,12 +123,21 @@ export default function Challenge() {
           setFig3("");
           setFig4("");
           setFig5("");
+
+          // localStorage.removeItem("formas")
+          // localStorage.removeItem("nome")
+          // localStorage.removeItem("data")
+          // localStorage.removeItem("tempo")
+          // localStorage.removeItem("balance1")
+          // localStorage.removeItem("balance2")
+          // localStorage.removeItem("playerInfo")
+          localStorage.clear()
+
           navigate("/finished");
         }
       }
     localStorage.setItem("balance1", JSON.stringify({ left: { total: 0, figures: {} }, right: { total: 0, figures: {} } }))
     localStorage.setItem("balance2", JSON.stringify( { left: { total: 0, figures: {} }, right: { total: 0, figures: {} } }))
-    localStorage.removeItem("formas")
     setTimerStarted(true);
     setStatus("Finalizar");
     setPhase("Desafio");

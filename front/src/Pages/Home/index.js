@@ -11,9 +11,7 @@ export default function Home() {
   const [data, setData] = useState(localStorage.getItem('data') || "");
 
   function play() {
-
     const d = new Date();
-
     var bool = false;
 
     if(nome == 'Queila Lima' && data == '1111-11-11') {

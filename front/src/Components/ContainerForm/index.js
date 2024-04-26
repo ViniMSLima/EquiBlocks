@@ -66,7 +66,7 @@ export default function ContainerForm() {
   }, []);
 
   const handleDrop = (forma, balanca, lado) => {
-    // console.log(forma);
+    console.log(forma);
     if (!forma) return;
     forma = parseInt(forma);
     const formaKey = Object.keys(
@@ -101,6 +101,7 @@ export default function ContainerForm() {
       }
       return item;
     });
+    localStorage.setItem("formas", JSON.stringify(updatedFormas));
     setFormas(updatedFormas);
   };
 
