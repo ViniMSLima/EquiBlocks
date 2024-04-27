@@ -14,7 +14,7 @@
 
 .row {
     margin-top: 0.5em;
-     width: 100%; 
+    width: 100%;
 }
 
 .cardInputs {
@@ -57,4 +57,11 @@
     justify-content: center;
     align-items: center;
     font-family: "League Gothic", sans-serif;
-  }
+}
+
+
+@media screen and (max-width: 1850px) {
+    .title {
+        font-size: 3.2em;
+    }
+}

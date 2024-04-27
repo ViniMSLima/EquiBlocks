@@ -117,6 +117,7 @@ export default function ContainerForm() {
 
   return (
     <>
+    {console.log(formas)}
       <Container style={{margin: 0, padding: 0}}>
         <Row>
           <Col sm="12" lg="6" className={styles.coluna}>
@@ -131,7 +132,7 @@ export default function ContainerForm() {
           </Col>
         </Row>
       </Container>
-      <div className={styles.container}>
+      <Container className={styles.container}>
         <Row>
           {formas.map((item, index) => (
             <Col key={index}>
@@ -153,7 +154,7 @@ export default function ContainerForm() {
             </Col>
           ))}
         </Row>
-      </div>
+      </Container>
     </>
   );
 }

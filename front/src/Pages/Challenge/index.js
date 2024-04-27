@@ -199,12 +199,12 @@ export default function Challenge() {
     setPhase("Desafio");
   };
 
-  useEffect(() => {
-    if (contextTimer > 0) {
-      playersToMongoDB();
-      navigate("/finished");
-    }
-  }, [contextTimer]);
+  // useEffect(() => {
+  //   if (contextTimer > 0) {
+  //     playersToMongoDB();
+  //     navigate("/finished");
+  //   }
+  // }, [contextTimer]);
 
   useEffect(() => {
     if (prevPhaseRef.current !== phase && phase === "Desafio") {

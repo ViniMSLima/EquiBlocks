@@ -5,6 +5,12 @@
   position: relative;
 }
 
+.contorno {
+  position: relative;
+   display: inline-block;
+   margin: 0.7em 0 1.9em 0;
+}
+
 .hitbox1 {
   display: flex;
   flex-wrap: wrap;
@@ -51,4 +57,10 @@
   width: 0.25em;
   height: auto;
   order: -1;
+}
+
+@media screen and (max-width: 1400px) {
+  .contorno {
+    margin: 0;
+  }
 }

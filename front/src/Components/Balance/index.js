@@ -82,7 +82,7 @@ export default function Balance({ balance, balanca, handleDrop }) {
   const { balanceImage, hitboxStyles } = determineBalanceImage();
 
   return (
-    <div style={{ position: "relative", display: "inline-block", margin: "0.7em 0 1.9em 0"}}>
+    <div className={styles.contorno}>
       <Container
         className={styles.hitbox1}
         style={hitboxStyles.hitbox1}
