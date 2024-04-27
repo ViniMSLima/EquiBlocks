@@ -11,3 +11,17 @@
 //         height: 1em;
 //     }
 // }
+
+.button {
+    width: 100%;
+    height: 6%;
+    padding: 1em;
+    background-color: #007BC0;
+    color: white;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "League Gothic", sans-serif;
+}
