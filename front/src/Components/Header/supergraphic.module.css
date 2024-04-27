@@ -1,14 +1,14 @@
-.supergraphic{
+.supergraphic {
     background-image: url('./img/Bosch-Supergraphic_RGB.svg');
     background-repeat: no-repeat;
     height: 0.37rem;
     width: 100%;
-    background-position:center;
+    background-position: center;
     background-size: 100vw 100vh;
     object-fit: cover;
 }
 
-.logo{
+.logo {
     background-image: url('./img/Bosch_symbol_logo_black_red.svg');
     height: 5rem;
     position: relative;
@@ -19,4 +19,10 @@
     display: flex;
     background-repeat: no-repeat;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1400px) {
+    .logo {
+        height: 3rem;
+    }
 }
