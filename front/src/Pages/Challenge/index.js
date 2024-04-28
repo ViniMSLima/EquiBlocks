@@ -245,10 +245,7 @@ export default function Challenge() {
           <Container className={styles.cont}>
             <Col className={styles.title} sm="12" lg="10">
               <ContainerForm />
-
             </Col>
-
-
             <Col className={styles.inputCol} sm="10" lg="2">
               <Inputs
                 oC1={(e) => {
@@ -266,11 +263,9 @@ export default function Challenge() {
                 oC5={(e) => {
                   setFig5(e.target.value);
                 }}
-
                 status={status}
                 startReal={startReal}
               />
-
             </Col>
           </Container>
         </Row>

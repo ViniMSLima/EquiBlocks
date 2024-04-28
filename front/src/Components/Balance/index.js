@@ -44,13 +44,30 @@ export default function Balance({ balance, balanca, handleDrop }) {
   };
 
   const renderFigures = (figures) => {
-    return Object.entries(figures).map(([key, count]) => {
+    let allImages = Object.entries(figures).flatMap(([key, count]) => {
       const src = images[key];
       return [...Array(count)].map((_, index) => (
-        <img key={index} className={styles.forms} src={src} />
+        <img key={`${key}-${index}`} className={styles.forms} src={src} alt={key} />
       ));
     });
+    const groupSizes = [5, 4, 3, 2, 1];
+    let index = 0;
+    let groupedImages = [];
+    groupSizes.forEach(size => {
+      let group = allImages.slice(index, index + size);
+      if (group.length > 0) {
+        groupedImages.push(
+          <div key={`group-${size}`} className={styles.group}>
+            {group}
+          </div>
+        );
+      }
+      index += size;
+    });
+    return <div className={styles.figureContainer}>{groupedImages}</div>;
   };
+
+
 
   const determineBalanceImage = () => {
     let balanceImage;

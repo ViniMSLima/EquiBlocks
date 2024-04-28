@@ -21,13 +21,22 @@ export default function ContainerForm() {
 
   useEffect(() => {
     if (contextPeso.length === 5) {
-      setFormas([
-        { imagem: quadrado, quantidade: 5, peso: parseInt(contextPeso[0]), onBalance: false },
-        { imagem: circulo, quantidade: 5, peso: parseInt(contextPeso[1]), onBalance: false },
-        { imagem: triangulo, quantidade: 5, peso: parseInt(contextPeso[2]), onBalance: false },
-        { imagem: pentagono, quantidade: 5, peso: parseInt(contextPeso[3]), onBalance: false },
-        { imagem: estrela, quantidade: 5, peso: parseInt(contextPeso[4]), onBalance: false },
-      ]);
+      const formasIniciais = [
+        { imagem: quadrado, quantidade: 5, peso: contextPeso[0], onBalance: false },
+        { imagem: circulo, quantidade: 5, peso: contextPeso[1], onBalance: false },
+        { imagem: triangulo, quantidade: 5, peso: contextPeso[2], onBalance: false },
+        { imagem: pentagono, quantidade: 5, peso: contextPeso[3], onBalance: false },
+        { imagem: estrela, quantidade: 5, peso: contextPeso[4], onBalance: false },
+      ];
+
+      const middleIndex = Math.floor(formasIniciais.length / 2);
+      const index500 = formasIniciais.findIndex(forma => forma.peso === 500);
+
+      if (index500 !== -1 && index500 !== middleIndex) {
+        [formasIniciais[middleIndex], formasIniciais[index500]] = [formasIniciais[index500], formasIniciais[middleIndex]];
+      }
+
+      setFormas(formasIniciais);
     }
   }, [contextPeso]);
 
