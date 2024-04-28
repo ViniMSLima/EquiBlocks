@@ -14,8 +14,8 @@ export default function ShapeInput({ shapeImg, shapeValue, oC }) {
         <img src={shapeImg} className={styles.imgFormat} onDragStart={preventDragHandler} alt="Shape"></img>
         <div className={styles.text}>
           <Form>
-            <Form.Group controlId="Input">
-              <Form.Control type="number" placeholder="???" onChange={oC}/>
+            <Form.Group controlId="Input" className={styles.centralize}>
+              <Form.Control className={styles.input} type="number" placeholder="???" onChange={oC}/>
             </Form.Group>
           </Form>
         </div>

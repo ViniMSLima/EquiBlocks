@@ -7,3 +7,9 @@
 .logo {
   width: 18em;
 }
+
+@media screen and (max-width: 1850px) {
+  .logo {
+    width: 14em;
+  }
+}

@@ -19,4 +19,18 @@
     height: -webkit-fill-available;
 }
 
+.centralize {
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1500px) {
+    .imgFormat {
+        width: 0.7em;
+    }
+
+    .input {
+        width: 90%;
+    }
+}
 
