@@ -25,6 +25,9 @@ import { PesoContext } from "../../Context/pesoContext";
 
 export default function Challenge() {
   const [status, setStatus] = useState("Começar");
+  const [tempoDeTeste, setTempoDeTeste] = useState(4);
+  const [tempoDesafio, setTempoDesafio] = useState(29);
+
   const [phase, setPhase] = useState(
     localStorage.getItem("fase") || "Fase de Teste"
   );
@@ -95,11 +98,11 @@ export default function Challenge() {
     setContextPeso(newPesos);
   }, []);
 
-  const [fig1, setFig1] = useState("");
-  const [fig2, setFig2] = useState("");
-  const [fig3, setFig3] = useState("");
-  const [fig4, setFig4] = useState("");
-  const [fig5, setFig5] = useState("");
+  const [fig1, setFig1] = useState(1);
+  const [fig2, setFig2] = useState(1);
+  const [fig3, setFig3] = useState(1);
+  const [fig4, setFig4] = useState(1);
+  const [fig5, setFig5] = useState(1);
 
   async function playersToMongoDB() {
     var nome = localStorage.getItem("nome");
@@ -199,12 +202,18 @@ export default function Challenge() {
     setPhase("Desafio");
   };
 
-  // useEffect(() => {
-  //   if (contextTimer > 0) {
-  //     playersToMongoDB();
-  //     navigate("/finished");
-  //   }
-  // }, [contextTimer]);
+  useEffect(() => {
+    const fase = localStorage.getItem("fase");
+    if (contextTimer > tempoDeTeste && fase == "Fase de Teste") {
+      alert("Tempo finalizado! Redirecionando para o Desafio")
+      startReal();
+    }
+    else if (contextTimer > tempoDesafio) {
+      playersToMongoDB();
+      navigate("/finished");
+    }
+
+  }, [contextTimer]);
 
   useEffect(() => {
     if (prevPhaseRef.current !== phase && phase === "Desafio") {
@@ -222,14 +231,24 @@ export default function Challenge() {
         <Col className={styles.title} sm="12" lg="4">
           {phase}
         </Col>
-        <Col></Col>
+        <Col className={styles.btn}>
+          <div
+            className={styles.button}
+            onClick={startReal}
+          >
+            {status}
+          </div>
+        </Col>
       </Row>
       <div>
         <Row className={styles.row}>
           <Container className={styles.cont}>
             <Col className={styles.title} sm="12" lg="10">
               <ContainerForm />
+
             </Col>
+
+
             <Col className={styles.inputCol} sm="10" lg="2">
               <Inputs
                 oC1={(e) => {
@@ -247,10 +266,11 @@ export default function Challenge() {
                 oC5={(e) => {
                   setFig5(e.target.value);
                 }}
+
+                status={status}
+                startReal={startReal}
               />
-              <div className={styles.button} onClick={startReal}>
-                {status}
-              </div>
+
             </Col>
           </Container>
         </Row>

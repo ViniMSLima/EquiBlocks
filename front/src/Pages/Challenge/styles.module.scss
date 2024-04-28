@@ -46,10 +46,10 @@
 }
 
 .button {
-    position: fixed;
-    bottom: 0.5em;
-    // width: 10em;
-    height: 1.5em;
+    width: 52%;
+    height: 80%;
+    padding: 1em;
+    font-size: 160%;
     background-color: #007BC0;
     color: white;
     border: 1px solid #ccc;
@@ -58,6 +58,11 @@
     justify-content: center;
     align-items: center;
     font-family: "League Gothic", sans-serif;
+}
+
+.btn {
+    display: flex;
+    justify-content: flex-end;
 }
 
 

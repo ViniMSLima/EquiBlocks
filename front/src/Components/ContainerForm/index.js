@@ -65,7 +65,6 @@ export default function ContainerForm() {
   document.addEventListener("keydown", handleKeyDown);
   
   const handleDrop = (forma, balanca, lado) => {
-    console.log(forma);
     if (!forma) return;
     forma = parseInt(forma);
     const formaKey = Object.keys(
@@ -117,7 +116,6 @@ export default function ContainerForm() {
 
   return (
     <>
-    {console.log(formas)}
       <Container style={{margin: 0, padding: 0}}>
         <Row>
           <Col sm="12" lg="6" className={styles.coluna}>
