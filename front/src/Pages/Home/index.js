@@ -25,7 +25,7 @@ export default function Home() {
       return;
     }
 
-    if (nome == "" || data == "") {
+    if (nome == "" || data == "" || nome.trim().length < 3) {
       alert("Nome ou Data inválidos");
       bool = true;
     }
