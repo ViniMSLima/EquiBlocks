@@ -43,14 +43,14 @@ export default function Header() {
         <Void />
         <Links>
           <div onClick={toggleModal}>
-            <img className={styles.request} src={request} alt="Request" />
+            <img className={styles.request} src={request} alt="Request" draggable={"false"}/>
           </div>
         </Links>
       </Row>
       <Outlet />
       {modalOpen && (
         <div className={styles.modal} ref={modalRef} tabIndex={-1}>
-          <img className={styles.help} src={help} alt="Help" />
+          <img className={styles.help} src={help} alt="Help" draggable={"false"}/>
         </div>
       )}
     </>
