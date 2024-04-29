@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 
 import { PesoContext } from "../../Context/pesoContext";
+import Button from "../Button/index"
 
 import Container from "react-bootstrap/Container";
 import styles from "./styles.module.scss";
@@ -170,15 +171,15 @@ export default function ContainerForm() {
             {/* <Score balance={ balance2 }/> */}
           </Col>
         </Row>
-        {phase === "Fase de Teste" ? (
-          <div
-            className={styles.button}
-            onClick={clearBalance}
-          >
-            Limpar Balanças
-          </div>
-        ) : null}
       </Container>
+      {phase === "Fase de Teste" ? (
+        <div
+          className={styles.button}
+          onClick={clearBalance}
+        >
+          Limpar Balanças
+        </div>
+      ) : null}
       <Container className={styles.container}>
         <Row>
           {formas.map((item, index) => (
@@ -200,12 +201,8 @@ export default function ContainerForm() {
               </div>
             </Col>
           ))}
-
-
         </Row>
-
       </Container>
-
     </>
   );
 }

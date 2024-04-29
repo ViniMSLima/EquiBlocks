@@ -56,13 +56,12 @@
 // }
 
 .button {
-  width: 8em;
-  height: 4.1em;
+  position: relative;
+  bottom: 7em;
+  width: 6em;
+  height: 1.6em;
   padding: 0.1em;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  font-size: 0.5em;
+  font-size: 0.4em;
   background-color: #007BC0;
   color: white;
   border: 1px solid #ccc;
@@ -71,4 +70,11 @@
   justify-content: center;
   align-items: center;
   font-family: "League Gothic", sans-serif;
+  z-index: 400;
+}
+
+@media screen and (max-width: 1400px) {
+  .button {
+    bottom: 2em;
+  }
 }
