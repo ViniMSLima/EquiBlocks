@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import logo from "../../Img/logo.png";
 import Input from "../../Components/Input";
@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
-  sessionStorage.setItem("paginaRecarregada", false);
-  const [nome, setNome] = useState(localStorage.getItem('nome') || "");
-  const [data, setData] = useState(localStorage.getItem('data') || "");
+
+  const [nome, setNome] = useState("");
+  const [data, setData] = useState("");
 
   useEffect(() => {
     localStorage.clear();
@@ -18,31 +18,31 @@ export default function Home() {
     const d = new Date();
     var bool = false;
 
-    if(nome === 'Queila Lima' && data === '1111-11-11') {
-      localStorage.setItem('nome', nome);
-      localStorage.setItem('data', data);
-      navigate('/results')
+    if (nome === "Queila Lima" && data === "1111-11-11") {
+      localStorage.setItem("nome", nome);
+      localStorage.setItem("data", data);
+      navigate("/results");
       return;
     }
 
-    if (nome === "" || data === "") {
+    if (nome == "" || data == "") {
       alert("Nome ou Data inválidos");
       bool = true;
     }
 
     if (parseInt(data.substr(0, 4)) < d.getFullYear() - 22) {
-      alert("Ano inválido! Idade máxima: 22")
+      alert("Ano inválido! Idade máxima: 22");
       bool = true;
     }
 
     if (parseInt(data.substr(0, 4)) > d.getFullYear() - 16) {
-      alert("Ano inválido! Idade mínima: 16")
+      alert("Ano inválido! Idade mínima: 16");
       bool = true;
     }
 
     if (bool === false) {
-      localStorage.setItem('nome', nome);
-      localStorage.setItem('data', data);
+      localStorage.setItem("nome", nome);
+      localStorage.setItem("data", data);
       navigate("/challenge");
     }
   }
@@ -65,7 +65,9 @@ export default function Home() {
           onChange={(e) => setData(e.target.value)}
         />
       </div>
-      <button label="JOGAR" onClick={play}>JOGAR</button>
+      <button label="JOGAR" onClick={play}>
+        JOGAR
+      </button>
     </div>
   );
 }
