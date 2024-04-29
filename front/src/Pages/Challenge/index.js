@@ -22,6 +22,13 @@ import { TimerContext } from "../../Context/timerContext";
 import { PesoContext } from "../../Context/pesoContext";
 
 export default function Challenge() {
+  window.addEventListener(
+    "DOMContentLoaded",
+    function () {
+      this.window.location.reload();
+    },
+    { once: true }
+  );
   const [status, setStatus] = useState("Começar");
   const [tempoDeTeste] = useState(4);
   const [tempoDesafio] = useState(29);
@@ -76,7 +83,6 @@ export default function Challenge() {
     localStorage.setItem("formas", JSON.stringify(updatedFormas));
   }, [phase]);
 
-
   useEffect(() => {
     if (localStorage.getItem("fase") === "Desafio") setStatus("Finalizar");
     setTimerStarted(true);
@@ -111,7 +117,7 @@ export default function Challenge() {
     const palpites = [fig1, fig2, fig3, fig4, fig5];
 
     let middleIndex = Math.floor(palpites.length / 2);
-    let index500 = palpites.findIndex(form => form === 1);
+    let index500 = palpites.findIndex((form) => form === 1);
 
     if (index500 !== -1 && index500 !== middleIndex) {
       let temp = palpites[middleIndex];
@@ -144,10 +150,7 @@ export default function Challenge() {
       //   "http://10.196.20.101:8080/api/postplayer",
       //   playerInfo
       //   );
-      await axios.post(
-        "http://localhost:8080/api/postplayer",
-        playerInfo
-      );
+      await axios.post("http://localhost:8080/api/postplayer", playerInfo);
     } catch (error) {
       console.error("Error fetching game data:", error);
     }
@@ -171,16 +174,14 @@ export default function Challenge() {
   function checkInputs() {
     const palpites = [fig1, fig2, fig3, fig4, fig5];
     let count = 0;
-    palpites.forEach(palpite => {
+    palpites.forEach((palpite) => {
       if (palpite == 1) {
         count += 1;
       }
     });
 
-    if (count > 1)
-      return false;
-    else 
-      return true;
+    if (count > 1) return false;
+    else return true;
   }
 
   const startReal = async () => {
@@ -217,14 +218,12 @@ export default function Challenge() {
   useEffect(() => {
     const fase = localStorage.getItem("fase");
     if (contextTimer > tempoDeTeste && fase === "Fase de Teste") {
-      alert("Tempo finalizado! Redirecionando para o Desafio")
+      alert("Tempo finalizado! Redirecionando para o Desafio");
       startReal();
-    }
-    else if (contextTimer > tempoDesafio) {
+    } else if (contextTimer > tempoDesafio) {
       playersToMongoDB();
       navigate("/finished");
     }
-
   }, [contextTimer]);
 
   useEffect(() => {
@@ -244,10 +243,7 @@ export default function Challenge() {
           {phase}
         </Col>
         <Col className={styles.btn}>
-          <div
-            className={styles.button}
-            onClick={startReal}
-          >
+          <div className={styles.button} onClick={startReal}>
             {status}
           </div>
         </Col>
