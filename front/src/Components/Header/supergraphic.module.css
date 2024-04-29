@@ -63,4 +63,9 @@
         z-index: 800;
     }
 
+    .request {
+       width: 1.5em;
+        
+    }
+
 }

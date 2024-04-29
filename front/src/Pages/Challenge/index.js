@@ -22,11 +22,13 @@ import { TimerContext } from "../../Context/timerContext";
 import { PesoContext } from "../../Context/pesoContext";
 
 export default function Challenge() {
-  if (!sessionStorage.getItem("paginaRecarregada")) {
-    sessionStorage.setItem("paginaRecarregada", true);
-    window.location.reload();
-  }
-
+  window.addEventListener(
+    "DOMContentLoaded",
+    function () {
+      this.window.location.reload();
+    },
+    { once: true }
+  );
   const [status, setStatus] = useState("Começar");
   const [tempoDeTeste] = useState(4);
   const [tempoDesafio] = useState(29);

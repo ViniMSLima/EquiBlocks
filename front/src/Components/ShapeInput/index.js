@@ -22,6 +22,7 @@ export default function ShapeInput({ shapeImg, shapeValue, oC }) {
                 value={inputValue}
                 placeholder="???"
                 onChange={oC}
+                onDragOver={(e) => e.preventDefault()}
                 disabled={isDisabled}
               />
             </Form.Group>
