@@ -18,6 +18,7 @@ export const Row = styled.div`
 export const Links = styled.div`
     align-self: center;
     display: flex;
+    justify-content: flex-end;
     gap: 1rem;
 `;
 
