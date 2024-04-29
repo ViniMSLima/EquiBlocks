@@ -114,7 +114,7 @@ export default function Challenge() {
     const palpites = [fig1, fig2, fig3, fig4, fig5];
 
     let middleIndex = Math.floor(palpites.length / 2);
-    let index500 = palpites.findIndex(form => form === 1);  
+    let index500 = palpites.findIndex(form => form === 1);
 
     if (index500 !== -1 && index500 !== middleIndex) {
       let temp = palpites[middleIndex];
@@ -206,6 +206,23 @@ export default function Challenge() {
     setTimerStarted(true);
     setStatus("Finalizar");
     setPhase("Desafio");
+  };
+
+  const clearScales = () => {
+    localStorage.setItem(
+      "balance1",
+      JSON.stringify({
+        left: { total: 0, figures: {} },
+        right: { total: 0, figures: {} },
+      })
+    );
+    localStorage.setItem(
+      "balance2",
+      JSON.stringify({
+        left: { total: 0, figures: {} },
+        right: { total: 0, figures: {} },
+      })
+    );
   };
 
   useEffect(() => {

@@ -18,6 +18,7 @@ export default function ContainerForm() {
   const { contextPeso, setContextPeso } = useContext(PesoContext);
   const newPesos = contextPeso;
   const [formas, setFormas] = useState([]);
+  const [phase, setPhase] = useState("");
 
   useEffect(() => {
     if (contextPeso.length === 5) {
@@ -39,6 +40,10 @@ export default function ContainerForm() {
       setFormas(formasIniciais);
     }
   }, [contextPeso]);
+
+  useEffect(() => {
+    setPhase(localStorage.getItem("fase"));
+  }, [])
 
   const [balance1, setBalance1] = useState(
     getLocalStorageItem("balance1", {
@@ -72,7 +77,7 @@ export default function ContainerForm() {
   disableF5.current = handleKeyDown;
 
   document.addEventListener("keydown", handleKeyDown);
-  
+
   const handleDrop = (forma, balanca, lado) => {
     if (!forma) return;
     forma = parseInt(forma);
@@ -123,9 +128,38 @@ export default function ContainerForm() {
     }
   };
 
+  const clearBalance = () => {
+
+
+    setBalance1(getLocalStorageItem("balance1", {
+      left: { total: 0, figures: {} },
+      right: { total: 0, figures: {} },
+    }));
+
+    setBalance2(getLocalStorageItem("balance2", {
+      left: { total: 0, figures: {} },
+      right: { total: 0, figures: {} },
+    }));
+
+    localStorage.setItem(
+      "balance1",
+      JSON.stringify({
+        left: { total: 0, figures: {} },
+        right: { total: 0, figures: {} },
+      })
+    );
+    localStorage.setItem(
+      "balance2",
+      JSON.stringify({
+        left: { total: 0, figures: {} },
+        right: { total: 0, figures: {} },
+      })
+    );
+  }
+
   return (
     <>
-      <Container style={{margin: 0, padding: 0}}>
+      <Container style={{ margin: 0, padding: 0 }}>
         <Row>
           <Col sm="12" lg="6" className={styles.coluna}>
             {/* <Score balance={ balance1 }/> */}
@@ -138,6 +172,14 @@ export default function ContainerForm() {
             {/* <Score balance={ balance2 }/> */}
           </Col>
         </Row>
+        {phase === "Fase de Teste" ? (
+          <div
+            className={styles.button}
+            onClick={clearBalance}
+          >
+            Limpar Balanças
+          </div>
+        ) : null}
       </Container>
       <Container className={styles.container}>
         <Row>
@@ -160,8 +202,12 @@ export default function ContainerForm() {
               </div>
             </Col>
           ))}
+
+
         </Row>
+
       </Container>
+
     </>
   );
 }

@@ -54,3 +54,19 @@
 //     font-size: 0.3em;
 //   }
 // }
+
+.button {
+  width: 17%;
+  height: 18%;
+  padding: 0.1em;
+  margin: 10px;
+  font-size: 50%;
+  background-color: #007BC0;
+  color: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "League Gothic", sans-serif;
+}
