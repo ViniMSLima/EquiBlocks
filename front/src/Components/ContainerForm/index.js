@@ -12,11 +12,9 @@ import circulo from "../../Img/formas/circle.png";
 import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
-import Score from "../Score";
 
 export default function ContainerForm() {
-  const { contextPeso, setContextPeso } = useContext(PesoContext);
-  const newPesos = contextPeso;
+  const { contextPeso } = useContext(PesoContext);
   const [formas, setFormas] = useState([]);
   const [phase, setPhase] = useState("");
 
@@ -63,9 +61,7 @@ export default function ContainerForm() {
     return item ? JSON.parse(item) : defaultValue;
   }
 
-  function updateLocalStorageItem(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-  }
+
   const disableF5 = useRef(null);
 
   const handleKeyDown = (event) => {

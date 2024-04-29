@@ -18,14 +18,14 @@ export default function Home() {
     const d = new Date();
     var bool = false;
 
-    if(nome == 'Queila Lima' && data == '1111-11-11') {
+    if(nome === 'Queila Lima' && data === '1111-11-11') {
       localStorage.setItem('nome', nome);
       localStorage.setItem('data', data);
       navigate('/results')
       return;
     }
 
-    if (nome == "" || data == "") {
+    if (nome === "" || data === "") {
       alert("Nome ou Data inválidos");
       bool = true;
     }
@@ -40,7 +40,7 @@ export default function Home() {
       bool = true;
     }
 
-    if (bool == false) {
+    if (bool === false) {
       localStorage.setItem('nome', nome);
       localStorage.setItem('data', data);
       navigate("/challenge");

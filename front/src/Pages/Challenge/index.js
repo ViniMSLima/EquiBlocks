@@ -9,8 +9,6 @@ import ContainerForm from "../../Components/ContainerForm";
 import styles from "./styles.module.scss";
 import Timer from "../../Components/Timer";
 import Inputs from "../../Components/InputsArea";
-import Balance from "../../Components/Balance";
-import ExcelGenerator from "../../Components/ExcelGenerator";
 
 import quadrado from "../../Img/formas/square.png";
 import circulo from "../../Img/formas/circle.png";
@@ -25,8 +23,8 @@ import { PesoContext } from "../../Context/pesoContext";
 
 export default function Challenge() {
   const [status, setStatus] = useState("Começar");
-  const [tempoDeTeste, setTempoDeTeste] = useState(4);
-  const [tempoDesafio, setTempoDesafio] = useState(29);
+  const [tempoDeTeste] = useState(4);
+  const [tempoDesafio] = useState(29);
 
   const [phase, setPhase] = useState(
     localStorage.getItem("fase") || "Fase de Teste"
@@ -35,7 +33,7 @@ export default function Challenge() {
   const [timerStarted, setTimerStarted] = useState(false);
   const navigate = useNavigate();
 
-  const { contextTimer, setContextTimer } = useContext(TimerContext);
+  const { contextTimer } = useContext(TimerContext);
   const { contextPeso, setContextPeso } = useContext(PesoContext);
 
   const prevPhaseRef = useRef(phase);
@@ -79,7 +77,7 @@ export default function Challenge() {
   }, [phase]);
 
   useEffect(() => {
-    if (localStorage.getItem("fase") == "Desafio") setStatus("Finalizar");
+    if (localStorage.getItem("fase") === "Desafio") setStatus("Finalizar");
     setTimerStarted(true);
   }, []);
 
@@ -124,7 +122,7 @@ export default function Challenge() {
 
     let count = 0;
     formas2.forEach((element) => {
-      if (palpites[count] == element.peso) palpites[count] = 2;
+      if (palpites[count] === element.peso) palpites[count] = 2;
       else palpites[count] = 1;
 
       count += 1;
@@ -147,7 +145,7 @@ export default function Challenge() {
       //   "http://10.196.20.101:8080/api/postplayer",
       //   playerInfo
       //   );
-      const res = await axios.post(
+      await axios.post(
         "http://localhost:8080/api/postplayer",
         playerInfo
       );
@@ -175,7 +173,7 @@ export default function Challenge() {
     const palpites = [fig1, fig2, fig3, fig4, fig5];
     let count = 0;
     palpites.forEach(palpite => {
-      if (palpite == 1) {
+      if (palpite === 1) {
         count += 1;
       }
     });
@@ -217,26 +215,9 @@ export default function Challenge() {
     setPhase("Desafio");
   };
 
-  const clearScales = () => {
-    localStorage.setItem(
-      "balance1",
-      JSON.stringify({
-        left: { total: 0, figures: {} },
-        right: { total: 0, figures: {} },
-      })
-    );
-    localStorage.setItem(
-      "balance2",
-      JSON.stringify({
-        left: { total: 0, figures: {} },
-        right: { total: 0, figures: {} },
-      })
-    );
-  };
-
   useEffect(() => {
     const fase = localStorage.getItem("fase");
-    if (contextTimer > tempoDeTeste && fase == "Fase de Teste") {
+    if (contextTimer > tempoDeTeste && fase === "Fase de Teste") {
       alert("Tempo finalizado! Redirecionando para o Desafio")
       startReal();
     }
