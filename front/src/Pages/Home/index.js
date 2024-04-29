@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
-
+  sessionStorage.setItem("paginaRecarregada", false);
   const [nome, setNome] = useState(localStorage.getItem('nome') || "");
   const [data, setData] = useState(localStorage.getItem('data') || "");
 
