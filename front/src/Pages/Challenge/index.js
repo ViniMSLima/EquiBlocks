@@ -113,17 +113,23 @@ export default function Challenge() {
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
 
-    let count = 0;
+    let middleIndex = Math.floor(palpites.length / 2);
+    let index500 = palpites.findIndex(form => form === 1);  
 
+    if (index500 !== -1 && index500 !== middleIndex) {
+      let temp = palpites[middleIndex];
+      palpites[middleIndex] = palpites[index500];
+      palpites[index500] = temp;
+    }
+
+    let count = 0;
     formas2.forEach((element) => {
-      console.log(palpites[count] + " = " + element.peso);
+      // console.log(palpites[count] + " = " + element.peso);
       if (palpites[count] == element.peso) palpites[count] = 2;
       else palpites[count] = 1;
 
       count += 1;
     });
-
-    // console.log(palpites);
 
     const playerInfo = {
       nome,
@@ -131,7 +137,7 @@ export default function Challenge() {
       tempo,
       f1: parseInt(palpites[0]),
       f2: parseInt(palpites[1]),
-      f3: parseInt(palpites[2]),
+      f3: parseInt(palpites[2] + 1),
       f4: parseInt(palpites[3]),
       f5: parseInt(palpites[4]),
     };

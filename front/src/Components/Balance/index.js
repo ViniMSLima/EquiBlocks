@@ -9,8 +9,6 @@ import circulo from "../../Img/formas/circle.png";
 import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
-import Row from "react-bootstrap/esm/Row";
-import Col from "react-bootstrap/Col";
 
 import { useContext } from "react";
 import { PesoContext } from "../../Context/pesoContext";
@@ -66,8 +64,6 @@ export default function Balance({ balance, balanca, handleDrop }) {
     });
     return <div className={styles.figureContainer}>{groupedImages}</div>;
   };
-
-
 
   const determineBalanceImage = () => {
     let balanceImage;

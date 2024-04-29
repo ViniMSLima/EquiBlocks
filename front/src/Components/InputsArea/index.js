@@ -30,7 +30,6 @@ export default function Inputs({ oC1, oC2, oC3, oC4, oC5 }) {
 
   return (
     <>
-    {console.log(contextPeso)}
       <div className={styles.card}>
         {shapes.map((shape, index) => (
           <ShapeInput key={index} oC={shape.oC} shapeImg={shape.shapeImg} shapeValue={shape.shapeValue} />
