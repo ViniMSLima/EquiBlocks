@@ -76,12 +76,11 @@ export default function Challenge() {
     localStorage.setItem("formas", JSON.stringify(updatedFormas));
   }, [phase]);
 
+
   useEffect(() => {
     if (localStorage.getItem("fase") === "Desafio") setStatus("Finalizar");
     setTimerStarted(true);
-  }, []);
 
-  useEffect(() => {
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
