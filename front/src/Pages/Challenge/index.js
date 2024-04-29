@@ -121,7 +121,7 @@ export default function Challenge() {
 
     let count = 0;
     formas2.forEach((element) => {
-      if (palpites[count] === element.peso) palpites[count] = 2;
+      if (palpites[count] == element.peso) palpites[count] = 2;
       else palpites[count] = 1;
 
       count += 1;
@@ -172,7 +172,7 @@ export default function Challenge() {
     const palpites = [fig1, fig2, fig3, fig4, fig5];
     let count = 0;
     palpites.forEach(palpite => {
-      if (palpite === 1) {
+      if (palpite == 1) {
         count += 1;
       }
     });
@@ -228,7 +228,7 @@ export default function Challenge() {
   }, [contextTimer]);
 
   useEffect(() => {
-    if (prevPhaseRef.current !== phase && phase === "Desafio") {
+    if (prevPhaseRef.current !== phase && phase == "Desafio") {
       window.location.reload();
     }
     prevPhaseRef.current = phase;
