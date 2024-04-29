@@ -9,7 +9,7 @@ import star from '../../Img/formas/star.png';
 import triangle from '../../Img/formas/triangulo.png';
 
 export default function Inputs({ oC1, oC2, oC3, oC4, oC5 }) {
-  const { contextPeso, setContextPeso } = useContext(PesoContext);
+  const { contextPeso } = useContext(PesoContext);
   const shapes = useMemo(() => {
     const shapeList = [
       { shapeImg: square, shapeValue: contextPeso[0], oC: oC1 },

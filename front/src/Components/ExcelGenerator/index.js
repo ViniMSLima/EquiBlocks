@@ -49,7 +49,6 @@ export default function ExcelGenerator() {
         try {
             //id do senai
             // const res = await axios.get('http://10.196.20.101:8080/api/deleteplayers');
-            await axios.get('http://localhost:8080/api/deleteplayers');
             setPlayersData([]);
             setSortedData([]);
         } catch (error) {
