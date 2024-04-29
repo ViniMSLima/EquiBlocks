@@ -126,6 +126,9 @@ export default function ContainerForm() {
 
   const clearBalance = () => {
 
+    formas.map((item) => {
+      item.quantidade = 5;
+    });
 
     setBalance1(getLocalStorageItem("balance1", {
       left: { total: 0, figures: {} },
