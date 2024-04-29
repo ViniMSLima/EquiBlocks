@@ -14,7 +14,7 @@ import { useContext } from "react";
 import { PesoContext } from "../../Context/pesoContext";
 
 export default function Balance({ balance, balanca, handleDrop }) {
-  const { contextPeso, setContextPeso } = useContext(PesoContext);
+  const { contextPeso } = useContext(PesoContext);
 
   const pesos = contextPeso;
   const images = {
