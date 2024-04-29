@@ -45,7 +45,7 @@ export default function Balance({ balance, balanca, handleDrop }) {
     let allImages = Object.entries(figures).flatMap(([key, count]) => {
       const src = images[key];
       return [...Array(count)].map((_, index) => (
-        <img key={`${key}-${index}`} className={styles.forms} src={src} alt={key} />
+        <img key={`${key}-${index}`} className={styles.forms} src={src} alt={key} draggable="false"/>
       ));
     });
     const groupSizes = [5, 4, 3, 2, 1];
@@ -117,6 +117,7 @@ export default function Balance({ balance, balanca, handleDrop }) {
         src={balanceImage}
         alt="Balance"
         style={{ zIndex: "1" }}
+        draggable={"false"}
       />
       <div style={{ display: "flex", flexDirection: "column" }}>
         {/* <p>Lado A: {balance.left.total}</p> */}
