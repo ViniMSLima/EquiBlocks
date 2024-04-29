@@ -124,7 +124,6 @@ export default function Challenge() {
 
     let count = 0;
     formas2.forEach((element) => {
-      // console.log(palpites[count] + " = " + element.peso);
       if (palpites[count] == element.peso) palpites[count] = 2;
       else palpites[count] = 1;
 
@@ -173,8 +172,18 @@ export default function Challenge() {
   }
 
   function checkInputs() {
-    if (!fig1 || !fig2 || !fig3 || !fig4 || !fig5) return false;
-    return true;
+    const palpites = [fig1, fig2, fig3, fig4, fig5];
+    let count = 0;
+    palpites.forEach(palpite => {
+      if (palpite == 1) {
+        count += 1;
+      }
+    });
+
+    if (count > 1)
+      return false;
+    else 
+      return true;
   }
 
   const startReal = async () => {
