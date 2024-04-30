@@ -20,6 +20,8 @@ export default function ContainerForm() {
   const [phase, setPhase] = useState("Fase de Teste");
 
   useEffect(() => {
+    setPhase(localStorage.getItem("fase"));
+    console.log(localStorage.getItem("fase"));
     if (contextPeso.length === 5) {
       const formasIniciais = [
         { imagem: quadrado, quantidade: 5, peso: contextPeso[0], onBalance: false },
@@ -40,9 +42,10 @@ export default function ContainerForm() {
     }
   }, [contextPeso]);
 
-  useEffect(() => {
-    setPhase(localStorage.getItem("fase"));
-  }, [])
+  // useEffect(() => {
+    // setPhase(localStorage.getItem("fase"));
+    // console.log(localStorage.getItem("fase"));
+  // }, [])
 
   const [balance1, setBalance1] = useState(
     getLocalStorageItem("balance1", {
@@ -172,7 +175,7 @@ export default function ContainerForm() {
           </Col>
         </Row>
       </Container>
-      {phase === "Fase de Teste" ? (
+      {phase != "Desafio" ? (
         <div
           className={styles.button}
           onClick={clearBalance}
