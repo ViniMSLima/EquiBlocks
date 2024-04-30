@@ -17,7 +17,7 @@ import estrela from "../../Img/formas/star.png";
 export default function ContainerForm() {
   const { contextPeso } = useContext(PesoContext);
   const [formas, setFormas] = useState([]);
-  const [phase, setPhase] = useState("");
+  const [phase, setPhase] = useState("Fase de Teste");
 
   useEffect(() => {
     if (contextPeso.length === 5) {
