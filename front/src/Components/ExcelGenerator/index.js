@@ -3,6 +3,8 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import axios from 'axios';
 
+import { apiEquiblocks } from '../../api/apiEquiblocks';
+
 import './ExcelGenerator.css';
 
 export default function ExcelGenerator() {
@@ -15,9 +17,23 @@ export default function ExcelGenerator() {
         try {
             //IP do senai
             // const res = await axios.get('http://10.196.20.101:8080/api/getplayers');
-            const res = await axios.get('http://localhost:8080/api/getplayers');
-            setPlayersData(res.data.players);
-            setSortedData(res.data.players);
+            // const res = await axios.get('/getplayers');
+
+            apiEquiblocks.get(`/getplayers`).then((response) => {
+                if (!response.data.players) {
+                    console.log("Vazio")
+                }
+
+                else {
+                    console.log(response)
+                    setPlayersData(response.data.players);
+                    setSortedData(response.data.players);
+                }
+            }).catch((error) => {
+                console.log("Error fetching players data:")
+                console.error(error)
+            })
+
         } catch (error) {
             console.error('Error fetching game data:', error);
         }
@@ -126,11 +142,11 @@ export default function ExcelGenerator() {
                                     <td>{player.nome}</td>
                                     <td>{player.data}</td>
                                     <td>{player.tempo}</td>
-                                    <td style={{ backgroundColor: player.f1 === 2 ? '#C6F7D0' : '#FFC6C6'}}></td>
-                                    <td style={{ backgroundColor: player.f2 === 2 ? '#C6F7D0' : '#FFC6C6'}}></td>
-                                    <td style={{ backgroundColor: player.f3 === 2 ? '#C6F7D0' : '#FFC6C6'}}></td>
-                                    <td style={{ backgroundColor: player.f4 === 2 ? '#C6F7D0' : '#FFC6C6'}}></td>
-                                    <td style={{ backgroundColor: player.f5 === 2 ? '#C6F7D0' : '#FFC6C6'}}></td>
+                                    <td style={{ backgroundColor: player.f1 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
+                                    <td style={{ backgroundColor: player.f2 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
+                                    <td style={{ backgroundColor: player.f3 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
+                                    <td style={{ backgroundColor: player.f4 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
+                                    <td style={{ backgroundColor: player.f5 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
                                 </tr>
                             ))}
                         </tbody>

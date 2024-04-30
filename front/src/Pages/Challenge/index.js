@@ -17,6 +17,7 @@ import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 
 import axios from "axios";
+import { apiEquiblocks } from "../../api/apiEquiblocks"
 
 import { TimerContext } from "../../Context/timerContext";
 import { PesoContext } from "../../Context/pesoContext";
@@ -150,7 +151,24 @@ export default function Challenge() {
       //   "http://10.196.20.101:8080/api/postplayer",
       //   playerInfo
       //   );
-      await axios.post("http://localhost:8080/api/postplayer", playerInfo);
+      // await axios.post("http://localhost:8080/api/postplayer", playerInfo);
+      // await axios.post(
+      //   "/postplayer",
+      //   playerInfo
+      // );
+
+      apiEquiblocks.post(`/postPlayer`, playerInfo).then((response) => {
+        if (!response.data.results) {
+          console.log("Vazio")
+        }
+
+        else {
+          console.log(response.data.results)
+        }
+      }).catch((error) => {
+        console.log("Error fetching player data:")
+        console.error(error)
+      })
     } catch (error) {
       console.error("Error fetching game data:", error);
     }
