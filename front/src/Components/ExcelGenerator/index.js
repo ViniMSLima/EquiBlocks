@@ -65,8 +65,18 @@ export default function ExcelGenerator() {
         try {
             //id do senai
             // const res = await axios.get('http://10.196.20.101:8080/api/deleteplayers');
-            setPlayersData([]);
-            setSortedData([]);
+
+            apiEquiblocks.get(`/deleteplayers`).then((response) => {
+                console.log(response)
+                setPlayersData([]);
+                setSortedData([]);
+
+            }).catch((error) => {
+                console.log("Error fetching players data:")
+                console.error(error)
+            })
+
+
         } catch (error) {
             console.error('Error fetching game data:', error);
         }
