@@ -43,7 +43,7 @@ export default function Header() {
         <Void />
         <Links>
           <div onClick={toggleModal}>
-            <img className={styles.request} src={request} alt="Request" draggable={"false"}/>
+            <img className={styles.request} src={request} alt="Request" draggable={"false"} style={{ userSelect: 'none' }}/>
           </div>
         </Links>
       </Row>
