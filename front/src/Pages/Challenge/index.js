@@ -17,7 +17,7 @@ import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 
 import axios from "axios";
-import { apiEquiblocks } from "../../api/apiEquiblocks"
+import { apiEquiblocks } from "../../api/apiEquiblocks";
 
 import { TimerContext } from "../../Context/timerContext";
 import { PesoContext } from "../../Context/pesoContext";
@@ -28,6 +28,7 @@ export default function Challenge() {
     function () {
       this.window.location.reload();
     },
+
     { once: true }
   );
 
@@ -45,10 +46,10 @@ export default function Challenge() {
   const [timerStarted, setTimerStarted] = useState(false);
   const navigate = useNavigate();
 
-  const { contextTimer } = useContext(TimerContext);
+  const { contextTimer, setContextTimer } = useContext(TimerContext);
   const { contextPeso, setContextPeso } = useContext(PesoContext);
 
-  const prevPhaseRef = useRef(phase);
+  const prevPhaseRef = useRef(phase); 
 
   useEffect(() => {
     localStorage.setItem("fase", phase);
@@ -89,9 +90,11 @@ export default function Challenge() {
   }, [phase]);
 
   useEffect(() => {
-    if (localStorage.getItem("fase") === "Desafio") setStatus("Finalizar");
+    if (localStorage.getItem("fase") === "Desafio") 
+    {
+      setStatus("Finalizar");
+    }
     setTimerStarted(true);
-
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -166,18 +169,19 @@ export default function Challenge() {
       //   playerInfo
       // );
 
-      apiEquiblocks.post(`/postPlayer`, playerInfo).then((response) => {
-        if (!response.data.results) {
-          console.log("Vazio")
-        }
-
-        else {
-          console.log(response.data.results)
-        }
-      }).catch((error) => {
-        console.log("Error fetching player data:")
-        console.error(error)
-      })
+      apiEquiblocks
+        .post(`/postPlayer`, playerInfo)
+        .then((response) => {
+          if (!response.data.results) {
+            console.log("Vazio");
+          } else {
+            console.log(response.data.results);
+          }
+        })
+        .catch((error) => {
+          console.log("Error fetching player data:");
+          console.error(error);
+        });
     } catch (error) {
       console.error("Error fetching game data:", error);
     }
@@ -239,6 +243,7 @@ export default function Challenge() {
         right: { total: 0, figures: {} },
       })
     );
+    localStorage.removeItem("tempo")
     setTimerStarted(true);
     setStatus("Finalizar");
     setPhase("Desafio");
