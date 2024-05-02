@@ -62,27 +62,23 @@ export default function ExcelGenerator() {
     }
 
     async function clearMongoDB() {
-        try {
-            //id do senai
-            // const res = await axios.get('http://10.196.20.101:8080/api/deleteplayers');
-
-            confirm("Tem certeza que deseja apagar os dados do MongoDB?")
-
-            apiEquiblocks.get(`/deleteplayers`).then((response) => {
-                console.log(response)
+        const confirmed = window.confirm("Tem certeza que deseja apagar os dados do MongoDB?");
+        if (confirmed) {
+            try {
+                // Assuming apiEquiblocks is an Axios instance
+                const response = await apiEquiblocks.get(`/deleteplayers`);
+                console.log(response);
                 setPlayersData([]);
                 setSortedData([]);
-
-            }).catch((error) => {
-                console.log("Error fetching players data:")
-                console.error(error)
-            })
-
-
-        } catch (error) {
-            console.error('Error fetching game data:', error);
+            } catch (error) {
+                console.error('Error fetching players data:', error);
+            }
+            return;
         }
+
+
     }
+
 
     function loadExcelFile(event) {
         const file = event.target.files[0];
