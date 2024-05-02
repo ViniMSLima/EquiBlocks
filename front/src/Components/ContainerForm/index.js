@@ -253,7 +253,7 @@ export default function ContainerForm() {
         </Row>
       </Container>
       <div className={styles.button} onClick={handleButtonClick}>
-        Chutar
+        Calcular
       </div>
     </>
   );
