@@ -48,7 +48,7 @@
 }
 
 .button {
-    width: 52%;
+    width: 51%;
     height: 80%;
     padding: 1em;
     font-size: 200%;
@@ -64,6 +64,7 @@
 }
 
 .btn {
+    height: 7em;
     display: flex;
     justify-content: flex-end;
 }
@@ -71,9 +72,19 @@
 @media screen and (max-width: 1850px) {
     .title {
         font-size: 3.2em;
+        height: 20%;
     }
 
     .button {
-        height: 30%;
+        font-size: 1.7em;
+        height: 20%;
+    }
+
+    .align {
+        padding: 0;
+    }
+
+    .btn {
+        height: 5em;
     }
 }

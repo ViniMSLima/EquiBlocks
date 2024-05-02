@@ -37,6 +37,17 @@
 
 @media screen and (max-width: 1800px) {
     .button2 {
-        bottom: -1em;
+        font-size: 0.3em;
+        height: 2em;
+        bottom: 0.8em;
+    }
+
+    .card {
+        position: relative;
+        bottom: 0.3em;
+        height: 87%;
     }
 }
+
+
+
