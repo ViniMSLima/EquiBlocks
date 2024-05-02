@@ -4,6 +4,7 @@
     "routes": [
         { "src": "/", "dest": "/" },
         { "src": "/api/getplayers", "dest": "/" },
-        { "src": "/api/postplayer", "dest": "/" }
+        { "src": "/api/postplayer", "dest": "/" },
+        { "src": "/api/deleteplayers", "dest": "/" }
       ]
 }

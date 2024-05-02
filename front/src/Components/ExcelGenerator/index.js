@@ -66,6 +66,8 @@ export default function ExcelGenerator() {
             //id do senai
             // const res = await axios.get('http://10.196.20.101:8080/api/deleteplayers');
 
+            confirm("Tem certeza que deseja apagar os dados do MongoDB?")
+
             apiEquiblocks.get(`/deleteplayers`).then((response) => {
                 console.log(response)
                 setPlayersData([]);
