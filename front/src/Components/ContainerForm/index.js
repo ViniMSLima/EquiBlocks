@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 
 import { PesoContext } from "../../Context/pesoContext";
-import Button from "../Button/index"
+import Button from "../Button/index";
 
 import Container from "react-bootstrap/Container";
 import styles from "./styles.module.scss";
@@ -18,24 +18,53 @@ export default function ContainerForm() {
   const { contextPeso } = useContext(PesoContext);
   const [formas, setFormas] = useState([]);
   const [phase, setPhase] = useState("Fase de Teste");
+  const [attempt, setAttempt] = useState(false);
 
   useEffect(() => {
     setPhase(localStorage.getItem("fase"));
     console.log(localStorage.getItem("fase"));
     if (contextPeso.length === 5) {
       const formasIniciais = [
-        { imagem: quadrado, quantidade: 5, peso: contextPeso[0], onBalance: false },
-        { imagem: circulo, quantidade: 5, peso: contextPeso[1], onBalance: false },
-        { imagem: triangulo, quantidade: 5, peso: contextPeso[2], onBalance: false },
-        { imagem: pentagono, quantidade: 5, peso: contextPeso[3], onBalance: false },
-        { imagem: estrela, quantidade: 5, peso: contextPeso[4], onBalance: false },
+        {
+          imagem: quadrado,
+          quantidade: 5,
+          peso: contextPeso[0],
+          onBalance: false,
+        },
+        {
+          imagem: circulo,
+          quantidade: 5,
+          peso: contextPeso[1],
+          onBalance: false,
+        },
+        {
+          imagem: triangulo,
+          quantidade: 5,
+          peso: contextPeso[2],
+          onBalance: false,
+        },
+        {
+          imagem: pentagono,
+          quantidade: 5,
+          peso: contextPeso[3],
+          onBalance: false,
+        },
+        {
+          imagem: estrela,
+          quantidade: 5,
+          peso: contextPeso[4],
+          onBalance: false,
+        },
       ];
 
       const middleIndex = Math.floor(formasIniciais.length / 2);
-      const index500 = formasIniciais.findIndex(forma => forma.peso === 500);
+      const index500 = formasIniciais.findIndex((forma) => forma.peso === 500);
 
       if (index500 !== -1 && index500 !== middleIndex) {
-        [formasIniciais[middleIndex], formasIniciais[index500]] = [formasIniciais[index500], formasIniciais[middleIndex]];
+        [formasIniciais[middleIndex], formasIniciais[index500]] = [
+          formasIniciais[index500],
+          formasIniciais[middleIndex],
+        ];
       }
 
       setFormas(formasIniciais);
@@ -43,8 +72,8 @@ export default function ContainerForm() {
   }, [contextPeso]);
 
   // useEffect(() => {
-    // setPhase(localStorage.getItem("fase"));
-    // console.log(localStorage.getItem("fase"));
+  // setPhase(localStorage.getItem("fase"));
+  // console.log(localStorage.getItem("fase"));
   // }, [])
 
   const [balance1, setBalance1] = useState(
@@ -128,20 +157,23 @@ export default function ContainerForm() {
   };
 
   const clearBalance = () => {
-
     formas.map((item) => {
       item.quantidade = 5;
     });
 
-    setBalance1(getLocalStorageItem("balance1", {
-      left: { total: 0, figures: {} },
-      right: { total: 0, figures: {} },
-    }));
+    setBalance1(
+      getLocalStorageItem("balance1", {
+        left: { total: 0, figures: {} },
+        right: { total: 0, figures: {} },
+      })
+    );
 
-    setBalance2(getLocalStorageItem("balance2", {
-      left: { total: 0, figures: {} },
-      right: { total: 0, figures: {} },
-    }));
+    setBalance2(
+      getLocalStorageItem("balance2", {
+        left: { total: 0, figures: {} },
+        right: { total: 0, figures: {} },
+      })
+    );
 
     localStorage.setItem(
       "balance1",
@@ -157,7 +189,12 @@ export default function ContainerForm() {
         right: { total: 0, figures: {} },
       })
     );
-  }
+    setAttempt(true);
+  };
+
+  const handleButtonClick = () => {
+    setAttempt(true);
+  };
 
   return (
     <>
@@ -165,24 +202,33 @@ export default function ContainerForm() {
         <Row>
           <Col sm="12" lg="6" className={styles.coluna}>
             {/* <Score balance={ balance1 }/> */}
-            <Balance balance={balance1} balanca={1} handleDrop={handleDrop} />
+            <Balance
+              balance={balance1}
+              balanca={1}
+              handleDrop={handleDrop}
+              attempt={attempt}
+              setAttempt={setAttempt}
+            />
             {/* <Score balance={ balance1 }/> */}
           </Col>
           <Col sm="12" lg="6" className={styles.coluna}>
             {/* <Score balance={ balance2 }/> */}
-            <Balance balance={balance2} balanca={2} handleDrop={handleDrop} />
+            <Balance
+              balance={balance2}
+              balanca={2}
+              handleDrop={handleDrop}
+              attempt={attempt}
+              setAttempt={setAttempt}
+            />
             {/* <Score balance={ balance2 }/> */}
           </Col>
         </Row>
       </Container>
-      {phase != "Desafio" ? (
-        <div
-          className={styles.button}
-          onClick={clearBalance}
-        >
+      {/* {phase != "Desafio" ? (
+        <div className={styles.button2} onClick={clearBalance}>
           Limpar Balanças
         </div>
-      ) : null}
+      ) : null} */}
       <Container className={styles.container}>
         <Row>
           {formas.map((item, index) => (
@@ -206,6 +252,9 @@ export default function ContainerForm() {
           ))}
         </Row>
       </Container>
+      <div className={styles.button} onClick={handleButtonClick}>
+        Chutar
+      </div>
     </>
   );
 }

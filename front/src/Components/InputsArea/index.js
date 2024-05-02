@@ -35,6 +35,9 @@ export default function Inputs({ oC1, oC2, oC3, oC4, oC5 }) {
           <ShapeInput key={index} oC={shape.oC} shapeImg={shape.shapeImg} shapeValue={shape.shapeValue} />
         ))}
       </div>
+      <div className={styles.button2} >
+          Limpar Balanças
+      </div>
     </>
   );
 }

@@ -10,12 +10,23 @@ import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PesoContext } from "../../Context/pesoContext";
 
-export default function Balance({ balance, balanca, handleDrop }) {
+export default function Balance({
+  balance,
+  balanca,
+  handleDrop,
+  attempt,
+  setAttempt,
+}) {
   const { contextPeso } = useContext(PesoContext);
 
+  const [balanceImage, setBalanceImage] = useState(balancee3);
+  const [hitboxStyles, setHitboxStyles] = useState({
+    hitbox1: { top: "1.26em", left: "0.39em" },
+    hitbox2: { top: "1.26em", left: "4.02em" },
+  });
   const pesos = contextPeso;
   const images = {
     [pesos[0]]: quadrado,
@@ -45,13 +56,19 @@ export default function Balance({ balance, balanca, handleDrop }) {
     let allImages = Object.entries(figures).flatMap(([key, count]) => {
       const src = images[key];
       return [...Array(count)].map((_, index) => (
-        <img key={`${key}-${index}`} className={styles.forms} src={src} alt={key} draggable="false"/>
+        <img
+          key={`${key}-${index}`}
+          className={styles.forms}
+          src={src}
+          alt={key}
+          draggable="false"
+        />
       ));
     });
     const groupSizes = [5, 4, 3, 2, 1];
     let index = 0;
     let groupedImages = [];
-    groupSizes.forEach(size => {
+    groupSizes.forEach((size) => {
       let group = allImages.slice(index, index + size);
       if (group.length > 0) {
         groupedImages.push(
@@ -92,7 +109,14 @@ export default function Balance({ balance, balanca, handleDrop }) {
     return { balanceImage, hitboxStyles };
   };
 
-  const { balanceImage, hitboxStyles } = determineBalanceImage();
+  useEffect(() => {
+    if (attempt) {
+      const determinedBalance = determineBalanceImage();
+      setBalanceImage(determinedBalance.balanceImage);
+      setHitboxStyles(determinedBalance.hitboxStyles);
+      setAttempt(false);
+    }
+  }, [attempt]);
 
   return (
     <div className={styles.contorno}>
@@ -101,7 +125,7 @@ export default function Balance({ balance, balanca, handleDrop }) {
         style={hitboxStyles.hitbox1}
         onDragOver={handleDragOver}
         onDrop={handleDropOnLeft}
-      >
+      > 
         {renderFigures(balance.left.figures)}
       </Container>
       <div
