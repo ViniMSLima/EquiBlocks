@@ -30,6 +30,9 @@ export default function Challenge() {
     },
     { once: true }
   );
+
+  const [clear, setClear] = useState(false);
+
   const [status, setStatus] = useState("Começar");
   const [tempoDeTeste] = useState(4);
   const [tempoDesafio] = useState(29);
@@ -291,6 +294,7 @@ export default function Challenge() {
                 }}
                 status={status}
                 startReal={startReal}
+                clear={setClear}
               />
             </Col>
           </Container>

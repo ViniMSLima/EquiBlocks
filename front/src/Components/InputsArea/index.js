@@ -8,7 +8,7 @@ import pentagon from '../../Img/formas/pentagono.png';
 import star from '../../Img/formas/star.png';
 import triangle from '../../Img/formas/triangulo.png';
 
-export default function Inputs({ oC1, oC2, oC3, oC4, oC5 }) {
+export default function Inputs({ oC1, oC2, oC3, oC4, oC5, clear }) {
   const { contextPeso } = useContext(PesoContext);
   const shapes = useMemo(() => {
     const shapeList = [
@@ -28,6 +28,10 @@ export default function Inputs({ oC1, oC2, oC3, oC4, oC5 }) {
     return shapeList;
   }, [contextPeso]);
 
+  const clearBalance = () => {
+    clear(true)
+  }
+
   return (
     <>
       <div className={styles.card}>
@@ -35,7 +39,7 @@ export default function Inputs({ oC1, oC2, oC3, oC4, oC5 }) {
           <ShapeInput key={index} oC={shape.oC} shapeImg={shape.shapeImg} shapeValue={shape.shapeValue} />
         ))}
       </div>
-      <div className={styles.button2}>
+      <div className={styles.button2} onClick={clearBalance}>
           Limpar Balanças
       </div>
     </>

@@ -14,7 +14,7 @@ import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 
-export default function ContainerForm() {
+export default function ContainerForm(clear) {
   const { contextPeso } = useContext(PesoContext);
   const [formas, setFormas] = useState([]);
   const [phase, setPhase] = useState("Fase de Teste");
@@ -155,6 +155,11 @@ export default function ContainerForm() {
       setFormas(updatedFormas);
     }
   };
+
+  if(clear)
+  {
+    
+  }
 
   const clearBalance = () => {
     formas.map((item) => {
