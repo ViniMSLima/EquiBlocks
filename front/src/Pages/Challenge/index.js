@@ -138,6 +138,7 @@ export default function Challenge() {
       palpites[index500] = temp;
     }
 
+    
     let count = 0;
     formas2.forEach((element) => {
       if (palpites[count] == element.peso) palpites[count] = 2;
