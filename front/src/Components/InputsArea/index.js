@@ -18,7 +18,7 @@ export default function Inputs({ oC1, oC2, oC3, oC4, oC5, clear }) {
       { shapeImg: pentagon, shapeValue: contextPeso[3], oC: oC4 },
       { shapeImg: star, shapeValue: contextPeso[4], oC: oC5 }
     ];
-    const middleIndex = Math.floor(shapeList.length / 2);
+    const middleIndex = 0;
     const index500 = shapeList.findIndex(shape => shape.shapeValue === 500);
 
     if (index500 !== -1 && index500 !== middleIndex) {
@@ -36,7 +36,6 @@ export default function Inputs({ oC1, oC2, oC3, oC4, oC5, clear }) {
 
   return (
     <>
-    {console.log(phaseClear)}
       <div className={styles.card}>
         {shapes.map((shape, index) => (
           <ShapeInput key={index} oC={shape.oC} shapeImg={shape.shapeImg} shapeValue={shape.shapeValue} />

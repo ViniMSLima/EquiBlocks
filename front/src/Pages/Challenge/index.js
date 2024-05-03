@@ -121,7 +121,7 @@ export default function Challenge() {
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
 
-    let middleIndex = Math.floor(palpites.length / 2);
+    let middleIndex = 0;
     let index500 = palpites.findIndex((form) => form === 1);
 
     if (index500 !== -1 && index500 !== middleIndex) {
@@ -237,7 +237,6 @@ export default function Challenge() {
     setTimerStarted(true);
     setStatus("Finalizar");
     setPhase("Desafio");
-    console.log(phaseClear)
   };
 
   useEffect(() => {

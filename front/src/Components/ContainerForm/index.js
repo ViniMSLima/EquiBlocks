@@ -56,7 +56,7 @@ export default function ContainerForm({ clear, setClear }) {
         },
       ];
 
-      const middleIndex = Math.floor(formasIniciais.length / 2);
+      const middleIndex = 0;
       const index500 = formasIniciais.findIndex((forma) => forma.peso === 500);
 
       if (index500 !== -1 && index500 !== middleIndex) {
