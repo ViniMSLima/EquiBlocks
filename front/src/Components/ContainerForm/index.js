@@ -71,12 +71,7 @@ export default function ContainerForm({ clear, setClear }) {
       setFormas(formasIniciais);
     }
   }, [contextPeso]);
-
-  // useEffect(() => {
-  // setPhase(localStorage.getItem("fase"));
-  // console.log(localStorage.getItem("fase"));
-  // }, [])
-
+  
   const [balance1, setBalance1] = useState(
     getLocalStorageItem("balance1", {
       left: { total: 0, figures: {} },
