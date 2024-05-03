@@ -4,47 +4,30 @@ Bem-vindo ao Jogo das Balanças! Este é um jogo em React onde você precisa des
 
 ## Como Jogar
 
-1. Clone este repositório em sua máquina local.
+1. Acessar o Link abaixo.
 
 ```bash 
-git clone https://github.com/ViniMSLima/EquiBlocks.git
+https://equi-blocks.vercel.app/
 ```
 
-2. Certifique-se de ter o Node.js instalado em sua máquina. 
-    - [Download Node](https://nodejs.org/en/download).
+2. É necessário informar nome completo e data de nascimento, para controle dos candidatos que fizeram o desafio.
+3. Uma vez que o jogo esteja rodando, você verá duas balanças e cinco formas disponíveis para serem colocadas nelas.
+4. Uma das formas tem um peso conhecido, as outras têm pesos desconhecidos.
+5. O seu objetivo é descobrir o peso das formas desconhecidas usando as balanças.
+6. Arraste e solte as formas nas balanças para comparar seus pesos.
+7. Observe como as balanças reagem e tente deduzir os pesos das formas desconhecidas.
+8. No lado direito da tela há um campo a ser preenchido com o valor descoberto de cada forma, não é possível finalizar o desafio com os campos em branco.
+9. O jogo é separado em duas fases, a "Fases de Testes" que tem uma duração de 5 minutos, e a fase do "Desafio" que dura 30 minutos. Ao chegar no limite do tempo em qualquer uma das fases, você será redirecionado para a próxima página.
+10. Na primeira fase, a "Fase de Testes", é possível limpar as balanças apertando o botão indicado caso não tenha compreendido a mecânica do jogo e queira recomeçar. Já na fase do "Desafio", não é possível retirar as peças ou limpar as balanças, seus movimentos devem ser bem pensados antes de serem feitos.
+11. Caso chegue a uma resposta, basta preencher os campos das formas e clicar no botão "Finalizar", você será redirecionado para a página final, chame por um instrutor e aguarde novas instruções.
 
-3. Abra o terminal e navegue até o diretório do projeto.
-```bash
-cd equiblocks
-```
-
-```bash
-cd front
-```
-
-4. Instale todas as dependências do projeto.
-```bash
-npm install
-```
-
-5. Após a instalação das dependências, inicie o jogo.
-```bash
-npm start
-```
-
-6. Uma vez que o jogo esteja rodando, você verá duas balanças e cinco formas disponíveis para serem colocadas nelas.
-7. Uma das formas tem um peso conhecido, as outras têm pesos desconhecidos.
-8. O seu objetivo é descobrir o peso das formas desconhecidas usando as balanças.
-9. Você tem apenas cinco tentativas para descobrir o peso correto de todas as formas.
-10. Arraste e solte as formas nas balanças para comparar seus pesos.
-11. Observe como as balanças reagem e tente deduzir os pesos das formas desconhecidas.
-12. Se você achar que descobriu os pesos corretos, clique no botão "Verificar" para verificar sua resposta.
-13. Se estiver correto, parabéns, você venceu! Caso contrário, você perdeu e pode tentar novamente.
 
 ## Tecnologias Utilizadas
 
 - React: Uma biblioteca JavaScript para construção de interfaces de usuário.
-- Node: Back salvando as informações dos jogadores
+- Node: Back salvando as informações dos jogadores.
+- MongoDB: Banco de dados não relacional que armazena dados no formato JSON.
+- Vercel: Plataforma online que possibilita o deploy de aplicações web e o armazenamento em nuvem, de forma rápida e grátis.
 
 
 ## Créditos
