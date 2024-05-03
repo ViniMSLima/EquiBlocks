@@ -8,7 +8,7 @@
 
 .button2 {
     position: relative;
-    bottom: 1em;
+    bottom: 3.5em;
     width: 100%;
     height: 3em;
     padding: 0.1em;
@@ -28,10 +28,6 @@
     .card {
         height: 100%;
     }
-
-    .button2 {
-        
-    }
 }
 
 
@@ -39,13 +35,26 @@
     .button2 {
         font-size: 0.3em;
         height: 2em;
-        bottom: 0.8em;
+        bottom: 3.4em;
     }
 
     .card {
         position: relative;
         bottom: 0.3em;
-        height: 87%;
+        height: 75%;
+    }
+}
+
+
+@media screen and (max-width: 1500px) {
+    .card {
+        position: relative;
+        bottom: 0.4em;
+        height: 100%;
+    }
+
+    .button2 {
+        bottom: 0.7em;
     }
 }
 

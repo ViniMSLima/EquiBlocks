@@ -20,6 +20,7 @@ export default function ContainerForm({ clear, setClear }) {
   const [phase, setPhase] = useState("Fase de Teste");
   const [attempt, setAttempt] = useState(false);
   const [countAttempt, setCountAttempt] = useState(0);
+  const [qtdFormas, setQtdFormas] = useState(0);
 
   useEffect(() => {
     setPhase(localStorage.getItem("fase"));
@@ -143,6 +144,9 @@ export default function ContainerForm({ clear, setClear }) {
     });
     localStorage.setItem("formas", JSON.stringify(updatedFormas));
     setFormas(updatedFormas);
+    setQtdFormas(qtdFormas + 1)
+    localStorage.setItem("qtdFormas", qtdFormas);
+    console.log(localStorage.getItem("qtdFormas"));
   };
 
   const handleDragEnd = (index) => {
@@ -197,6 +201,7 @@ export default function ContainerForm({ clear, setClear }) {
   const handleButtonClick = () => {
     setAttempt(!attempt);
     setCountAttempt(countAttempt + 1);
+    localStorage.setItem("countAttempt", countAttempt);
   };
 
   return (
@@ -227,11 +232,6 @@ export default function ContainerForm({ clear, setClear }) {
           </Col>
         </Row>
       </Container>
-      {/* {phase != "Desafio" ? (
-        <div className={styles.button2} onClick={clearBalance}>
-          Limpar Balanças
-        </div>
-      ) : null} */}
       <Container className={styles.container}>
         <Row>
           {formas.map((item, index) => (

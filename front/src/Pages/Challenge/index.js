@@ -116,7 +116,12 @@ export default function Challenge() {
     var nome = localStorage.getItem("nome");
     var data = localStorage.getItem("data");
     var tempo = localStorage.getItem("tempo");
+    var qtdTentativas = localStorage.getItem("countAttempt") + 1;
+    var qtdFormas = localStorage.getItem("qtdFormas") + 1;
 
+    console.log(qtdTentativas)
+    console.log(qtdFormas)
+  
     const formas1 = localStorage.getItem("formas");
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
