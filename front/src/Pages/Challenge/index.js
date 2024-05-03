@@ -116,8 +116,8 @@ export default function Challenge() {
     var nome = localStorage.getItem("nome");
     var data = localStorage.getItem("data");
     var tempo = localStorage.getItem("tempo");
-    var qtdTentativas = localStorage.getItem("countAttempt") + 1;
-    var qtdFormas = localStorage.getItem("qtdFormas") + 1;
+    var qtdTentativas = parseInt(localStorage.getItem("countAttempt")) + 1;
+    var qtdFormas = parseInt(localStorage.getItem("qtdFormas")) + 1;
 
     console.log(qtdTentativas)
     console.log(qtdFormas)
