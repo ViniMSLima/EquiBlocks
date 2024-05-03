@@ -142,9 +142,9 @@ export default function Challenge() {
       nome,
       data,
       tempo,
-      f1: parseInt(palpites[0]),
+      f1: parseInt(palpites[0] + 1),
       f2: parseInt(palpites[1]),
-      f3: parseInt(palpites[2] + 1),
+      f3: parseInt(palpites[2]),
       f4: parseInt(palpites[3]),
       f5: parseInt(palpites[4]),
     };
