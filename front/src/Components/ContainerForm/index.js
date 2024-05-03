@@ -19,6 +19,7 @@ export default function ContainerForm({ clear, setClear }) {
   const [formas, setFormas] = useState([]);
   const [phase, setPhase] = useState("Fase de Teste");
   const [attempt, setAttempt] = useState(false);
+  const [countAttempt, setCountAttempt] = useState(0);
 
   useEffect(() => {
     setPhase(localStorage.getItem("fase"));
@@ -189,11 +190,13 @@ export default function ContainerForm({ clear, setClear }) {
       })
     );
     setClear(false);
+    setCountAttempt(0);
     setAttempt(true);
   }, [clear]);
 
   const handleButtonClick = () => {
     setAttempt(!attempt);
+    setCountAttempt(countAttempt + 1);
   };
 
   return (
@@ -254,6 +257,10 @@ export default function ContainerForm({ clear, setClear }) {
       </Container>
       <div className={styles.button} onClick={handleButtonClick}>
         Calcular
+      </div>
+      <div className={styles.count}>
+        <span className={styles.countText}>Tentativas: </span>
+        <span className={styles.countTextNumber}>{countAttempt}</span>
       </div>
     </>
   );
