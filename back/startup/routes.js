@@ -1,9 +1,9 @@
 const express = require("express");
-const player = require("../src/routes/player");
+const player2 = require("../src/routes/player2");
 
 module.exports = function (app) 
 {
   app
     .use(express.json())
-    .use("/api", player)
+    .use("/api", player2)
 };

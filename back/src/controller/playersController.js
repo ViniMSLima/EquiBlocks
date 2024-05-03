@@ -1,11 +1,11 @@
-const { Player } = require("../models/player");
+const { Player2 } = require("../models/player2");
 
 require("dotenv").config();
 
 class PlayerController {
     static async getPlayers(req, res) {
         try {
-          const players = await Player.find();
+          const players = await Player2.find();
           return res.status(200).send({ players });
         } catch (error) {
           return res.status(404).send({ error: 'Game not found!' });
@@ -13,12 +13,12 @@ class PlayerController {
       }
 
     static async postPlayer(req, res) {
-        const { nome, data, tempo, f1, f2, f3, f4, f5 } = req.body;
+        const { nome, data, tempo, f1, f2, f3, f4, f5, tentativas, qtd_formas } = req.body;
 
-        if (!nome || !data || !tempo || !f1 || !f2 || !f3 || !f4 || !f5)
+        if (!nome || !data || !tempo || !f1 || !f2 || !f3 || !f4 || !f5 || !tentativas || !qtd_formas)
             return res.status(400).send({ message: 'Field\'s can\'t be empty' });
 
-        const player = new Player({
+        const player = new Player2({
             nome,
             data,
             tempo,
@@ -27,6 +27,8 @@ class PlayerController {
             f3,
             f4,
             f5,
+            tentativas,
+            qtd_formas,
             release: Date.now(),
             createdAt: Date.now(),
         });
@@ -45,7 +47,7 @@ class PlayerController {
 
     static async clearPlayers(req, res) {
         try {
-            await Player.deleteMany({});
+            await Player2.deleteMany({});
             return res.status(200).send({ message: 'All players deleted successfully' });
         } catch (error) {
             console.error(error);
@@ -66,5 +68,7 @@ module.exports = PlayerController;
 //     "f2": 2,
 //     "f3": 3,
 //     "f4": 4,
-//     "f5": 5 
+//     "f5": 5 ,
+//     "tentativas": 2,
+//     "qtd_formas": 12
 // }
