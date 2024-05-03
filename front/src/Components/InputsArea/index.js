@@ -32,16 +32,22 @@ export default function Inputs({ oC1, oC2, oC3, oC4, oC5, clear }) {
     clear(true)
   }
 
+  const phaseClear = localStorage.getItem("phaseclear")
+
   return (
     <>
+    {console.log(phaseClear)}
       <div className={styles.card}>
         {shapes.map((shape, index) => (
           <ShapeInput key={index} oC={shape.oC} shapeImg={shape.shapeImg} shapeValue={shape.shapeValue} />
         ))}
       </div>
-      <div className={styles.button2} onClick={clearBalance}>
+      {!phaseClear ? (
+        <div className={styles.button2} onClick={clearBalance}>
           Limpar Balanças
-      </div>
+        </div>
+      ) : null}
     </>
   );
 }
+

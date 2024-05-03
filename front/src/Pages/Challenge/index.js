@@ -32,6 +32,7 @@ export default function Challenge() {
   );
 
   const [clear, setClear] = useState(false);
+  const [phaseClear, setPhaseClear] = useState(true);
 
   const [status, setStatus] = useState("Começar");
   const [tempoDeTeste] = useState(4);
@@ -206,6 +207,8 @@ export default function Challenge() {
   }
 
   const startReal = async () => {
+    setPhaseClear(false);
+    localStorage.setItem("phaseclear", JSON.stringify(phaseClear));
     if (status === "Finalizar") {
       if (window.confirm("Deseja Finalizar?")) {
         if (!checkInputs()) {
@@ -234,6 +237,7 @@ export default function Challenge() {
     setTimerStarted(true);
     setStatus("Finalizar");
     setPhase("Desafio");
+    console.log(phaseClear)
   };
 
   useEffect(() => {
@@ -273,7 +277,7 @@ export default function Challenge() {
         <Row className={styles.row}>
           <Container className={styles.cont}>
             <Col className={styles.title} sm="12" lg="10">
-              <ContainerForm />
+              <ContainerForm clear={clear} setClear={setClear}/>
             </Col>
             <Col className={styles.inputCol} sm="10" lg="2">
               <Inputs

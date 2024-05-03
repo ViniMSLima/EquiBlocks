@@ -110,12 +110,10 @@ export default function Balance({
   };
 
   useEffect(() => {
-    if (attempt) {
-      const determinedBalance = determineBalanceImage();
-      setBalanceImage(determinedBalance.balanceImage);
-      setHitboxStyles(determinedBalance.hitboxStyles);
-      setAttempt(false);
-    }
+    const determinedBalance = determineBalanceImage();
+    setBalanceImage(determinedBalance.balanceImage);
+    setHitboxStyles(determinedBalance.hitboxStyles);
+    setAttempt(false);
   }, [attempt]);
 
   return (
@@ -125,7 +123,7 @@ export default function Balance({
         style={hitboxStyles.hitbox1}
         onDragOver={handleDragOver}
         onDrop={handleDropOnLeft}
-      > 
+      >
         {renderFigures(balance.left.figures)}
       </Container>
       <div

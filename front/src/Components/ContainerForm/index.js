@@ -14,7 +14,7 @@ import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 
-export default function ContainerForm(clear) {
+export default function ContainerForm({ clear, setClear }) {
   const { contextPeso } = useContext(PesoContext);
   const [formas, setFormas] = useState([]);
   const [phase, setPhase] = useState("Fase de Teste");
@@ -22,7 +22,6 @@ export default function ContainerForm(clear) {
 
   useEffect(() => {
     setPhase(localStorage.getItem("fase"));
-    console.log(localStorage.getItem("fase"));
     if (contextPeso.length === 5) {
       const formasIniciais = [
         {
@@ -156,12 +155,7 @@ export default function ContainerForm(clear) {
     }
   };
 
-  if(clear)
-  {
-    
-  }
-
-  const clearBalance = () => {
+  useEffect(() => {
     formas.map((item) => {
       item.quantidade = 5;
     });
@@ -194,11 +188,12 @@ export default function ContainerForm(clear) {
         right: { total: 0, figures: {} },
       })
     );
+    setClear(false);
     setAttempt(true);
-  };
+  }, [clear]);
 
   const handleButtonClick = () => {
-    setAttempt(true);
+    setAttempt(!attempt);
   };
 
   return (
