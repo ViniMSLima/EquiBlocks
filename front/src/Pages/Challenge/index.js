@@ -147,8 +147,8 @@ export default function Challenge() {
       count += 1;
     });
 
-    let attempts = localStorage.getItem("countAttempt") + 1;
-    let qtd = localStorage.getItem("qtdFormas") + 1;
+    let attempts = parseInt(localStorage.getItem("countAttempt")) + 1;
+    let qtd = parseInt(localStorage.getItem("qtdFormas")) + 1;
 
     const playerInfo = {
       nome,
