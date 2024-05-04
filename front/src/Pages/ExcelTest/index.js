@@ -37,7 +37,7 @@ export default function Excel() {
       }).catch((error) => {
         console.error(error);
       });
-    }, 1000);
+    }, 3000);
     return intervalId;
   };
 
