@@ -11,10 +11,6 @@ export default function Excel() {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    getServerStatus();
-  }, []);
-
-  function getServerStatus() {
     apiChallenge.get(`/getstatus`).then((response) => {
       console.log(response.data.status)
       setStatus(response.data.status)
@@ -22,7 +18,8 @@ export default function Excel() {
       console.log("Error starting challenge")
       console.error(error)
     })
-  }
+  }, []);
+
 
   const logOut = () => {
     if (window.confirm("Deseja Sair?")) {
