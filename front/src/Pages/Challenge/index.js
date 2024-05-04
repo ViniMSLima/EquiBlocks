@@ -32,6 +32,8 @@ export default function Challenge() {
     { once: true }
   );
 
+  const [begin, setBegin] = useState(true);
+
   const [clear, setClear] = useState(false);
   const [phaseClear, setPhaseClear] = useState(true);
 
@@ -49,7 +51,7 @@ export default function Challenge() {
   const { contextTimer, setContextTimer } = useContext(TimerContext);
   const { contextPeso, setContextPeso } = useContext(PesoContext);
 
-  const prevPhaseRef = useRef(phase); 
+  const prevPhaseRef = useRef(phase);
 
   useEffect(() => {
     localStorage.setItem("fase", phase);
@@ -90,8 +92,7 @@ export default function Challenge() {
   }, [phase]);
 
   useEffect(() => {
-    if (localStorage.getItem("fase") === "Desafio") 
-    {
+    if (localStorage.getItem("fase") === "Desafio") {
       setStatus("Finalizar");
     }
     setTimerStarted(true);
@@ -124,7 +125,7 @@ export default function Challenge() {
 
     console.log(qtdTentativas)
     console.log(qtdFormas)
-  
+
     const formas1 = localStorage.getItem("formas");
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
@@ -138,7 +139,7 @@ export default function Challenge() {
       palpites[index500] = temp;
     }
 
-    
+
     let count = 0;
     formas2.forEach((element) => {
       if (palpites[count] == element.peso) palpites[count] = 2;
@@ -292,7 +293,7 @@ export default function Challenge() {
         <Row className={styles.row}>
           <Container className={styles.cont}>
             <Col className={styles.title} sm="12" lg="10">
-              <ContainerForm clear={clear} setClear={setClear}/>
+              <ContainerForm clear={clear} setClear={setClear} />
             </Col>
             <Col className={styles.inputCol} sm="10" lg="2">
               <Inputs
