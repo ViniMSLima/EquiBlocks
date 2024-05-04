@@ -14,29 +14,20 @@ export default function ExcelGenerator() {
     const [sortBy, setSortBy] = useState({ column: null, ascending: true });
 
     async function getPlayers() {
-        try {
-            //IP do senai
-            // const res = await axios.get('http://10.196.20.101:8080/api/getplayers');
-            // const res = await axios.get('/getplayers');
 
-            apiEquiblocks.get(`/getplayers`).then((response) => {
-                if (!response.data.players) {
-                    console.log("Vazio")
-                }
+        apiEquiblocks.get(`/getplayers`).then((response) => {
+            if (!response.data.players) {
+                console.log("Erro em getplayers")
+            }
+            else {
+                setPlayersData(response.data.players);
+                setSortedData(response.data.players);
+            }
+        }).catch((error) => {
+            console.log("Error fetching players data:")
+            console.error(error)
+        })
 
-                else {
-                    console.log(response)
-                    setPlayersData(response.data.players);
-                    setSortedData(response.data.players);
-                }
-            }).catch((error) => {
-                console.log("Error fetching players data:")
-                console.error(error)
-            })
-
-        } catch (error) {
-            console.error('Error fetching game data:', error);
-        }
     }
 
     useEffect(() => {

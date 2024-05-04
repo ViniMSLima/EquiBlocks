@@ -3,14 +3,26 @@ import ExcelGenerator from "../../Components/ExcelGenerator";
 import { useNavigate } from "react-router-dom";
 
 import { apiChallenge } from '../../api/apiChallenge';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function Excel() {
   const navigate = useNavigate();
-
   const [status, setStatus] = useState(false);
 
+  useEffect(() => {
+    getServerStatus();
+  }, []);
+
+  function getServerStatus() {
+    apiChallenge.get(`/getstatus`).then((response) => {
+      console.log(response.data.status)
+      setStatus(response.data.status)
+    }).catch((error) => {
+      console.log("Error starting challenge")
+      console.error(error)
+    })
+  }
 
   const logOut = () => {
     if (window.confirm("Deseja Sair?")) {
@@ -43,7 +55,6 @@ export default function Excel() {
       }
     }
   }
-
 
   return (
     <div>
