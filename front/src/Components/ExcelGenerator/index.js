@@ -135,6 +135,8 @@ export default function ExcelGenerator() {
                                 <th onClick={() => sortData('nome')}>Nome</th>
                                 <th onClick={() => sortData('data')}>Data</th>
                                 <th onClick={() => sortData('tempo')}>Tempo</th>
+                                <th onClick={() => sortData('tentativas')}>Tentativas</th>
+                                <th onClick={() => sortData('qtd_formas')}>Quantidade</th>
                                 <th onClick={() => sortData('f1')}>F1</th>
                                 <th onClick={() => sortData('f2')}>F2</th>
                                 <th onClick={() => sortData('f3')}>F3</th>
@@ -148,6 +150,8 @@ export default function ExcelGenerator() {
                                     <td>{player.nome}</td>
                                     <td>{player.data}</td>
                                     <td>{player.tempo}</td>
+                                    <td>{player.tentativas}</td>
+                                    <td>{player.qtd_formas}</td>
                                     <td style={{ backgroundColor: player.f1 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
                                     <td style={{ backgroundColor: player.f2 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
                                     <td style={{ backgroundColor: player.f3 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
