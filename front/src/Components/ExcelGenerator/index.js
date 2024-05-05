@@ -66,8 +66,6 @@ export default function ExcelGenerator() {
             }
             return;
         }
-
-
     }
 
 
@@ -87,10 +85,10 @@ export default function ExcelGenerator() {
     function saveExcelFile() {
         if (workbook) {
             const ws = workbook.Sheets[workbook.SheetNames[0]];
-            XLSX.utils.sheet_add_aoa(ws, [["Nome", "Data de Nascimento", "Tempo", "F1", "F2", "F3", "F4", "F5"]]);
+            XLSX.utils.sheet_add_aoa(ws, [["Nome", "Data de Nascimento", "Tempo", "Tentativas", "Quantidade", "F1", "F2", "F3", "F4", "F5"]]);
 
             playersData.forEach(player => {
-                XLSX.utils.sheet_add_aoa(ws, [[player.nome, player.data, player.tempo, player.f1, player.f2, player.f3, player.f4, player.f5]], { origin: -1 });
+                XLSX.utils.sheet_add_aoa(ws, [[player.nome, player.data, player.tempo, player.tentativas, player.quantidade, player.f1, player.f2, player.f3, player.f4, player.f5]], { origin: -1 });
             });
 
             const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
@@ -130,6 +128,7 @@ export default function ExcelGenerator() {
                                 <th onClick={() => sortData('tempo')}>Tempo</th>
                                 <th onClick={() => sortData('tentativas')}>Tentativas</th>
                                 <th onClick={() => sortData('qtd_formas')}>Quantidade</th>
+                                <th onClick={() => sortData('acertos')}>Acertos %</th>
                                 <th onClick={() => sortData('f1')}>100</th>
                                 <th onClick={() => sortData('f2')}>200</th>
                                 <th onClick={() => sortData('f3')}>500</th>
@@ -145,6 +144,7 @@ export default function ExcelGenerator() {
                                     <td>{player.tempo}</td>
                                     <td>{player.tentativas}</td>
                                     <td>{player.qtd_formas}</td>
+                                    <td style={{ backgroundColor: player.acertos === 100 ? '#C6F7D0' :( player.acertos === 75 || player.acertos === 50) ? '#ffffb0' : '#FFC6C6'}}>{player.acertos}</td>
                                     <td style={{ backgroundColor: player.f1 === 100 ? '#C6F7D0' : '#FFC6C6' }}>{player.f1}</td>
                                     <td style={{ backgroundColor: player.f2 === 200 ? '#C6F7D0' : '#FFC6C6' }}>{player.f2}</td>
                                     <td style={{ backgroundColor: player.f3 === 500 ? '#C6F7D0' : '#FFC6C6' }}>{player.f3}</td>

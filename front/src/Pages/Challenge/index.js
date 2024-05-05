@@ -166,8 +166,11 @@ export default function Challenge() {
     }
 
     let count = 0;
+    let acertos = 0;
+
     formas2.forEach((element) => {
       if (palpites[count] == element.peso) {
+        acertos += 25;
         if (element.peso == 100) {
           envio[0] = palpites[count];
         }
@@ -202,7 +205,8 @@ export default function Challenge() {
       f4: parseInt(envio[3]),
       f5: parseInt(envio[4]),
       tentativas: attempts,
-      qtd_formas: qtd
+      qtd_formas: qtd,
+      acertos
     };
 
     try {
