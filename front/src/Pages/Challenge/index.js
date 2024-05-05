@@ -18,7 +18,6 @@ import estrela from "../../Img/formas/star.png";
 
 import axios from "axios";
 import { apiEquiblocks } from "../../api/apiEquiblocks";
-import { apiTest } from "../../api/apiTest";
 
 import { TimerContext } from "../../Context/timerContext";
 import { PesoContext } from "../../Context/pesoContext";
@@ -35,7 +34,6 @@ export default function Challenge() {
   );
 
   const [begin, setBegin] = useState(false);
-  const [beginTest, setBeginTest] = useState(false);
 
   const [clear, setClear] = useState(false);
   const [phaseClear, setPhaseClear] = useState(true);
@@ -100,26 +98,13 @@ export default function Challenge() {
       apiChallenge.get(`/getstatus`).then((response) => {
         if(response.data.status){
           setBegin(true)
-          setStatus("Finalizar");
+          // setStatus("Finalizar");
         }
         else {
           setBegin(false)
-          setStatus("Começar");
+          // setStatus("Começar");
         }
 
-      }).catch((error) => {
-        console.error(error);
-      });
-
-      apiTest.get(`/getstatustest`).then((response) => {
-        if(response.data.statustest){
-          setBeginTest(true)
-          setStatusTest("Finalizar");
-        }
-        else {
-          setBeginTest(false)
-          setStatusTest("Começar");
-        }
       }).catch((error) => {
         console.error(error);
       });
