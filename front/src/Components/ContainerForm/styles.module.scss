@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   position: fixed;
-  bottom: 0.5em;
+  bottom: 0.2em;
   justify-content: center;
   align-items: stretch;
   width: 10em;
@@ -34,6 +34,30 @@
 .coluna {
   display: flex;
   justify-content: center;
+}
+
+.count {
+  position: relative;
+  bottom: 5em;
+  width: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.2em;
+  border: solid 2px hsla(0, 0, 0, 0.26);
+  height: 1em;
+  background-color: #E3E3E3;
+}
+
+.countText {
+  font-size: 0.4em;
+}
+
+.countTextNumber {
+  position: relative;
+  top: 0.06em;
+  margin-left: 0.12em;
+  font-size: 0.4em;
 }
 
 // @media screen and (max-width: 1400px) {
@@ -77,8 +101,19 @@
   .button {
     bottom: 2em;
   }
-  
+
+  .count {
+    bottom: 2.5em;
+  }
+
   .container {
     bottom: 0.1em;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+
+  .container {
+    bottom: 0.5em;
   }
 }

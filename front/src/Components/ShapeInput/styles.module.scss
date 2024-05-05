@@ -27,11 +27,23 @@
 
 @media screen and (max-width: 1500px) {
     .imgFormat {
-        width: 0.7em;
+        width: 0.55em;
     }
 
     .input {
         width: 90%;
     }
+
+}
+
+@media screen and (max-width: 1800px) {
+    .imgFormat {
+        width: 0.55em;
+    }
+
+    .input {
+        width: 90%;
+    }
+
 }
 

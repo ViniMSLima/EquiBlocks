@@ -31,6 +31,12 @@ export default function Challenge() {
 
     { once: true }
   );
+
+  const [begin, setBegin] = useState(true);
+
+  const [clear, setClear] = useState(false);
+  const [phaseClear, setPhaseClear] = useState(true);
+
   const [status, setStatus] = useState("Começar");
   const [tempoDeTeste] = useState(4);
   const [tempoDesafio] = useState(29);
@@ -86,8 +92,7 @@ export default function Challenge() {
   }, [phase]);
 
   useEffect(() => {
-    if (localStorage.getItem("fase") === "Desafio") 
-    {
+    if (localStorage.getItem("fase") === "Desafio") {
       setStatus("Finalizar");
     }
     setTimerStarted(true);
@@ -115,12 +120,17 @@ export default function Challenge() {
     var nome = localStorage.getItem("nome");
     var data = localStorage.getItem("data");
     var tempo = localStorage.getItem("tempo");
+    var qtdTentativas = parseInt(localStorage.getItem("countAttempt")) + 1;
+    var qtdFormas = parseInt(localStorage.getItem("qtdFormas")) + 1;
+
+    console.log(qtdTentativas)
+    console.log(qtdFormas)
 
     const formas1 = localStorage.getItem("formas");
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
 
-    let middleIndex = Math.floor(palpites.length / 2);
+    let middleIndex = 0;
     let index500 = palpites.findIndex((form) => form === 1);
 
     if (index500 !== -1 && index500 !== middleIndex) {
@@ -128,6 +138,7 @@ export default function Challenge() {
       palpites[middleIndex] = palpites[index500];
       palpites[index500] = temp;
     }
+
 
     let count = 0;
     formas2.forEach((element) => {
@@ -137,15 +148,20 @@ export default function Challenge() {
       count += 1;
     });
 
+    let attempts = parseInt(localStorage.getItem("countAttempt")) + 1;
+    let qtd = parseInt(localStorage.getItem("qtdFormas")) + 1;
+
     const playerInfo = {
       nome,
       data,
       tempo,
-      f1: parseInt(palpites[0]),
+      f1: parseInt(palpites[0] + 1),
       f2: parseInt(palpites[1]),
-      f3: parseInt(palpites[2] + 1),
+      f3: parseInt(palpites[2]),
       f4: parseInt(palpites[3]),
       f5: parseInt(palpites[4]),
+      tentativas: attempts,
+      qtd_formas: qtd
     };
 
     try {
@@ -207,6 +223,8 @@ export default function Challenge() {
   }
 
   const startReal = async () => {
+    setPhaseClear(false);
+    localStorage.setItem("phaseclear", JSON.stringify(phaseClear));
     if (status === "Finalizar") {
       if (window.confirm("Deseja Finalizar?")) {
         if (!checkInputs()) {
@@ -275,7 +293,7 @@ export default function Challenge() {
         <Row className={styles.row}>
           <Container className={styles.cont}>
             <Col className={styles.title} sm="12" lg="10">
-              <ContainerForm />
+              <ContainerForm clear={clear} setClear={setClear} />
             </Col>
             <Col className={styles.inputCol} sm="10" lg="2">
               <Inputs
@@ -296,6 +314,7 @@ export default function Challenge() {
                 }}
                 status={status}
                 startReal={startReal}
+                clear={setClear}
               />
             </Col>
           </Container>

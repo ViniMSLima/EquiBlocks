@@ -14,29 +14,20 @@ export default function ExcelGenerator() {
     const [sortBy, setSortBy] = useState({ column: null, ascending: true });
 
     async function getPlayers() {
-        try {
-            //IP do senai
-            // const res = await axios.get('http://10.196.20.101:8080/api/getplayers');
-            // const res = await axios.get('/getplayers');
 
-            apiEquiblocks.get(`/getplayers`).then((response) => {
-                if (!response.data.players) {
-                    console.log("Vazio")
-                }
+        apiEquiblocks.get(`/getplayers`).then((response) => {
+            if (!response.data.players) {
+                console.log("Erro em getplayers")
+            }
+            else {
+                setPlayersData(response.data.players);
+                setSortedData(response.data.players);
+            }
+        }).catch((error) => {
+            console.log("Error fetching players data:")
+            console.error(error)
+        })
 
-                else {
-                    console.log(response)
-                    setPlayersData(response.data.players);
-                    setSortedData(response.data.players);
-                }
-            }).catch((error) => {
-                console.log("Error fetching players data:")
-                console.error(error)
-            })
-
-        } catch (error) {
-            console.error('Error fetching game data:', error);
-        }
     }
 
     useEffect(() => {
@@ -137,6 +128,8 @@ export default function ExcelGenerator() {
                                 <th onClick={() => sortData('nome')}>Nome</th>
                                 <th onClick={() => sortData('data')}>Data</th>
                                 <th onClick={() => sortData('tempo')}>Tempo</th>
+                                <th onClick={() => sortData('tentativas')}>Tentativas</th>
+                                <th onClick={() => sortData('qtd_formas')}>Quantidade</th>
                                 <th onClick={() => sortData('f1')}>F1</th>
                                 <th onClick={() => sortData('f2')}>F2</th>
                                 <th onClick={() => sortData('f3')}>F3</th>
@@ -150,6 +143,8 @@ export default function ExcelGenerator() {
                                     <td>{player.nome}</td>
                                     <td>{player.data}</td>
                                     <td>{player.tempo}</td>
+                                    <td>{player.tentativas}</td>
+                                    <td>{player.qtd_formas}</td>
                                     <td style={{ backgroundColor: player.f1 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
                                     <td style={{ backgroundColor: player.f2 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
                                     <td style={{ backgroundColor: player.f3 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
