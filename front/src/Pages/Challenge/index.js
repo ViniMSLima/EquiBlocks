@@ -21,6 +21,7 @@ import { apiEquiblocks } from "../../api/apiEquiblocks";
 
 import { TimerContext } from "../../Context/timerContext";
 import { PesoContext } from "../../Context/pesoContext";
+import { apiChallenge } from "../../api/apiChallenge";
 
 export default function Challenge() {
   window.addEventListener(
@@ -32,7 +33,7 @@ export default function Challenge() {
     { once: true }
   );
 
-  const [begin, setBegin] = useState(true);
+  const [begin, setBegin] = useState(false);
 
   const [clear, setClear] = useState(false);
   const [phaseClear, setPhaseClear] = useState(true);
@@ -51,7 +52,7 @@ export default function Challenge() {
   const { contextTimer, setContextTimer } = useContext(TimerContext);
   const { contextPeso, setContextPeso } = useContext(PesoContext);
 
-  const prevPhaseRef = useRef(phase); 
+  const prevPhaseRef = useRef(phase);
 
   useEffect(() => {
     localStorage.setItem("fase", phase);
@@ -91,10 +92,30 @@ export default function Challenge() {
     localStorage.setItem("formas", JSON.stringify(updatedFormas));
   }, [phase]);
 
+  const getStatusPeriodically = () => {
+    const intervalId = setInterval(() => {
+      apiChallenge.get(`/getstatus`).then((response) => {
+        setStatus(response.data.status);
+        if(response.data.status){
+          setBegin(true)
+        }
+        else {
+          setBegin(false)
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+    }, 3000);
+    return intervalId;
+  };
+
   useEffect(() => {
-    if (localStorage.getItem("fase") === "Desafio") {
-      setStatus("Finalizar");
-    }
+    const intervalId = getStatusPeriodically();
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("fase") === "Desafio") setStatus("Finalizar");
     setTimerStarted(true);
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -276,50 +297,53 @@ export default function Challenge() {
 
   return (
     <div>
-      <Row className={styles.row}>
-        <Col className={styles.align} sm="12" lg="4">
-          <Timer startTimer={timerStarted} />
-        </Col>
-        <Col className={styles.title} sm="12" lg="4">
-          {phase}
-        </Col>
-        <Col className={styles.btn}>
-          <div className={styles.button} onClick={startReal}>
-            {status}
+      {begin ? (
+        <>
+          <Row className={styles.row}>
+            <Col className={styles.align} sm="12" lg="4">
+              <Timer startTimer={timerStarted} />
+            </Col>
+            <Col className={styles.title} sm="12" lg="4">
+              {phase}
+            </Col>
+            <Col className={styles.btn}>
+              <div className={styles.button} onClick={startReal}>
+                {status}
+              </div>
+            </Col>
+          </Row>
+          <div>
+            <Row className={styles.row}>
+              <Container className={styles.cont}>
+                <Col className={styles.title} sm="12" lg="10">
+                  <ContainerForm clear={clear} setClear={setClear} />
+                </Col>
+                <Col className={styles.inputCol} sm="10" lg="2">
+                  <Inputs
+                    oC1={(e) => {
+                      setFig1(e.target.value);
+                    }}
+                    oC2={(e) => {
+                      setFig2(e.target.value);
+                    }}
+                    oC3={(e) => {
+                      setFig3(e.target.value);
+                    }}
+                    oC4={(e) => {
+                      setFig4(e.target.value);
+                    }}
+                    oC5={(e) => {
+                      setFig5(e.target.value);
+                    }}
+                    status={status}
+                    startReal={startReal}
+                    clear={setClear}
+                  />
+                </Col>
+              </Container>
+            </Row>
           </div>
-        </Col>
-      </Row>
-      <div>
-        <Row className={styles.row}>
-          <Container className={styles.cont}>
-            <Col className={styles.title} sm="12" lg="10">
-              <ContainerForm clear={clear} setClear={setClear} />
-            </Col>
-            <Col className={styles.inputCol} sm="10" lg="2">
-              <Inputs
-                oC1={(e) => {
-                  setFig1(e.target.value);
-                }}
-                oC2={(e) => {
-                  setFig2(e.target.value);
-                }}
-                oC3={(e) => {
-                  setFig3(e.target.value);
-                }}
-                oC4={(e) => {
-                  setFig4(e.target.value);
-                }}
-                oC5={(e) => {
-                  setFig5(e.target.value);
-                }}
-                status={status}
-                startReal={startReal}
-                clear={setClear}
-              />
-            </Col>
-          </Container>
-        </Row>
-      </div>
+        </>) : (<h2> Aguarde o início do desafio </h2>)}
     </div>
   );
 }
