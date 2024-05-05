@@ -18,6 +18,7 @@ import estrela from "../../Img/formas/star.png";
 
 import axios from "axios";
 import { apiEquiblocks } from "../../api/apiEquiblocks";
+import { apiTest } from "../../api/apiTest";
 
 import { TimerContext } from "../../Context/timerContext";
 import { PesoContext } from "../../Context/pesoContext";
@@ -34,11 +35,13 @@ export default function Challenge() {
   );
 
   const [begin, setBegin] = useState(false);
+  const [beginTest, setBeginTest] = useState(false);
 
   const [clear, setClear] = useState(false);
   const [phaseClear, setPhaseClear] = useState(true);
 
   const [status, setStatus] = useState("Começar");
+  const [statusTest, setStatusTest] = useState("Começar");
   const [tempoDeTeste] = useState(4);
   const [tempoDesafio] = useState(29);
 
@@ -95,17 +98,33 @@ export default function Challenge() {
   const getStatusPeriodically = () => {
     const intervalId = setInterval(() => {
       apiChallenge.get(`/getstatus`).then((response) => {
-        setStatus(response.data.status);
         if(response.data.status){
           setBegin(true)
+          setStatus("Finalizar");
         }
         else {
           setBegin(false)
+          setStatus("Começar");
+        }
+
+      }).catch((error) => {
+        console.error(error);
+      });
+
+      apiTest.get(`/getstatustest`).then((response) => {
+        if(response.data.statustest){
+          setBeginTest(true)
+          setStatusTest("Finalizar");
+        }
+        else {
+          setBeginTest(false)
+          setStatusTest("Começar");
         }
       }).catch((error) => {
         console.error(error);
       });
-    }, 3000);
+    }
+    , 3000);
     return intervalId;
   };
 
