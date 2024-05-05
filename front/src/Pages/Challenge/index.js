@@ -96,7 +96,7 @@ export default function Challenge() {
   const getStatusPeriodically = () => {
     const intervalId = setInterval(() => {
       apiChallenge.get(`/getstatus`).then((response) => {
-        if(response.data.status){
+        if (response.data.status) {
           setBegin(true)
           // setStatus("Finalizar");
         }
@@ -109,7 +109,7 @@ export default function Challenge() {
         console.error(error);
       });
     }
-    , 3000);
+      , 3000);
     return intervalId;
   };
 
@@ -154,6 +154,7 @@ export default function Challenge() {
     const formas1 = localStorage.getItem("formas");
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
+    let envio = [fig1, fig2, fig3, fig4, fig5];
 
     let middleIndex = 0;
     let index500 = palpites.findIndex((form) => form === 1);
@@ -164,10 +165,25 @@ export default function Challenge() {
       palpites[index500] = temp;
     }
 
-
     let count = 0;
     formas2.forEach((element) => {
-      if (palpites[count] == element.peso) palpites[count] = 2;
+      if (palpites[count] == element.peso) {
+        if (element.peso == 100) {
+          envio[0] = palpites[count];
+        }
+        else if (element.peso == 200) {
+          envio[1] = palpites[count];
+        }
+        else if (element.peso == 500) {
+          envio[2] = 500;
+        }
+        else if (element.peso == 700) {
+          envio[3] = palpites[count];
+        }
+        else if (element.peso == 1000) {
+          envio[4] = palpites[count];
+        }
+      }
       else palpites[count] = 1;
 
       count += 1;
@@ -180,11 +196,11 @@ export default function Challenge() {
       nome,
       data,
       tempo,
-      f1: parseInt(palpites[0] + 1),
-      f2: parseInt(palpites[1]),
-      f3: parseInt(palpites[2]),
-      f4: parseInt(palpites[3]),
-      f5: parseInt(palpites[4]),
+      f1: parseInt(envio[0]),
+      f2: parseInt(envio[1]),
+      f3: 500,
+      f4: parseInt(envio[3]),
+      f5: parseInt(envio[4]),
       tentativas: attempts,
       qtd_formas: qtd
     };

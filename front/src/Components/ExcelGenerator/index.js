@@ -130,11 +130,11 @@ export default function ExcelGenerator() {
                                 <th onClick={() => sortData('tempo')}>Tempo</th>
                                 <th onClick={() => sortData('tentativas')}>Tentativas</th>
                                 <th onClick={() => sortData('qtd_formas')}>Quantidade</th>
-                                <th onClick={() => sortData('f1')}>F1</th>
-                                <th onClick={() => sortData('f2')}>F2</th>
-                                <th onClick={() => sortData('f3')}>F3</th>
-                                <th onClick={() => sortData('f4')}>F4</th>
-                                <th onClick={() => sortData('f5')}>F5</th>
+                                <th onClick={() => sortData('f1')}>100</th>
+                                <th onClick={() => sortData('f2')}>200</th>
+                                <th onClick={() => sortData('f3')}>500</th>
+                                <th onClick={() => sortData('f4')}>700</th>
+                                <th onClick={() => sortData('f5')}>1000</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -145,11 +145,11 @@ export default function ExcelGenerator() {
                                     <td>{player.tempo}</td>
                                     <td>{player.tentativas}</td>
                                     <td>{player.qtd_formas}</td>
-                                    <td style={{ backgroundColor: player.f1 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
-                                    <td style={{ backgroundColor: player.f2 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
-                                    <td style={{ backgroundColor: player.f3 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
-                                    <td style={{ backgroundColor: player.f4 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
-                                    <td style={{ backgroundColor: player.f5 === 2 ? '#C6F7D0' : '#FFC6C6' }}></td>
+                                    <td style={{ backgroundColor: player.f1 === 100 ? '#C6F7D0' : '#FFC6C6' }}>{player.f1}</td>
+                                    <td style={{ backgroundColor: player.f2 === 200 ? '#C6F7D0' : '#FFC6C6' }}>{player.f2}</td>
+                                    <td style={{ backgroundColor: player.f3 === 500 ? '#C6F7D0' : '#FFC6C6' }}>{player.f3}</td>
+                                    <td style={{ backgroundColor: player.f4 === 700 ? '#C6F7D0' : '#FFC6C6' }}>{player.f4}</td>
+                                    <td style={{ backgroundColor: player.f5 === 1000 ? '#C6F7D0' : '#FFC6C6' }}>{player.f5}</td>
                                 </tr>
                             ))}
                         </tbody>
