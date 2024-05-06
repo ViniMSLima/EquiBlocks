@@ -44,7 +44,7 @@ export default function Challenge() {
   // const [tempoDesafio] = useState(29);
 
   const [phase, setPhase] = useState(
-    localStorage.getItem("fase") || "Fase de Teste"
+    localStorage.getItem("fase") || "FASE TESTE"
   );
 
   const [timerStarted, setTimerStarted] = useState(false);
@@ -313,7 +313,7 @@ export default function Challenge() {
 
   // useEffect(() => {
   //   const fase = localStorage.getItem("fase");
-  //   if (fase === "Fase de Teste") {
+  //   if (fase === "FASE TESTE") {
   //     alert("Tempo finalizado! Redirecionando para o Desafio");
   //     startReal();
   //   } else if (contextTimer > tempoDesafio) {
@@ -330,7 +330,7 @@ export default function Challenge() {
   }, [phase]);
 
   return (
-    <div>
+    <div className={styles.background}>
       {begin ? (
         <>
           <Row className={styles.row}>
@@ -353,26 +353,6 @@ export default function Challenge() {
                   <ContainerForm clear={clear} setClear={setClear} />
                 </Col>
                 <Col className={styles.inputCol} sm="10" lg="2">
-                  <Inputs
-                    oC1={(e) => {
-                      setFig1(e.target.value);
-                    }}
-                    oC2={(e) => {
-                      setFig2(e.target.value);
-                    }}
-                    oC3={(e) => {
-                      setFig3(e.target.value);
-                    }}
-                    oC4={(e) => {
-                      setFig4(e.target.value);
-                    }}
-                    oC5={(e) => {
-                      setFig5(e.target.value);
-                    }}
-                    status={status}
-                    startReal={startReal}
-                    clear={setClear}
-                  />
                 </Col>
               </Container>
             </Row>

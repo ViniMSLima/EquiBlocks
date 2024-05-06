@@ -211,7 +211,7 @@ export default function ContainerForm({ clear, setClear }) {
               handleDrop={handleDrop}
               attempt={attempt}
               setAttempt={setAttempt}
-            />
+              />
             {/* <Score balance={ balance1 }/> */}
           </Col>
           <Col sm="12" lg="6" className={styles.coluna}>
@@ -222,15 +222,17 @@ export default function ContainerForm({ clear, setClear }) {
               handleDrop={handleDrop}
               attempt={attempt}
               setAttempt={setAttempt}
-            />
+              />
             {/* <Score balance={ balance2 }/> */}
           </Col>
         </Row>
       </Container>
       <Container className={styles.container}>
+        <div className={styles.border}>
         <Row>
           {formas.map((item, index) => (
             <Col key={index}>
+
               <div className={styles.divForm}>
                 <img
                   className={styles.forms}
@@ -243,12 +245,13 @@ export default function ContainerForm({ clear, setClear }) {
                     }
                   }}
                   onDragEnd={() => handleDragEnd(index)}
-                />
+                  />
                 <p className={styles.qtd}>{item.quantidade}</p>
               </div>
             </Col>
           ))}
         </Row>
+        </div>
       </Container>
       <div className={styles.button} onClick={handleButtonClick}>
         Calcular

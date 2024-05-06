@@ -1,3 +1,7 @@
+body{
+    background-image: url(../../Img/fundo.png);
+}
+
 .cont {
     display: flex;
     flex-direction: row;
@@ -8,9 +12,10 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    font-family: "League Gothic", sans-serif;
-    font-size: 5em;
+    font-family: "Tourney", sans-serif;
+    font-size: 6em;
     user-select: none;
+    color: white;
 }
 
 .row {
