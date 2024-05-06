@@ -40,8 +40,8 @@ export default function Challenge() {
 
   const [status, setStatus] = useState("Começar");
   const [statusTest, setStatusTest] = useState("Começar");
-  const [tempoDeTeste] = useState(4);
-  const [tempoDesafio] = useState(29);
+  // const [tempoDeTeste] = useState(4);
+  // const [tempoDesafio] = useState(29);
 
   const [phase, setPhase] = useState(
     localStorage.getItem("fase") || "Fase de Teste"
@@ -114,6 +114,16 @@ export default function Challenge() {
   };
 
   useEffect(() => {
+    const storedTempo = localStorage.getItem("tempo");
+    if (storedTempo) {
+      // Converter a string de tempo em segundos
+      const [minutes, seconds] = storedTempo.split(":").map(Number);
+      const totalTimeInSeconds = minutes * 60 + seconds;
+
+      // Iniciar o timer com o tempo convertido
+      setContextTimer(totalTimeInSeconds);
+    }
+
     const intervalId = getStatusPeriodically();
     return () => clearInterval(intervalId);
   }, []);
@@ -301,16 +311,16 @@ export default function Challenge() {
     setPhase("Desafio");
   };
 
-  useEffect(() => {
-    const fase = localStorage.getItem("fase");
-    if (contextTimer > tempoDeTeste && fase === "Fase de Teste") {
-      alert("Tempo finalizado! Redirecionando para o Desafio");
-      startReal();
-    } else if (contextTimer > tempoDesafio) {
-      playersToMongoDB();
-      navigate("/finished");
-    }
-  }, [contextTimer]);
+  // useEffect(() => {
+  //   const fase = localStorage.getItem("fase");
+  //   if (fase === "Fase de Teste") {
+  //     alert("Tempo finalizado! Redirecionando para o Desafio");
+  //     startReal();
+  //   } else if (contextTimer > tempoDesafio) {
+  //     playersToMongoDB();
+  //     navigate("/finished");
+  //   }
+  // }, [contextTimer]);
 
   useEffect(() => {
     if (prevPhaseRef.current !== phase && phase == "Desafio") {
@@ -324,10 +334,10 @@ export default function Challenge() {
       {begin ? (
         <>
           <Row className={styles.row}>
-            <Col className={styles.align} sm="12" lg="4">
+            <Col className={styles.align} sm="12" lg="2">
               <Timer startTimer={timerStarted} />
             </Col>
-            <Col className={styles.title} sm="12" lg="4">
+            <Col className={styles.title} sm="12" lg="6">
               {phase}
             </Col>
             <Col className={styles.btn}>
