@@ -16,7 +16,7 @@ import { PesoProvider } from "./Context/pesoContext";
 function App() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <TimerProvider>
         <PesoProvider>
           <Routes>

@@ -2,20 +2,175 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: white;
+  font-family: "Tourney", sans-serif;
+  overflow-x: hidden;
+}
+
+.row {
+  width: 100%;
+}
+
+.rowLines {
+  width: 100%;
+  height: 10em;
 }
 
 .logo {
   width: 18em;
 }
 
-@media screen and (max-width: 1850px) {
-  .logo {
-    width: 14em;
+.title {
+  font-size: 8em;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.rowText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputs {
+  font-size: 3em;
+}
+
+.btn {
+  font-size: 2em;
+  background: rgb(34, 129, 200);
+  background: linear-gradient(76deg, rgba(34, 129, 200, 1) 0%, rgba(29, 79, 203, 1) 100%);
+  height: 2em;
+  width: 8em;
+  padding: 0;
+  text-shadow:3px 4px 5px black;
+}
+
+.shapes {
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+}
+
+.redSquare {
+  position: fixed;
+  right: 0;
+  height: 1em;
+  margin-top: 0.4em;
+}
+
+.greenCircle {
+  width: 42%;
+  height: 80%;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+}
+
+.purpleSquare {
+  z-index: 2;
+  transform: rotate(-24deg);
+  position: absolute;
+  left: 90px;
+  height: 27em;
+  top: 40%;
+  animation: moveAnimationRight 10s ease-in-out infinite;
+}
+
+.blueStar {
+  z-index: 3;
+  height: 35em;
+  position: absolute;
+  left: 360px;
+  top: 20%;
+  animation: moveAnimationLeft 12s ease-in-out infinite;
+}
+
+@keyframes moveAnimationLeft {
+  0% {
+    transform: rotate(-90deg) translateX(0); 
   }
+  50% {
+    transform: rotate(90deg) translateX(100px);
+  }
+  100% {
+    transform: rotate(-90deg) translateX(0);
+  }
+}
+
+@keyframes moveAnimationRight {
+  0% {
+    transform: rotate(90deg) translateX(0); 
+  }
+  50% {
+    transform: rotate(-90deg) translateX(100px);
+  }
+  100% {
+    transform: rotate(90deg) translateX(0);
+  }
+}
+
+@keyframes redLineMoving {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes greenBlueLineMoving {
+  0% {
+    transform: translateX(-50vw);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+.redLine {
+  width: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.blueLine {
+  width: auto;
+  display: flex;
+  margin-top: 4em;
+}
+
+.greenLine {
+  width: auto;
+  display: flex;
+  margin-top: 2em;
+}
+
+.lineRed {
+  height: 1.5em;
+  animation: redLineMoving 10s ease-in-out infinite;
+}
+
+.lineBlueGreen {
+  height: 1.5em;
+  animation: greenBlueLineMoving 10s ease-in-out infinite;
 }
 
 @media screen and (max-width: 1500px) {
   .home {
     margin-bottom: 2em;
+  }
+}
+
+@media screen and (max-width: 879px) {
+  .redSquare {
+    display: none;
   }
 }

@@ -5,15 +5,17 @@
 
 .label {
   margin-bottom: 0.5rem;
-  margin-top: 1em;
+  margin-top: 0.5em;
 }
 
 .input {
   width: 30rem;
-  height: 2em;
+  height: 3em;
   background-color: #C1C7CC;
   border: 1px solid #ccc;
   padding: 8px 12px;
   font-size: 16px;
   outline: none;
+  border-radius: 10px;
+  font-size: 0.4em;
 }

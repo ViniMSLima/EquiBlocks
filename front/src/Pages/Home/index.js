@@ -1,8 +1,22 @@
-import React, { useEffect, useState } from "react";
-import styles from "./styles.module.scss";
-import logo from "../../Img/logo.png";
-import Input from "../../Components/Input";
 import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+
+import Row from "react-bootstrap/esm/Row";
+import Col from "react-bootstrap/esm/Col";
+
+import styles from "./styles.module.scss";
+
+import Input from "../../Components/Input";
+
+import redSquare from "../../Img/home/cantinho.png";
+import greenDonut from "../../Img/home/bolinha.png";
+import greenCircle from "../../Img/home/circle.png";
+import blueStar from "../../Img/home/estrela.png";
+import purpleSquare from "../../Img/home/quadrado.png";
+
+import redLine from "../../Img/home/redLine.png";
+import blueLine from "../../Img/home/blueLine.png";
+import greenLine from "../../Img/home/greenLine.png";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -49,25 +63,47 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      <img src={logo} className={styles.logo} alt="Logo" />
-      <div>
-        <Input
-          type="text"
-          placeholder="Digite seu Nome"
-          label="Nome:"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
-        <Input
-          type="date"
-          label="Data de Nascimento:"
-          value={data}
-          onChange={(e) => setData(e.target.value)}
-        />
-      </div>
-      <button label="JOGAR" onClick={play}>
-        JOGAR
-      </button>
+      <Row className={styles.rowLines}>
+        <Col xxl="6" className={styles.redLine}>
+          <img src={redLine} className={styles.lineRed}></img>
+        </Col>
+        <Col xxl="3" className={styles.blueLine}>
+          <img src={blueLine} className={styles.lineBlueGreen}></img>
+        </Col>
+        <Col xxl="3" className={styles.greenLine}>
+          <img src={greenLine} className={styles.lineBlueGreen}></img>
+        </Col>
+      </Row>
+      <Row className={styles.row}>
+        <Col lg="2" xl="3" xxl="5" className={styles.shapes}>
+          <img src={greenCircle} className={styles.greenCircle}></img>
+          <img src={purpleSquare} className={styles.purpleSquare}></img>
+          <img src={blueStar} className={styles.blueStar}></img>
+        </Col>
+        <Col lg="10" xl="9" xxl="7" className={styles.text}>
+          <div className={styles.title}>
+            EquiBlocks
+            <img src={redSquare} className={styles.redSquare}></img>
+          </div>
+          <div className={styles.inputs}>
+            <Input
+              type="text"
+              label="Nome Completo:"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+            <Input
+              type="date"
+              label="Data de Nascimento:"
+              value={data}
+              onChange={(e) => setData(e.target.value)}
+            />
+          </div>
+          <button label="JOGAR" onClick={play} className={styles.btn}>
+            JOGAR
+          </button>
+        </Col>
+      </Row>
     </div>
   );
 }
