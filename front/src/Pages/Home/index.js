@@ -85,7 +85,7 @@ export default function Home() {
 
           <img src={cyanLine} className={styles.lineCyan}></img>
           <img src={lightGreenLine} className={styles.lineLightGreen}></img>
-          <img src={purpleLine} className={styles.linePurple} id="purpleLine"></img>
+          <img src={purpleLine} className={styles.linePurple}></img>
         </Col>
         <Col lg="12" xl="12" xxl="7" className={styles.text}>
           <div className={styles.title}>

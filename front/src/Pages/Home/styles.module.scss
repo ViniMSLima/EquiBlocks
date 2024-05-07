@@ -50,7 +50,7 @@
   height: 2em;
   width: 8em;
   padding: 0;
-  text-shadow:3px 4px 5px black;
+  text-shadow: 3px 4px 5px black;
   margin-top: 0.5em;
 }
 
@@ -158,16 +158,20 @@
 
 .lineBlueGreen {
   height: 1.5em;
+  position: fixed;
+  left: 0;
   animation: greenBlueLineMoving 10s ease-in-out infinite;
 }
 
 @keyframes moveAnimationLeft {
   0% {
-    transform: rotate(-90deg) translateX(0); 
+    transform: rotate(-90deg) translateX(0);
   }
+
   50% {
     transform: rotate(90deg) translateX(100px);
   }
+
   100% {
     transform: rotate(-90deg) translateX(0);
   }
@@ -175,11 +179,13 @@
 
 @keyframes moveAnimationRight {
   0% {
-    transform: rotate(90deg) translateX(0); 
+    transform: rotate(90deg) translateX(0);
   }
+
   50% {
     transform: rotate(-90deg) translateX(100px);
   }
+
   100% {
     transform: rotate(90deg) translateX(0);
   }
@@ -189,6 +195,7 @@
   0% {
     transform: translateX(100vw);
   }
+
   100% {
     transform: translateX(-100%);
   }
@@ -198,6 +205,7 @@
   0% {
     transform: translateX(-50vw);
   }
+
   100% {
     transform: translateX(100vw);
   }
@@ -207,6 +215,7 @@
   0% {
     transform: translateX(-50vw);
   }
+
   100% {
     transform: translateX(100vw);
   }
@@ -216,6 +225,7 @@
   0% {
     transform: translateX(-50vw);
   }
+
   100% {
     transform: translateX(100vw);
   }
@@ -243,7 +253,7 @@
     display: flex;
     margin-top: 2.5em;
   }
-  
+
   .greenLine {
     width: auto;
     display: flex;
@@ -263,6 +273,7 @@
     0% {
       transform: translateX(-100vw);
     }
+
     100% {
       transform: translateX(95vw);
     }
@@ -291,7 +302,7 @@
     display: flex;
     margin-top: 2.5em;
   }
-  
+
   .greenLine {
     width: auto;
     display: flex;
@@ -311,6 +322,7 @@
     0% {
       transform: translateX(-70vw);
     }
+
     100% {
       transform: translateX(100vw);
     }
@@ -334,6 +346,7 @@
     0% {
       transform: translateX(-70vw);
     }
+
     100% {
       transform: translateX(100vw);
     }
