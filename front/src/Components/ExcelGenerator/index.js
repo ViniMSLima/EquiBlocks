@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver';
 import axios from 'axios';
 
 import { apiEquiblocks } from '../../api/apiEquiblocks';
+import { apiChallenge } from '../../api/apiChallenge';
 
 import './ExcelGenerator.css';
 
@@ -13,8 +14,13 @@ export default function ExcelGenerator() {
     const [sortedData, setSortedData] = useState(null);
     const [sortBy, setSortBy] = useState({ column: null, ascending: true });
 
-    async function getPlayers() {
+    const [f1, setF1] = useState(0);
+    const [f2, setF2] = useState(0);
+    const [f3, setF3] = useState(0);
+    const [f4, setF4] = useState(0);
+    const [f5, setF5] = useState(0);
 
+    async function getPlayers() {
         apiEquiblocks.get(`/getplayers`).then((response) => {
             if (!response.data.players) {
                 console.log("Erro em getplayers")
@@ -27,11 +33,24 @@ export default function ExcelGenerator() {
             console.log("Error fetching players data:")
             console.error(error)
         })
+    }
 
+    async function getValues() {
+        apiChallenge.get(`/getvalues`).then((response) => {
+            setF1(response.data.F1)
+            setF2(response.data.F2)
+            setF3(response.data.F3)
+            setF4(response.data.F4)
+            setF5(response.data.F5)
+        }).catch((error) => {
+            console.log("Error fetching players data:")
+            console.error(error)
+        })
     }
 
     useEffect(() => {
         getPlayers();
+        getValues();
     }, []);
 
     function sortData(column) {
@@ -106,12 +125,34 @@ export default function ExcelGenerator() {
         return buf;
     }
 
+    function saveNewValues() {
+        apiChallenge
+        .post(`/postavalues`, {f1, f2, f3, f4, f5})
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+          console.log("Error fetching new values");
+          console.error(error);
+        });
+
+        getValues();
+    }
+
     return (
         <div className="excel-generator-container">
             <div className='excel-btn'>
                 <div>
                     <button onClick={resetSort}>Redefinir ordem</button>
                     <button onClick={clearMongoDB}>Limpar MongoDB</button>
+                </div>
+                <div>
+                    <input placeholder={f1} onChange={(e) => setF1(e.target.value)}></input>
+                    <input placeholder={f2} onChange={(e) => setF2(e.target.value)}></input>
+                    <input placeholder={f3} onChange={(e) => setF3(e.target.value)}></input>
+                    <input placeholder={f4} onChange={(e) => setF4(e.target.value)}></input>
+                    <input placeholder={f5} onChange={(e) => setF5(e.target.value)}></input>
+                    <button onClick={saveNewValues}> Salvar Valores</button>
                 </div>
                 <div>
                     <input type="file" onChange={loadExcelFile} />
