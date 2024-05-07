@@ -127,7 +127,7 @@ export default function ExcelGenerator() {
 
     function saveNewValues() {
         apiChallenge
-        .post(`/postavalues`, {f1, f2, f3, f4, f5})
+        .post(`/postvalues`, {f1, f2, f3, f4, f5})
         .then((response) => {
             console.log(response);
         })
@@ -136,7 +136,7 @@ export default function ExcelGenerator() {
           console.error(error);
         });
 
-        getValues();
+        alert("Novos valores enviados. Será atualizado em alguns instantes!")
     }
 
     return (
