@@ -44,173 +44,173 @@
     border-radius: 13px;
     z-index: 1000;
 }
-  
-  .row {
-    width: 100%;
+
+.row {
+  width: 100%;
+}
+
+.rowLines {
+  width: 100%;
+  height: 10em;
+}
+
+.redLine {
+  width: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.blueLine {
+  width: auto;
+  display: flex;
+  margin-top: 4em;
+}
+
+.greenLine {
+  width: auto;
+  display: flex;
+  margin-top: 2em;
+}
+
+.lineCyan {
+  height: 2em;
+  position: absolute;
+  bottom: 25%;
+  left: 0;
+  animation: cyanLineMoving 10s ease-in-out infinite;
+}
+
+.lineLightGreen {
+  height: 2em;
+  position: absolute;
+  bottom: 17%;
+  left: 0;
+  animation: cyanLineMoving 16s ease-in-out infinite;
+}
+
+.linePurple {
+  height: 2em;
+  position: absolute;
+  bottom: 3%;
+  left: 0;
+  animation: cyanLineMoving 8s ease-in-out infinite;
+  z-index: 1;
+}
+
+.lineRed {
+  height: 1.5em;
+  animation: redLineMoving 7s ease-in-out infinite;
+}
+
+.lineBlueGreen {
+  position: fixed;
+  left: 0;
+  height: 1.5em;
+  animation: greenBlueLineMoving 10s ease-in-out infinite;
+}
+
+@keyframes redLineMoving {
+  0% {
+    transform: translateX(100vw);
   }
-  
-  .rowLines {
-    width: 100%;
-    height: 10em;
+  100% {
+    transform: translateX(-100%);
   }
-  
-  .redLine {
-    width: auto;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
+}
+
+@keyframes greenBlueLineMoving {
+  0% {
+    transform: translateX(-50vw);
   }
-  
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+@keyframes cyanLineMoving {
+  0% {
+    transform: translateX(-50vw);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+@keyframes purpleLineMoving {
+  0% {
+    transform: translateX(-50vw);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+@media screen and (max-width: 991px) {
   .blueLine {
     width: auto;
     display: flex;
-    margin-top: 4em;
+    margin-top: 2.5em;
   }
   
   .greenLine {
     width: auto;
     display: flex;
-    margin-top: 2em;
+    margin-top: 1em;
   }
-  
-  .lineCyan {
-    height: 2em;
-    position: absolute;
-    bottom: 25%;
-    left: 0;
-    animation: cyanLineMoving 10s ease-in-out infinite;
+
+  .rowLines {
+    width: 100%;
+    height: 5em;
   }
-  
-  .lineLightGreen {
-    height: 2em;
-    position: absolute;
-    bottom: 17%;
-    left: 0;
-    animation: cyanLineMoving 16s ease-in-out infinite;
-  }
-  
-  .linePurple {
-    height: 2em;
-    position: absolute;
-    bottom: 3%;
-    left: 0;
-    animation: cyanLineMoving 8s ease-in-out infinite;
-    z-index: 1;
-  }
-  
-  .lineRed {
-    height: 1.5em;
-    animation: redLineMoving 7s ease-in-out infinite;
-  }
-  
-  .lineBlueGreen {
-    position: fixed;
-    left: 0;
-    height: 1.5em;
-    animation: greenBlueLineMoving 10s ease-in-out infinite;
-  }
-  
-  @keyframes redLineMoving {
-    0% {
-      transform: translateX(100vw);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-  
+
   @keyframes greenBlueLineMoving {
     0% {
-      transform: translateX(-50vw);
+      transform: translateX(-100vw);
     }
     100% {
-      transform: translateX(100vw);
+      transform: translateX(95vw);
     }
   }
+}
+
+@media screen and (max-width: 1399px) {
+  .blueLine {
+    width: auto;
+    display: flex;
+    margin-top: 2.5em;
+  }
   
-  @keyframes cyanLineMoving {
+  .greenLine {
+    width: auto;
+    display: flex;
+    margin-top: 1em;
+  }
+
+  .rowLines {
+    width: 100%;
+    height: 5em;
+  }
+
+  @keyframes greenBlueLineMoving {
     0% {
-      transform: translateX(-50vw);
+      transform: translateX(-70vw);
     }
     100% {
       transform: translateX(100vw);
     }
   }
-  
-  @keyframes purpleLineMoving {
+}
+
+@media screen and (max-width: 1832px) {
+  @keyframes greenBlueLineMoving {
     0% {
-      transform: translateX(-50vw);
+      transform: translateX(-70vw);
     }
     100% {
       transform: translateX(100vw);
     }
   }
-  
-  @media screen and (max-width: 991px) {
-    .blueLine {
-      width: auto;
-      display: flex;
-      margin-top: 2.5em;
-    }
-    
-    .greenLine {
-      width: auto;
-      display: flex;
-      margin-top: 1em;
-    }
-  
-    .rowLines {
-      width: 100%;
-      height: 5em;
-    }
-  
-    @keyframes greenBlueLineMoving {
-      0% {
-        transform: translateX(-100vw);
-      }
-      100% {
-        transform: translateX(95vw);
-      }
-    }
-  }
-  
-  @media screen and (max-width: 1399px) {
-    .blueLine {
-      width: auto;
-      display: flex;
-      margin-top: 2.5em;
-    }
-    
-    .greenLine {
-      width: auto;
-      display: flex;
-      margin-top: 1em;
-    }
-  
-    .rowLines {
-      width: 100%;
-      height: 5em;
-    }
-  
-    @keyframes greenBlueLineMoving {
-      0% {
-        transform: translateX(-70vw);
-      }
-      100% {
-        transform: translateX(100vw);
-      }
-    }
-  }
-  
-  @media screen and (max-width: 1832px) {
-    @keyframes greenBlueLineMoving {
-      0% {
-        transform: translateX(-70vw);
-      }
-      100% {
-        transform: translateX(100vw);
-      }
-    }
-  }
-  
+}
+
 
