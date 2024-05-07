@@ -278,9 +278,10 @@ export default function Challenge() {
   }
 
   const startReal = async () => {
+    console.log("kkk")
     setPhaseClear(false);
     localStorage.setItem("phaseclear", JSON.stringify(phaseClear));
-    if (status === "Finalizar") {
+    if (status === "FINALIZAR") {
       if (window.confirm("Deseja Finalizar?")) {
         if (!checkInputs()) {
           alert("Não é possível finalizar a atividade com valores em branco.");
