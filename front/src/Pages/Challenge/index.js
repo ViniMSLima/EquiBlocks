@@ -133,6 +133,7 @@ export default function Challenge() {
   useEffect(() => {
     if (localStorage.getItem("fase") === "Desafio") setStatus("Finalizar");
     setTimerStarted(true);
+
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -141,21 +142,21 @@ export default function Challenge() {
       return array;
     }
 
-    let pesos = [];
-    apiChallenge.get(`/getvalues`).then((response) => {
-      pesos[0] = (response.data.F1)
-      pesos[1] = (response.data.F2)
-      pesos[2] = (response.data.F3)
-      pesos[3] = (response.data.F4)
-      pesos[4] = (response.data.F5)
-      console.log(pesos);
-    }).catch((error) => {
-      console.log("Error fetching players data:")
-      console.error(error)
-    })
-    // const pesos = [100, 200, 500, 700, 1000];
-    const newPesos = shuffleArray(pesos);
+    // let pesos = [];
+    // apiChallenge.get(`/getvalues`).then((response) => {
+    //   pesos[0] = (response.data.F1)
+    //   pesos[1] = (response.data.F2)
+    //   pesos[2] = (response.data.F3)
+    //   pesos[3] = (response.data.F4)
+    //   pesos[4] = (response.data.F5)
+    // }).catch((error) => {
+    //   console.log("Error fetching players data:")
+    //   console.error(error)
+    // })
+    const pesos = [100, 200, 500, 700, 1000];
+
     console.log(pesos)
+    const newPesos = shuffleArray(pesos);
 
     setContextPeso(newPesos);
   }, []);
