@@ -112,9 +112,9 @@ export default function Home() {
         </Col>
       </Row>
       <Row className={styles.row}>
-          <div className={styles.greenDonutDiv}>
-            <img src={greenDonut} className={styles.greenDonut}></img>
-          </div>
+        <div className={styles.greenDonutDiv}>
+          <img src={greenDonut} className={styles.greenDonut}></img>
+        </div>
       </Row>
     </div>
   );
