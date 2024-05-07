@@ -8,6 +8,9 @@ import styles from "./styles.module.scss";
 
 import Input from "../../Components/Input";
 
+import donutPt1 from "../../Img/home/donutPt1.png";
+import donutPt2 from "../../Img/home/donutPt2.png";
+
 import redSquare from "../../Img/home/cantinho.png";
 import greenDonut from "../../Img/home/bolinha.png";
 import greenCircle from "../../Img/home/circle.png";
@@ -64,6 +67,9 @@ export default function Home() {
     }
   }
 
+  var greenDonutWidth = document.getElementById('greenDonut').offsetWidth;
+  document.getElementById('greenDonut2').style.marginLeft = "calc(15em + " + greenDonutWidth + "px)";
+
   return (
     <div className={styles.home}>
       <Row className={styles.rowLines}>
@@ -113,7 +119,9 @@ export default function Home() {
       </Row>
       <Row className={styles.row}>
         <div className={styles.greenDonutDiv}>
-          <img src={greenDonut} className={styles.greenDonut}></img>
+          {/* <img src={greenDonut} className={styles.greenDonut}></img> */}
+          <img src={donutPt1} className={styles.greenDonut} id="greenDonut"></img>
+          <img src={donutPt2} className={styles.greenDonut2} id="greenDonut2"></img>
         </div>
       </Row>
     </div>
