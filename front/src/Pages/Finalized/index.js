@@ -11,10 +11,12 @@ export default function Finalized() {
   }
 
   return (
-    <Container className={styles.container}>
-      <div className={styles.title}>Desafio Concluído.</div>
-      <div className={styles.text}>Aguarde por mais instruções dos instrutores.</div>
-      <button onClick={goHome}>Voltar para a página Home</button>
-    </Container>
+    <div className={styles.body}>
+      <Container className={styles.container}>
+        <div className={styles.title}>Desafio Concluído.</div>
+        <div className={styles.text}>Aguarde por mais instruções dos instrutores.</div>
+        <button onClick={goHome} className={styles.button}>INÍCIO</button>
+      </Container>
+    </div>
   );
 }

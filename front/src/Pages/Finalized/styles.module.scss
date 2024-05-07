@@ -1,16 +1,35 @@
+.body {
+    color: white;
+    width: 100%;
+    display: flex;
+    font-family: "Tourney", sans-serif;
+}
 .container {
+    border: 1px dashed white;
+    border-radius: 15px;
+    width: 55%;
+    text-align: center;
+    margin-top: 10%;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    padding: 2%;
 }
 
 .title {
-    font-size: 5em;
+    font-size: 4.5em;
     font-weight: 600;
 }
 
 .text {
     margin-top: 1.5em;
     font-size: 2.5em;
+}
+
+.button {
+    font-size: 1.2em;
+    background-color: #02549F;
+    border: 1px solid #02549F;
+    border-radius: 13px;
 }
