@@ -75,12 +75,12 @@ export default function Home() {
         </Col>
       </Row>
       <Row className={styles.row}>
-        <Col lg="2" xl="3" xxl="5" className={styles.shapes}>
+        <Col lg="0" xl="0" xxl="5" className={styles.shapes}>
           <img src={greenCircle} className={styles.greenCircle}></img>
           <img src={purpleSquare} className={styles.purpleSquare}></img>
           <img src={blueStar} className={styles.blueStar}></img>
         </Col>
-        <Col lg="10" xl="9" xxl="7" className={styles.text}>
+        <Col lg="12" xl="12" xxl="7" className={styles.text}>
           <div className={styles.title}>
             EquiBlocks
             <img src={redSquare} className={styles.redSquare}></img>

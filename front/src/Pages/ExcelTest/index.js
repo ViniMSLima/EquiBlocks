@@ -56,7 +56,7 @@ export default function Excel() {
   };
 
   return (
-    <div>
+    <div style={{backgroundColor: 'white'}}>
       <button onClick={() => logOut()} style={{ marginLeft: '1em' }}>Sair</button>
       <button onClick={() => Challenge()} style={{ marginLeft: '1em' }}>{status ? "Finalizar" : "Iniciar"}</button>
       <ExcelGenerator />

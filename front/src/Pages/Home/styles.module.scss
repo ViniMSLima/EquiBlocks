@@ -67,7 +67,6 @@
 }
 
 .greenCircle {
-  width: 42%;
   height: 80%;
   z-index: 1;
   position: absolute;
@@ -78,19 +77,48 @@
   z-index: 2;
   transform: rotate(-24deg);
   position: absolute;
-  left: 90px;
-  height: 27em;
+  left: 3em;
+  height: 40%;
   top: 40%;
   animation: moveAnimationRight 10s ease-in-out infinite;
 }
 
 .blueStar {
   z-index: 3;
-  height: 35em;
+  height: 50%;
   position: absolute;
-  left: 360px;
+  left: 13em;
   top: 20%;
   animation: moveAnimationLeft 12s ease-in-out infinite;
+}
+
+.redLine {
+  width: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.blueLine {
+  width: auto;
+  display: flex;
+  margin-top: 4em;
+}
+
+.greenLine {
+  width: auto;
+  display: flex;
+  margin-top: 2em;
+}
+
+.lineRed {
+  height: 1.5em;
+  animation: redLineMoving 10s ease-in-out infinite;
+}
+
+.lineBlueGreen {
+  height: 1.5em;
+  animation: greenBlueLineMoving 10s ease-in-out infinite;
 }
 
 @keyframes moveAnimationLeft {
@@ -134,43 +162,102 @@
   }
 }
 
-.redLine {
-  width: auto;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-.blueLine {
-  width: auto;
-  display: flex;
-  margin-top: 4em;
-}
-
-.greenLine {
-  width: auto;
-  display: flex;
-  margin-top: 2em;
-}
-
-.lineRed {
-  height: 1.5em;
-  animation: redLineMoving 10s ease-in-out infinite;
-}
-
-.lineBlueGreen {
-  height: 1.5em;
-  animation: greenBlueLineMoving 10s ease-in-out infinite;
-}
-
 @media screen and (max-width: 1500px) {
   .home {
     margin-bottom: 2em;
   }
 }
 
-@media screen and (max-width: 879px) {
+@media screen and (max-width: 991px) {
   .redSquare {
     display: none;
+  }
+
+  .greenCircle {
+    display: none;
+  }
+
+  .purpleSquare {
+    display: none;
+  }
+
+  .blueStar {
+    display: none;
+  }
+
+  .blueLine {
+    width: auto;
+    display: flex;
+    margin-top: 2.5em;
+  }
+  
+  .greenLine {
+    width: auto;
+    display: flex;
+    margin-top: 1em;
+  }
+
+  .rowLines {
+    width: 100%;
+    height: 5em;
+  }
+
+  @keyframes greenBlueLineMoving {
+    0% {
+      transform: translateX(-70vw);
+    }
+    100% {
+      transform: translateX(100vw);
+    }
+  }
+}
+
+@media screen and (max-width: 1485px) {
+  .redSquare {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1399px) {
+  .redSquare {
+    display: none;
+  }
+
+  .greenCircle {
+    display: none;
+  }
+
+  .purpleSquare {
+    display: none;
+  }
+
+  .blueStar {
+    display: none;
+  }
+
+  .blueLine {
+    width: auto;
+    display: flex;
+    margin-top: 2.5em;
+  }
+  
+  .greenLine {
+    width: auto;
+    display: flex;
+    margin-top: 1em;
+  }
+
+  .rowLines {
+    width: 100%;
+    height: 5em;
+  }
+
+  @keyframes greenBlueLineMoving {
+    0% {
+      transform: translateX(-70vw);
+    }
+    100% {
+      transform: translateX(100vw);
+    }
   }
 }
