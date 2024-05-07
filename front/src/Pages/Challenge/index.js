@@ -38,8 +38,9 @@ export default function Challenge() {
   const [clear, setClear] = useState(false);
   const [phaseClear, setPhaseClear] = useState(true);
 
-  const [status, setStatus] = useState("COMEÇAR");
-  const [statusTest, setStatusTest] = useState("Começar");
+  const [status, setStatus] = useState(
+    localStorage.getItem("status") || "COMEÇAR"
+  );
   // const [tempoDeTeste] = useState(4);
   // const [tempoDesafio] = useState(29);
 
@@ -56,6 +57,7 @@ export default function Challenge() {
   const prevPhaseRef = useRef(phase);
 
   useEffect(() => {
+    localStorage.setItem("status", status);
     localStorage.setItem("fase", phase);
     const updatedFormas = [
       {
@@ -95,21 +97,21 @@ export default function Challenge() {
 
   const getStatusPeriodically = () => {
     const intervalId = setInterval(() => {
-      apiChallenge.get(`/getstatus`).then((response) => {
-        if (response.data.status) {
-          setBegin(true)
-          // setStatus("Finalizar");
-        }
-        else {
-          setBegin(false)
-          // setStatus("Começar");
-        }
-
-      }).catch((error) => {
-        console.error(error);
-      });
-    }
-      , 3000);
+      apiChallenge
+        .get(`/getstatus`)
+        .then((response) => {
+          if (response.data.status) {
+            setBegin(true);
+            // setStatus("Finalizar");
+          } else {
+            setBegin(false);
+            // setStatus("Começar");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, 3000);
     return intervalId;
   };
 
@@ -158,9 +160,6 @@ export default function Challenge() {
     var qtdTentativas = parseInt(localStorage.getItem("countAttempt")) + 1;
     var qtdFormas = parseInt(localStorage.getItem("qtdFormas")) + 1;
 
-    console.log(qtdTentativas)
-    console.log(qtdFormas)
-
     const formas1 = localStorage.getItem("formas");
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
@@ -183,21 +182,16 @@ export default function Challenge() {
         acertos += 25;
         if (element.peso == 100) {
           envio[0] = palpites[count];
-        }
-        else if (element.peso == 200) {
+        } else if (element.peso == 200) {
           envio[1] = palpites[count];
-        }
-        else if (element.peso == 500) {
+        } else if (element.peso == 500) {
           envio[2] = 500;
-        }
-        else if (element.peso == 700) {
+        } else if (element.peso == 700) {
           envio[3] = palpites[count];
-        }
-        else if (element.peso == 1000) {
+        } else if (element.peso == 1000) {
           envio[4] = palpites[count];
         }
-      }
-      else palpites[count] = 1;
+      } else palpites[count] = 1;
 
       count += 1;
     });
@@ -216,7 +210,7 @@ export default function Challenge() {
       f5: parseInt(envio[4]),
       tentativas: attempts,
       qtd_formas: qtd,
-      acertos
+      acertos,
     };
 
     try {
@@ -278,7 +272,6 @@ export default function Challenge() {
   }
 
   const startReal = async () => {
-    console.log("kkk")
     setPhaseClear(false);
     localStorage.setItem("phaseclear", JSON.stringify(phaseClear));
     if (status === "FINALIZAR") {
@@ -306,10 +299,12 @@ export default function Challenge() {
         right: { total: 0, figures: {} },
       })
     );
-    localStorage.removeItem("tempo")
+    localStorage.removeItem("tempo");
     setTimerStarted(true);
     setStatus("FINALIZAR");
     setPhase("DESAFIO");
+    // if(status == "COMEÇAR")
+    // window.location.reload()
   };
 
   // useEffect(() => {
@@ -348,14 +343,21 @@ export default function Challenge() {
             <Row className={styles.row}>
               <Container className={styles.cont}>
                 <Col className={styles.title} sm="12" lg="12">
-                  <ContainerForm clear={clear} setClear={setClear} startReal={startReal} phasePro={status}/>
+                  <ContainerForm
+                    clear={clear}
+                    setClear={setClear}
+                    startReal={startReal}
+                  />
                 </Col>
                 {/* <Col className={styles.inputCol} sm="10" lg="2">
                 </Col> */}
               </Container>
             </Row>
           </div>
-        </>) : (<h2 className={styles.textChallenge}> Aguarde o início do desafio </h2>)}
+        </>
+      ) : (
+        <h2 className={styles.textChallenge}> Aguarde o início do desafio </h2>
+      )}
     </div>
   );
 }

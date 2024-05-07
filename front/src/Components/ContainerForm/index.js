@@ -14,7 +14,7 @@ import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 
-export default function ContainerForm({ clear, setClear, startReal, phasePro }) {
+export default function ContainerForm({ clear, setClear, startReal }) {
   const { contextPeso } = useContext(PesoContext);
   const [formas, setFormas] = useState([]);
   const [phase, setPhase] = useState("Fase de Teste");
@@ -100,6 +100,8 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro }) 
 
   disableF5.current = handleKeyDown;
 
+  let status = localStorage.getItem('status');
+
   document.addEventListener("keydown", handleKeyDown);
 
   const handleDrop = (forma, balanca, lado) => {
@@ -138,10 +140,10 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro }) 
       return item;
     });
     localStorage.setItem("formas", JSON.stringify(updatedFormas));
+    console.log(localStorage.getItem("formas"))
     setFormas(updatedFormas);
     setQtdFormas(qtdFormas + 1)
     localStorage.setItem("qtdFormas", qtdFormas);
-    console.log(localStorage.getItem("qtdFormas"));
   };
 
   const handleDragEnd = (index) => {
@@ -199,6 +201,11 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro }) 
     localStorage.setItem("countAttempt", countAttempt);
   };
 
+  const startRealClean = () => {
+    startReal()
+    setClear(true)
+  }
+
   return (
     <>
       <Container fluid style={{ margin: 0, padding: 0 }}>
@@ -253,8 +260,8 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro }) 
               ))}
             </Row>
           </div>
-          <div className={styles.buttonIniciar} onClick={startReal}>
-            <span className={styles.iniciar}>{phasePro}</span>
+          <div className={styles.buttonIniciar} onClick={startRealClean}>
+            <span className={styles.iniciar}>{status}</span>
           </div>
         </div>
       </Container>
