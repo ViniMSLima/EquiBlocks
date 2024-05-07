@@ -12,12 +12,12 @@ export default function ShapeInput({ shapeImg, shapeValue, oC }) {
   return (
     <div className={styles.bg}>
       <div className={styles.cardBody}>
-        <img src={shapeImg} className={styles.imgFormat} onDragStart={preventDragHandler} alt="Shape"></img>
         <div className={styles.text}>
           <Form>
             <Form.Group controlId="Input" className={styles.centralize}>
               <Form.Control
-                className={styles.input}
+                bg="primary"
+                className={`${styles.input} ${styles.inputColor}`}
                 type="number"
                 value={inputValue}
                 placeholder = {inputValue? 500 : "???"}

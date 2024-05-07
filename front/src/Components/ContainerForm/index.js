@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef, useContext, useMemo} from "react";
 
 import { PesoContext } from "../../Context/pesoContext";
 import Button from "../Button/index";
@@ -13,14 +13,33 @@ import circulo from "../../Img/formas/circle.png";
 import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
+import ShapeInput from "../ShapeInput";
 
-export default function ContainerForm({ clear, setClear, startReal }) {
+export default function ContainerForm({ clear, setClear, startReal, phasePro, oC1, oC2, oC3, oC4, oC5}) {
   const { contextPeso } = useContext(PesoContext);
   const [formas, setFormas] = useState([]);
   const [phase, setPhase] = useState("Fase de Teste");
   const [attempt, setAttempt] = useState(false);
   const [countAttempt, setCountAttempt] = useState(0);
   const [qtdFormas, setQtdFormas] = useState(0);
+  const shapes = useMemo(() => {
+    const shapeList = [
+      { shapeImg: quadrado, shapeValue: contextPeso[0], oC: oC1 },
+      { shapeImg: circulo, shapeValue: contextPeso[1], oC: oC2 },
+      { shapeImg: triangulo, shapeValue: contextPeso[2], oC: oC3 },
+      { shapeImg: pentagono, shapeValue: contextPeso[3], oC: oC4 },
+      { shapeImg: estrela, shapeValue: contextPeso[4], oC: oC5 }
+    ];
+    const middleIndex = 0;
+    const index500 = shapeList.findIndex(shape => shape.shapeValue === 500);
+
+    if (index500 !== -1 && index500 !== middleIndex) {
+      [shapeList[middleIndex], shapeList[index500]] = [shapeList[index500], shapeList[middleIndex]];
+    }
+
+    return shapeList;
+  }, [contextPeso]);
+
 
   useEffect(() => {
     setPhase(localStorage.getItem("fase"));
@@ -243,7 +262,7 @@ export default function ContainerForm({ clear, setClear, startReal }) {
                   <div className={styles.divForm}>
                     <img
                       className={styles.forms}
-                      src={item.imagem}
+                      src={shapes[index].shapeImg}
                       alt={`Forma ${index}`}
                       draggable={item.quantidade > 0 && !item.onBalance}
                       onDragStart={(e) => {
@@ -255,7 +274,7 @@ export default function ContainerForm({ clear, setClear, startReal }) {
                     />
                     <p className={styles.qtd}>{item.quantidade}</p>
                   </div>
-                  <input className={styles.input}></input>
+                  <ShapeInput className={styles.input} key={index} oC={shapes[index].oC} shapeImg={shapes[index].shapeImg} shapeValue={shapes[index].shapeValue} />
                 </Col>
               ))}
             </Row>
