@@ -14,7 +14,7 @@ import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 
-export default function ContainerForm({ clear, setClear }) {
+export default function ContainerForm({ clear, setClear, startReal, phasePro }) {
   const { contextPeso } = useContext(PesoContext);
   const [formas, setFormas] = useState([]);
   const [phase, setPhase] = useState("Fase de Teste");
@@ -71,7 +71,7 @@ export default function ContainerForm({ clear, setClear }) {
       setFormas(formasIniciais);
     }
   }, [contextPeso]);
-  
+
   const [balance1, setBalance1] = useState(
     getLocalStorageItem("balance1", {
       left: { total: 0, figures: {} },
@@ -201,7 +201,7 @@ export default function ContainerForm({ clear, setClear }) {
 
   return (
     <>
-      <Container style={{ margin: 0, padding: 0 }}>
+      <Container fluid style={{ margin: 0, padding: 0 }}>
         <Row>
           <Col sm="12" lg="6" className={styles.coluna}>
             {/* <Score balance={ balance1 }/> */}
@@ -211,7 +211,7 @@ export default function ContainerForm({ clear, setClear }) {
               handleDrop={handleDrop}
               attempt={attempt}
               setAttempt={setAttempt}
-              />
+            />
             {/* <Score balance={ balance1 }/> */}
           </Col>
           <Col sm="12" lg="6" className={styles.coluna}>
@@ -222,44 +222,51 @@ export default function ContainerForm({ clear, setClear }) {
               handleDrop={handleDrop}
               attempt={attempt}
               setAttempt={setAttempt}
-              />
+            />
             {/* <Score balance={ balance2 }/> */}
           </Col>
         </Row>
       </Container>
-      <Container className={styles.container}>
-        <div className={styles.border}>
-        <Row>
-          {formas.map((item, index) => (
-            <Col key={index}>
-
-              <div className={styles.divForm}>
-                <img
-                  className={styles.forms}
-                  src={item.imagem}
-                  alt={`Forma ${index}`}
-                  draggable={item.quantidade > 0 && !item.onBalance}
-                  onDragStart={(e) => {
-                    if (item.quantidade > 0 && !item.onBalance) {
-                      e.dataTransfer.setData("forma", item.peso);
-                    }
-                  }}
-                  onDragEnd={() => handleDragEnd(index)}
-                  />
-                <p className={styles.qtd}>{item.quantidade}</p>
-              </div>
-            </Col>
-          ))}
-        </Row>
+      <Container className={styles.contorno}>
+        <div className={styles.container}>
+          <div className={styles.border}>
+            <Row>
+              {formas.map((item, index) => (
+                <Col key={index} className={styles.imgInput}>
+                  <div className={styles.divForm}>
+                    <img
+                      className={styles.forms}
+                      src={item.imagem}
+                      alt={`Forma ${index}`}
+                      draggable={item.quantidade > 0 && !item.onBalance}
+                      onDragStart={(e) => {
+                        if (item.quantidade > 0 && !item.onBalance) {
+                          e.dataTransfer.setData("forma", item.peso);
+                        }
+                      }}
+                      onDragEnd={() => handleDragEnd(index)}
+                    />
+                    <p className={styles.qtd}>{item.quantidade}</p>
+                  </div>
+                  <input className={styles.input}></input>
+                </Col>
+              ))}
+            </Row>
+          </div>
+          <div className={styles.buttonIniciar} onClick={startReal}>
+            <span className={styles.iniciar}>{phasePro}</span>
+          </div>
         </div>
       </Container>
-      <div className={styles.button} onClick={handleButtonClick}>
-        Calcular
+      <div className={styles.borderstyle} onClick={handleButtonClick}>
+        <div className={styles.button}>
+          CALCULAR
+        </div>
       </div>
-      <div className={styles.count}>
+      {/* <div className={styles.count}>
         <span className={styles.countText}>Tentativas: </span>
         <span className={styles.countTextNumber}>{countAttempt}</span>
-      </div>
+      </div> */}
     </>
   );
 }

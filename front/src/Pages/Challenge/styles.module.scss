@@ -8,12 +8,13 @@ body{
 }
 
 .title {
+    height: 0.7em;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     font-family: "Tourney", sans-serif;
-    font-size: 6em;
+    font-size: 5em;
     user-select: none;
     color: white;
 }

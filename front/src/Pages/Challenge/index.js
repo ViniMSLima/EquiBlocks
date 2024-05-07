@@ -38,7 +38,7 @@ export default function Challenge() {
   const [clear, setClear] = useState(false);
   const [phaseClear, setPhaseClear] = useState(true);
 
-  const [status, setStatus] = useState("Começar");
+  const [status, setStatus] = useState("COMEÇAR");
   const [statusTest, setStatusTest] = useState("Começar");
   // const [tempoDeTeste] = useState(4);
   // const [tempoDesafio] = useState(29);
@@ -307,8 +307,8 @@ export default function Challenge() {
     );
     localStorage.removeItem("tempo")
     setTimerStarted(true);
-    setStatus("Finalizar");
-    setPhase("Desafio");
+    setStatus("FINALIZAR");
+    setPhase("DESAFIO");
   };
 
   // useEffect(() => {
@@ -334,26 +334,23 @@ export default function Challenge() {
       {begin ? (
         <>
           <Row className={styles.row}>
-            <Col className={styles.align} sm="12" lg="2">
-              <Timer startTimer={timerStarted} />
-            </Col>
-            <Col className={styles.title} sm="12" lg="6">
+            <Col className={styles.title} sm="12" lg="12">
               {phase}
             </Col>
-            <Col className={styles.btn}>
+            {/* <Col className={styles.btn}>
               <div className={styles.button} onClick={startReal}>
                 {status}
               </div>
-            </Col>
+            </Col> */}
           </Row>
           <div>
             <Row className={styles.row}>
               <Container className={styles.cont}>
-                <Col className={styles.title} sm="12" lg="10">
-                  <ContainerForm clear={clear} setClear={setClear} />
+                <Col className={styles.title} sm="12" lg="12">
+                  <ContainerForm clear={clear} setClear={setClear} startReal={startReal} phasePro={status}/>
                 </Col>
-                <Col className={styles.inputCol} sm="10" lg="2">
-                </Col>
+                {/* <Col className={styles.inputCol} sm="10" lg="2">
+                </Col> */}
               </Container>
             </Row>
           </div>

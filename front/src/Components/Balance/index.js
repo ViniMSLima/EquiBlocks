@@ -101,8 +101,8 @@ export default function Balance({
     } else {
       balanceImage = balancee3;
       hitboxStyles = {
-        hitbox1: { top: "1.26em", left: "0.39em" },
-        hitbox2: { top: "1.26em", left: "4.02em" },
+        hitbox1: { top: "1.26em", left: "0.36em" },
+        hitbox2: { top: "1.26em", left: "4.35em" },
       };
     }
 

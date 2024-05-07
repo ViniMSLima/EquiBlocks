@@ -1,17 +1,26 @@
 
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 13em;
+  height: 2.8em;
+  padding-block: 0.5em;
+  background-color: #CECECE;
+  border-radius: 20px;
+}
+
+.contorno {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   bottom: 0.2em;
-  justify-content: center;
-  align-items: stretch;
-  width: 10em;
-  padding-block: 0.5em;
-  background-color: #E3E3E3;
-  border-radius: 20px;
-  border: solid 2px hsla(0, 0, 0, 0.26);
-  border:  5px solid #055097;
+  border: solid 5px #055097;
+  width: 13em;
+  border-radius: 15px;
+  height: 3.2em;
 }
 
 .forms {
@@ -29,7 +38,8 @@
   margin-left: 0.2em;
   position: relative;
   top: 1em;
-  font-size: 0.5em;
+  color: black;
+  font-size: 0.4em;
   z-index: 500;
 }
 
@@ -62,6 +72,68 @@
   font-size: 0.4em;
 }
 
+.button {
+  width: 6em;
+  height: 1.9em;
+  padding: 0.1em;
+  margin: 0.15em 0 0.15em 0;
+  font-size: 0.4em;
+  background-color: #007BC0;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Tourney", sans-serif;
+  z-index: 400;
+}
+
+.borderstyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  bottom: 3.5em;
+  border-radius: 20px;
+  border: 5px solid #02549F;
+  width: 2.65em;
+  height: 1.4em;
+}
+
+.input {
+  background-color: #999999;
+  border: none;
+  outline: none;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 7px;
+  font-size: 0.3em;
+  margin-top: 0.9em;
+  height: 1.6em;
+  width: 3.4em;
+}
+
+.buttonIniciar {
+  display: flex;
+  box-shadow:5px 5px 5px rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #007BC0;
+  width: 3em;
+  cursor: pointer;
+  height: 1.4em;
+}
+
+.imgInput {
+  display: flex;
+  flex-direction: column;
+}
+
+.iniciar {
+  font-size: 0.5em;
+}
+
 // @media screen and (max-width: 1400px) {
 //   .forms {
 //     z-index: 500;
@@ -81,23 +153,6 @@
 //   }
 // }
 
-.button {
-  position: relative;
-  bottom: 7em;
-  width: 6em;
-  height: 1.6em;
-  padding: 0.1em;
-  font-size: 0.4em;
-  background-color: #007BC0;
-  color: white;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "League Gothic", sans-serif;
-  z-index: 400;
-}
 
 @media screen and (max-width: 1400px) {
   .button {

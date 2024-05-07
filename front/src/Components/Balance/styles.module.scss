@@ -1,6 +1,6 @@
 .balance {
   width: auto;
-  height: 5em;
+  height: 6em;
   margin: 0 0.1em 0 0.3em;
   position: relative;
   user-select: none;
@@ -19,6 +19,7 @@
   // background-color: blue;
   z-index: 2;
   transform: scaleY(-1);
+  // opacity: 0.5
 }
 
 .hitbox1 img {
@@ -31,6 +32,7 @@
   position: absolute;
   // background-color: red;
   z-index: 2;
+  // opacity: 0.5;
   transform: scaleY(-1);
 }
 
@@ -46,14 +48,14 @@
 
 .forms {
   margin: 0 0.02em;
-  width: 0.25em;
+  width: 0.3em;
   height: auto;
   order: -1;
 }
 
 .figureContainer {
   position: relative;
-  bottom: 0.3em;
+  bottom: 0.5em;
 }
 
 .group {
