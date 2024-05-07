@@ -14,17 +14,14 @@ export default function ErrorPage() {
   }
   return (
     <div className={styles.container}>
-      <Row>
-        <Col className={styles.col} lg={2}>
-          <button onClick={goHome}>Voltar para a página Home</button>
-        </Col>
-        <Col className={styles.col} lg={8}>
-          <div className={styles.title}>Erro</div>
-          <div className={styles.text}>
-            A página não foi encontrada ou você não tem acesso.
+      <Row className={styles.body}>
+          <div className={styles.border}>
+            <div className={styles.title}>ERRO 404 :(</div>
+            <div className={styles.text}>
+              A página não foi encontrada ou você não tem acesso.
+            </div>
           </div>
-        </Col>
-        <Col></Col>
+            <button onClick={goHome}  className={styles.button}>Voltar para a página Home</button>
       </Row>
     </div>
   );
