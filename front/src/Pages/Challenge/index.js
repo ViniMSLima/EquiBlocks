@@ -355,7 +355,7 @@ export default function Challenge() {
               </Container>
             </Row>
           </div>
-        </>) : (<h2> Aguarde o início do desafio </h2>)}
+        </>) : (<h2 className={styles.textChallenge}> Aguarde o início do desafio </h2>)}
     </div>
   );
 }
