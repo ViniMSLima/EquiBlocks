@@ -85,7 +85,7 @@ export default function ExcelGenerator() {
     function saveExcelFile() {
         if (workbook) {
             const ws = workbook.Sheets[workbook.SheetNames[0]];
-            XLSX.utils.sheet_add_aoa(ws, [["Nome", "Data de Nascimento", "Tempo", "Tentativas", "Quantidade", "F1", "F2", "F3", "F4", "F5"]]);
+            XLSX.utils.sheet_add_aoa(ws, [["Nome", "Data de Nascimento", "Tempo", "Tentativas", "Quantidade", "100", "200", "500", "700", "1000"]]);
 
             playersData.forEach(player => {
                 XLSX.utils.sheet_add_aoa(ws, [[player.nome, player.data, player.tempo, player.tentativas, player.quantidade, player.f1, player.f2, player.f3, player.f4, player.f5]], { origin: -1 });
