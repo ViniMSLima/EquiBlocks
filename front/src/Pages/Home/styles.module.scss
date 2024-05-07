@@ -60,7 +60,7 @@
 }
 
 .greenDonut {
-  height: 10em;
+  width: 12em;
   margin-left: 15em;
   position: fixed;
   bottom: 0;
@@ -68,10 +68,11 @@
 }
 
 .greenDonut2 {
-  height: 10em;
+  width: 12em;
+  margin-left: 39em;
   position: fixed;
   bottom: 0;
-  z-index: 100;
+  z-index: 0;
 }
 
 .shapes {

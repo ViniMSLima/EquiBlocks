@@ -67,9 +67,6 @@ export default function Home() {
     }
   }
 
-  var greenDonutWidth = document.getElementById('greenDonut').offsetWidth;
-  document.getElementById('greenDonut2').style.marginLeft = "calc(15em + " + greenDonutWidth + "px)";
-
   return (
     <div className={styles.home}>
       <Row className={styles.rowLines}>
@@ -120,8 +117,8 @@ export default function Home() {
       <Row className={styles.row}>
         <div className={styles.greenDonutDiv}>
           {/* <img src={greenDonut} className={styles.greenDonut}></img> */}
-          <img src={donutPt1} className={styles.greenDonut} id="greenDonut"></img>
-          <img src={donutPt2} className={styles.greenDonut2} id="greenDonut2"></img>
+          <img src={donutPt1} className={styles.greenDonut}></img>
+          <img src={donutPt2} className={styles.greenDonut2}></img>
         </div>
       </Row>
     </div>
