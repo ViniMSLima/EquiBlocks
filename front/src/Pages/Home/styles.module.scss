@@ -29,6 +29,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
 
 .rowText {
@@ -50,6 +51,20 @@
   width: 8em;
   padding: 0;
   text-shadow:3px 4px 5px black;
+  margin-top: 0.5em;
+}
+
+.greenDonutDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.greenDonut {
+  height: 10em;
+  margin-left: 15em;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
 }
 
 .shapes {
@@ -68,28 +83,28 @@
 
 .greenCircle {
   height: 80%;
-  z-index: 1;
+  z-index: 100;
   position: absolute;
   bottom: 0;
 }
 
 .purpleSquare {
-  z-index: 2;
+  z-index: 200;
   transform: rotate(-24deg);
   position: absolute;
   left: 3em;
   height: 40%;
   top: 40%;
-  animation: moveAnimationRight 10s ease-in-out infinite;
+  animation: moveAnimationRight 14s ease-in-out infinite;
 }
 
 .blueStar {
-  z-index: 3;
+  z-index: 300;
   height: 50%;
   position: absolute;
   left: 13em;
   top: 20%;
-  animation: moveAnimationLeft 12s ease-in-out infinite;
+  animation: moveAnimationLeft 16s ease-in-out infinite;
 }
 
 .redLine {
@@ -111,9 +126,34 @@
   margin-top: 2em;
 }
 
+.lineCyan {
+  height: 2em;
+  position: absolute;
+  bottom: 25%;
+  left: 0;
+  animation: cyanLineMoving 10s ease-in-out infinite;
+}
+
+.lineLightGreen {
+  height: 2em;
+  position: absolute;
+  bottom: 17%;
+  left: 0;
+  animation: cyanLineMoving 16s ease-in-out infinite;
+}
+
+.linePurple {
+  height: 2em;
+  position: absolute;
+  bottom: 3%;
+  left: 0;
+  animation: cyanLineMoving 8s ease-in-out infinite;
+  z-index: 1;
+}
+
 .lineRed {
   height: 1.5em;
-  animation: redLineMoving 10s ease-in-out infinite;
+  animation: redLineMoving 7s ease-in-out infinite;
 }
 
 .lineBlueGreen {
@@ -153,6 +193,7 @@
     transform: translateX(-100%);
   }
 }
+
 @keyframes greenBlueLineMoving {
   0% {
     transform: translateX(-50vw);
@@ -162,9 +203,21 @@
   }
 }
 
-@media screen and (max-width: 1500px) {
-  .home {
-    margin-bottom: 2em;
+@keyframes cyanLineMoving {
+  0% {
+    transform: translateX(-50vw);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+@keyframes purpleLineMoving {
+  0% {
+    transform: translateX(-50vw);
+  }
+  100% {
+    transform: translateX(100vw);
   }
 }
 
@@ -202,19 +255,17 @@
     height: 5em;
   }
 
+  .greenDonutDiv {
+    display: none;
+  }
+
   @keyframes greenBlueLineMoving {
     0% {
-      transform: translateX(-70vw);
+      transform: translateX(-100vw);
     }
     100% {
-      transform: translateX(100vw);
+      transform: translateX(95vw);
     }
-  }
-}
-
-@media screen and (max-width: 1485px) {
-  .redSquare {
-    display: none;
   }
 }
 
@@ -252,6 +303,33 @@
     height: 5em;
   }
 
+  .greenDonutDiv {
+    display: none;
+  }
+
+  @keyframes greenBlueLineMoving {
+    0% {
+      transform: translateX(-70vw);
+    }
+    100% {
+      transform: translateX(100vw);
+    }
+  }
+}
+
+@media screen and (max-width: 1485px) {
+  .redSquare {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .home {
+    margin-bottom: 2em;
+  }
+}
+
+@media screen and (max-width: 1832px) {
   @keyframes greenBlueLineMoving {
     0% {
       transform: translateX(-70vw);

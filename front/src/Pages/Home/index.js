@@ -17,6 +17,9 @@ import purpleSquare from "../../Img/home/quadrado.png";
 import redLine from "../../Img/home/redLine.png";
 import blueLine from "../../Img/home/blueLine.png";
 import greenLine from "../../Img/home/greenLine.png";
+import cyanLine from "../../Img/home/cyanLine.png";
+import lightGreenLine from "../../Img/home/lightGreenLine.png";
+import purpleLine from "../../Img/home/purpleLine.png";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -79,6 +82,10 @@ export default function Home() {
           <img src={greenCircle} className={styles.greenCircle}></img>
           <img src={purpleSquare} className={styles.purpleSquare}></img>
           <img src={blueStar} className={styles.blueStar}></img>
+
+          <img src={cyanLine} className={styles.lineCyan}></img>
+          <img src={lightGreenLine} className={styles.lineLightGreen}></img>
+          <img src={purpleLine} className={styles.linePurple} id="purpleLine"></img>
         </Col>
         <Col lg="12" xl="12" xxl="7" className={styles.text}>
           <div className={styles.title}>
@@ -103,6 +110,11 @@ export default function Home() {
             JOGAR
           </button>
         </Col>
+      </Row>
+      <Row className={styles.row}>
+          <div className={styles.greenDonutDiv}>
+            <img src={greenDonut} className={styles.greenDonut}></img>
+          </div>
       </Row>
     </div>
   );
