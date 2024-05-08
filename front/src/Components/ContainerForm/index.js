@@ -26,8 +26,8 @@ export default function ContainerForm({
   const [formas, setFormas] = useState([]);
   const [phase, setPhase] = useState("Fase de Teste");
   const [attempt, setAttempt] = useState(false);
-  const [countAttempt, setCountAttempt] = useState(0);
-  const [qtdFormas, setQtdFormas] = useState(0);
+  const [countAttempt, setCountAttempt] = useState(1);
+  const [qtdFormas, setQtdFormas] = useState(1);
 
   const shapes = useMemo(() => {
     const shapeList = [
@@ -188,8 +188,11 @@ export default function ContainerForm({
     });
     updateLocalStorageItem("forms", updatedFormas);
     setFormas(updatedFormas);
-    setQtdFormas(qtdFormas + 1);
-    localStorage.setItem("qtdFormas", qtdFormas);
+    if(localStorage.getItem("fase") === "DESAFIO") 
+    {
+      setQtdFormas(qtdFormas + 1);
+      localStorage.setItem("qtdFormas", qtdFormas);
+    }
   };
 
   const handleDragEnd = (index) => {
@@ -244,8 +247,11 @@ export default function ContainerForm({
 
   const handleButtonClick = () => {
     setAttempt(!attempt);
-    setCountAttempt(countAttempt + 1);
-    localStorage.setItem("countAttempt", countAttempt);
+    if(localStorage.getItem("fase") === "DESAFIO") 
+    {
+      setCountAttempt(countAttempt + 1);
+      localStorage.setItem("countAttempt", countAttempt);
+    }
   };
 
   const startRealClean = () => {
