@@ -92,19 +92,19 @@ export default function Balance({
     if (balance.right.total > balance.left.total) {
       balanceImage = balancee;
       hitboxStyles = {
-        hitbox1: { top: "0.77em", left: "0.45em" },
+        hitbox1: { top: "0.77em", left: "0.4em" },
         hitbox2: { top: "1.96em", left: "4.12em" },
       };
     } else if (balance.right.total < balance.left.total) {
       balanceImage = balancee2;
       hitboxStyles = {
-        hitbox1: { top: "1.9em", left: "0.45em" },
+        hitbox1: { top: "1.9em", left: "0.39em" },
         hitbox2: { top: "0.8em", left: "4.2em" },
       };
     } else {
       balanceImage = balancee3;
       hitboxStyles = {
-        hitbox1: { top: "1.42em", left: "0.42em" },
+        hitbox1: { top: "1.42em", left: "0.4em" },
         hitbox2: { top: "1.42em", left: "4.25em" },
       };
     }

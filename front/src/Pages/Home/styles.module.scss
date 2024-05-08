@@ -338,6 +338,10 @@
 }
 
 @media screen and (max-width: 1485px) {
+  .text {
+    position: fixed;
+    top: 1.5em;
+  }
   .redSquare {
     display: none;
   }
