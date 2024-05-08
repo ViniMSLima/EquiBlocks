@@ -22,6 +22,7 @@ import { apiEquiblocks } from "../../api/apiEquiblocks";
 import { TimerContext } from "../../Context/timerContext";
 import { PesoContext } from "../../Context/pesoContext";
 import { apiChallenge } from "../../api/apiChallenge";
+import { Help } from "../../Components/Help";
 
 export default function Challenge() {
   window.addEventListener(
@@ -390,6 +391,7 @@ export default function Challenge() {
       {begin ? (
         <>
           <Row className={styles.row}>
+            <Help />
             <Col className={styles.title} sm="12" lg="12">
               {phase}
             </Col>

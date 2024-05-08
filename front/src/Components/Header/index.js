@@ -3,7 +3,7 @@ import { Links, Row, Supergraphic, Void } from "./styles";
 import styles from "./supergraphic.module.css";
 import { Outlet } from "react-router-dom";
 import request from "../../Img/request.png";
-import help from "../../Img/AJUDA.png";
+import help from "../../Img/regras.gif";
 
 export default function Header() {
   const [modalOpen, setModalOpen] = useState(false);
