@@ -41,18 +41,8 @@ export default function Header() {
       <Row>
         <div className={styles.logo} />
         <Void />
-        <Links>
-          <div onClick={toggleModal}>
-            <img className={styles.request} src={request} alt="Request" draggable={"false"} style={{ userSelect: 'none' }}/>
-          </div>
-        </Links>
       </Row>
       <Outlet />
-      {modalOpen && (
-        <div className={styles.modal} ref={modalRef} tabIndex={-1}>
-          <img className={styles.help} src={help} alt="Help" draggable={"false"}/>
-        </div>
-      )}
     </>
   );
 }

@@ -13,6 +13,7 @@ export const Row = styled.div`
     @media (max-width: 512px) {
         grid-template-columns: 2fr 1fr 2fr;
     }
+    background-color: white;
 `;
 
 export const Links = styled.div`
