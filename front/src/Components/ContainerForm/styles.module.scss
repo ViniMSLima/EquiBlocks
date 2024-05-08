@@ -33,6 +33,7 @@
   width: 13em;
   border-radius: 15px;
   height: 3.2em;
+  padding: 0.1em;
 }
 
 .contornoTeste {
@@ -170,9 +171,11 @@
   align-items: center;
   border-radius: 20px;
   background-color: #007BC0;
-  width: 3em;
+  width: 40%;
   cursor: pointer;
   height: 1.4em;
+  padding-inline: 0.1em;
+  margin-inline: 0.1em;
 }
 
 .imgInput {

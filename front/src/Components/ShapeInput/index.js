@@ -13,11 +13,12 @@ export default function ShapeInput({ shapeValue, oC }) {
     <div className={styles.bg}>
       <div className={styles.cardBody}>
         <div className={styles.text}>
-          <Form>
+          <Form style={{ display: 'flex', justifyContent: 'center' }}>
             <Form.Group controlId="Input" className={styles.centralize}>
               <Form.Control
                 bg="primary"
                 className={`${styles.input} ${styles.inputColor}`}
+                style={{ width: '80%' }}
                 type="text"
                 value={inputValue}
                 placeholder = {inputValue? 500 : "???"}
