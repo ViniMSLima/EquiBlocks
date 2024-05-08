@@ -164,9 +164,21 @@ export default function Challenge() {
           return array;
         }
 
+        // let pesos = [];
+        // apiChallenge.get(`/getvalues`).then((response) => {
+        //   pesos[0] = (response.data.F1)
+        //   pesos[1] = (response.data.F2)
+        //   pesos[2] = (response.data.F3)
+        //   pesos[3] = (response.data.F4)
+        //   pesos[4] = (response.data.F5)
+        // }).catch((error) => {
+        //   console.log("Error fetching players data:")
+        //   console.error(error)
+        // })
+
         const pesos = [100, 200, 500, 700, 1000];
         const newPesos = shuffleArray(pesos);
-
+    
         setContextPeso(newPesos);
         localStorage.setItem("newPesos", JSON.stringify(newPesos));
         localStorage.setItem("pesosUpdatedInDesafio", "true");
