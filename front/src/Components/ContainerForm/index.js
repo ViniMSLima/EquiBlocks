@@ -41,57 +41,61 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
 
   useEffect(() => {
     setPhase(localStorage.getItem("fase"));
-    const formasFromLocalStorage = JSON.parse(localStorage.getItem("formas"));
-    console.log(formasFromLocalStorage)
     if (contextPeso.length === 5) {
-      let formasIniciais = [
-        {
-          imagem: quadrado,
-          quantidade: 5,
-          peso: contextPeso[0],
-          onBalance: false,
-        },
-        {
-          imagem: circulo,
-          quantidade: 5,
-          peso: contextPeso[1],
-          onBalance: false,
-        },
-        {
-          imagem: triangulo,
-          quantidade: 5,
-          peso: contextPeso[2],
-          onBalance: false,
-        },
-        {
-          imagem: pentagono,
-          quantidade: 5,
-          peso: contextPeso[3],
-          onBalance: false,
-        },
-        {
-          imagem: estrela,
-          quantidade: 5,
-          peso: contextPeso[4],
-          onBalance: false,
-        },
-      ];
-
-      const middleIndex = 0;
-      const index500 = formasIniciais.findIndex((forma) => forma.peso === 500);
-
-      if (index500 !== -1 && index500 !== middleIndex) {
-        [formasIniciais[middleIndex], formasIniciais[index500]] = [
-          formasIniciais[index500],
-          formasIniciais[middleIndex],
+      const storedFormas = getLocalStorageItem("forms", null);
+      console.log(storedFormas)
+      if (storedFormas) {
+        setFormas(storedFormas);
+      } else {
+        console.log("k")
+        const formasIniciais = [
+          {
+            imagem: quadrado,
+            quantidade: 5,
+            peso: contextPeso[0],
+            onBalance: false,
+          },
+          {
+            imagem: circulo,
+            quantidade: 5,
+            peso: contextPeso[1],
+            onBalance: false,
+          },
+          {
+            imagem: triangulo,
+            quantidade: 5,
+            peso: contextPeso[2],
+            onBalance: false,
+          },
+          {
+            imagem: pentagono,
+            quantidade: 5,
+            peso: contextPeso[3],
+            onBalance: false,
+          },
+          {
+            imagem: estrela,
+            quantidade: 5,
+            peso: contextPeso[4],
+            onBalance: false,
+          },
         ];
+  
+        const middleIndex = 0;
+        const index500 = formasIniciais.findIndex((forma) => forma.peso === 500);
+  
+        if (index500 !== -1 && index500 !== middleIndex) {
+          [formasIniciais[middleIndex], formasIniciais[index500]] = [
+            formasIniciais[index500],
+            formasIniciais[middleIndex],
+          ];
+        }
+  
+        setFormas(formasIniciais);
       }
-
-      setFormas(formasIniciais);
     }
   }, [contextPeso]);
-
-
+  
   const [balance1, setBalance1] = useState(
     getLocalStorageItem("balance1", {
       left: { total: 0, figures: {} },
@@ -107,6 +111,7 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
 
   function getLocalStorageItem(key, defaultValue) {
     const item = localStorage.getItem(key);
+    console.log(item)
     return item ? JSON.parse(item) : defaultValue;
   }
 
@@ -171,7 +176,7 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
       }
       return item;
     });
-    updateLocalStorageItem("formas", updatedFormas);
+    updateLocalStorageItem("forms", updatedFormas);
     setFormas(updatedFormas);
     setQtdFormas(qtdFormas + 1)
     localStorage.setItem("qtdFormas", qtdFormas);
@@ -185,7 +190,7 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
         onBalance: false,
       };
       setFormas(updatedFormas);
-      updateLocalStorageItem("formas", updatedFormas);
+      updateLocalStorageItem("forms", updatedFormas);
     }
   };
 
@@ -208,23 +213,23 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
       })
     );
 
-    localStorage.setItem(
-      "balance1",
-      JSON.stringify({
-        left: { total: 0, figures: {} },
-        right: { total: 0, figures: {} },
-      })
-    );
-    localStorage.setItem(
-      "balance2",
-      JSON.stringify({
-        left: { total: 0, figures: {} },
-        right: { total: 0, figures: {} },
-      })
-    );
+    // localStorage.setItem(
+    //   "balancee1",
+    //   JSON.stringify({
+    //     left: { total: 0, figures: {} },
+    //     right: { total: 0, figures: {} },
+    //   })
+    // );
+    // localStorage.setItem(
+    //   "balancee2",
+    //   JSON.stringify({
+    //     left: { total: 0, figures: {} },
+    //     right: { total: 0, figures: {} },
+    //   })
+    // );
     setClear(false);
     setCountAttempt(0);
-    setAttempt(true);
+    setAttempt(!attempt);
   }, [clear]);
 
   const handleButtonClick = () => {
@@ -239,29 +244,47 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
       setClear(true);
   }
 
+  const cleanBalanca = () => {
+    setClear(true);
+  }
+
   return (
     <>
       <Container fluid style={{ margin: 0, padding: 0 }}>
-        <Row>
-          <Col sm="12" lg="6" className={styles.coluna}>
-            <Balance
-              balance={balance1}
-              balanca={1}
-              handleDrop={handleDrop}
-              attempt={attempt}
-              setAttempt={setAttempt}
-            />
-          </Col>
-          <Col sm="12" lg="6" className={styles.coluna}>
-            <Balance
-              balance={balance2}
-              balanca={2}
-              handleDrop={handleDrop}
-              attempt={attempt}
-              setAttempt={setAttempt}
-            />
-          </Col>
-        </Row>
+        {phase === "DESAFIO" ? (
+          <Row>
+            <Col sm="12" lg="6" className={styles.coluna}>
+              <Balance
+                balance={balance1}
+                balanca={1}
+                handleDrop={handleDrop}
+                attempt={attempt}
+                setAttempt={setAttempt}
+              />
+            </Col>
+            <Col sm="12" lg="6" className={styles.coluna}>
+              <Balance
+                balance={balance2}
+                balanca={2}
+                handleDrop={handleDrop}
+                attempt={attempt}
+                setAttempt={setAttempt}
+              />
+            </Col>
+          </Row>
+        ) : (
+          <Row>
+            <Col lg="12" className={styles.coluna}>
+              <Balance
+                balance={balance1}
+                balanca={1}
+                handleDrop={handleDrop}
+                attempt={attempt}
+                setAttempt={setAttempt}
+              />
+            </Col>
+          </Row>
+        )}
       </Container>
       <Container className={`${styles.contorno} ${phase !== "DESAFIO" ? styles.contornoTeste : ""}`}>
         <div className={`${styles.container} ${phase !== "DESAFIO" ? styles.smallerContainer : ""}`}>
@@ -299,11 +322,13 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
           CALCULAR
         </div>
       </div>
-      <div className={styles.borderstylecleanTest} onClick={handleButtonClick}>
-        <div className={styles.button}>
-          LIMPAR
+      {phase !== "DESAFIO" &&
+        <div className={styles.borderstylecleanTest} onClick={cleanBalanca}>
+          <div className={styles.button}>
+            LIMPAR
+          </div>
         </div>
-      </div>
+      }
     </>
   );
 }
