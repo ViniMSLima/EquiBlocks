@@ -18,7 +18,7 @@ export default function ShapeInput({ shapeValue, oC }) {
               <Form.Control
                 bg="primary"
                 className={`${styles.input} ${styles.inputColor}`}
-                style={{ width: '80%' }}
+                style={{ width: '90%' }}
                 type="text"
                 value={inputValue}
                 placeholder = {inputValue? 500 : "???"}
