@@ -13,7 +13,15 @@ import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 import ShapeInput from "../ShapeInput";
 
-export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1, oC2, oC3, oC4, oC5 }) {
+export default function ContainerForm({
+  startReal,
+  phaseC,
+  oC1,
+  oC2,
+  oC3,
+  oC4,
+  oC5,
+}) {
   const { contextPeso } = useContext(PesoContext);
   const [formas, setFormas] = useState([]);
   const [phase, setPhase] = useState("Fase de Teste");
@@ -27,13 +35,16 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
       { shapeImg: circulo, shapeValue: contextPeso[1], oC: oC2 },
       { shapeImg: triangulo, shapeValue: contextPeso[2], oC: oC3 },
       { shapeImg: pentagono, shapeValue: contextPeso[3], oC: oC4 },
-      { shapeImg: estrela, shapeValue: contextPeso[4], oC: oC5 }
+      { shapeImg: estrela, shapeValue: contextPeso[4], oC: oC5 },
     ];
     const middleIndex = 0;
-    const index500 = shapeList.findIndex(shape => shape.shapeValue === 500);
+    const index500 = shapeList.findIndex((shape) => shape.shapeValue === 500);
 
     if (index500 !== -1 && index500 !== middleIndex) {
-      [shapeList[middleIndex], shapeList[index500]] = [shapeList[index500], shapeList[middleIndex]];
+      [shapeList[middleIndex], shapeList[index500]] = [
+        shapeList[index500],
+        shapeList[middleIndex],
+      ];
     }
 
     return shapeList;
@@ -43,11 +54,10 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
     setPhase(localStorage.getItem("fase"));
     if (contextPeso.length === 5) {
       const storedFormas = getLocalStorageItem("forms", null);
-      console.log(storedFormas)
+      console.log(storedFormas);
       if (storedFormas) {
         setFormas(storedFormas);
       } else {
-        console.log("k")
         const formasIniciais = [
           {
             imagem: quadrado,
@@ -80,22 +90,24 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
             onBalance: false,
           },
         ];
-  
+
         const middleIndex = 0;
-        const index500 = formasIniciais.findIndex((forma) => forma.peso === 500);
-  
+        const index500 = formasIniciais.findIndex(
+          (forma) => forma.peso === 500
+        );
+
         if (index500 !== -1 && index500 !== middleIndex) {
           [formasIniciais[middleIndex], formasIniciais[index500]] = [
             formasIniciais[index500],
             formasIniciais[middleIndex],
           ];
         }
-  
+
         setFormas(formasIniciais);
       }
     }
   }, [contextPeso]);
-  
+
   const [balance1, setBalance1] = useState(
     getLocalStorageItem("balance1", {
       left: { total: 0, figures: {} },
@@ -111,7 +123,7 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
 
   function getLocalStorageItem(key, defaultValue) {
     const item = localStorage.getItem(key);
-    console.log(item)
+    console.log(item);
     return item ? JSON.parse(item) : defaultValue;
   }
 
@@ -131,7 +143,7 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  let status = localStorage.getItem('status');
+  let status = localStorage.getItem("status");
 
   const handleDrop = (forma, balanca, lado) => {
     if (!forma) return;
@@ -153,13 +165,13 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
     });
 
     if (balanca === 1) {
-      setBalance1(prevBalance => {
+      setBalance1((prevBalance) => {
         const updatedBalance = updateBalance(prevBalance);
         updateLocalStorageItem("balance1", updatedBalance);
         return updatedBalance;
       });
     } else {
-      setBalance2(prevBalance => {
+      setBalance2((prevBalance) => {
         const updatedBalance = updateBalance(prevBalance);
         updateLocalStorageItem("balance2", updatedBalance);
         return updatedBalance;
@@ -178,7 +190,7 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
     });
     updateLocalStorageItem("forms", updatedFormas);
     setFormas(updatedFormas);
-    setQtdFormas(qtdFormas + 1)
+    setQtdFormas(qtdFormas + 1);
     localStorage.setItem("qtdFormas", qtdFormas);
   };
 
@@ -194,43 +206,43 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
     }
   };
 
-  useEffect(() => {
-    formas.map((item) => {
-      item.quantidade = 5;
-    });
+  // useEffect(() => {
+  //   formas.map((item) => {
+  //     item.quantidade = 5;
+  //   });
 
-    setBalance1(
-      getLocalStorageItem("balance1", {
-        left: { total: 0, figures: {} },
-        right: { total: 0, figures: {} },
-      })
-    );
+  //   setBalance1(
+  //     getLocalStorageItem("balance1", {
+  //       left: { total: 0, figures: {} },
+  //       right: { total: 0, figures: {} },
+  //     })
+  //   );
 
-    setBalance2(
-      getLocalStorageItem("balance2", {
-        left: { total: 0, figures: {} },
-        right: { total: 0, figures: {} },
-      })
-    );
+  //   setBalance2(
+  //     getLocalStorageItem("balance2", {
+  //       left: { total: 0, figures: {} },
+  //       right: { total: 0, figures: {} },
+  //     })
+  //   );
 
-    // localStorage.setItem(
-    //   "balancee1",
-    //   JSON.stringify({
-    //     left: { total: 0, figures: {} },
-    //     right: { total: 0, figures: {} },
-    //   })
-    // );
-    // localStorage.setItem(
-    //   "balancee2",
-    //   JSON.stringify({
-    //     left: { total: 0, figures: {} },
-    //     right: { total: 0, figures: {} },
-    //   })
-    // );
-    setClear(false);
-    setCountAttempt(0);
-    setAttempt(!attempt);
-  }, [clear]);
+  //   localStorage.setItem(
+  //     "balancee1",
+  //     JSON.stringify({
+  //       left: { total: 0, figures: {} },
+  //       right: { total: 0, figures: {} },
+  //     })
+  //   );
+  //   localStorage.setItem(
+  //     "balancee2",
+  //     JSON.stringify({
+  //       left: { total: 0, figures: {} },
+  //       right: { total: 0, figures: {} },
+  //     })
+  //   );
+
+  //   setCountAttempt(0);
+  //   setAttempt(!attempt);
+  // }, [clear]);
 
   const handleButtonClick = () => {
     setAttempt(!attempt);
@@ -239,14 +251,45 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
   };
 
   const startRealClean = () => {
-    startReal()
-    if (phaseC != "DESAFIO")
-      setClear(true);
-  }
+    updateLocalStorageItem("forms", null);
+    const balance1Value = {
+      left: { total: 0, figures: {} },
+      right: { total: 0, figures: {} }
+    };
+    setBalance1(balance1Value);
+    updateLocalStorageItem("balance1", balance1Value);
+    const balance2Value = {
+      left: { total: 0, figures: {} },
+      right: { total: 0, figures: {} }
+    };
+    setBalance2(balance2Value);
+    updateLocalStorageItem("balance2", balance2Value);
+    phaseC("DESAFIO")
+    setAttempt(!attempt);
+    startReal();
+  };
 
   const cleanBalanca = () => {
-    setClear(true);
-  }
+    const formasAtualizadas = formas.map((item) => {
+      return { ...item, quantidade: 5 };
+    });
+    setFormas(formasAtualizadas);
+    updateLocalStorageItem("forms", formasAtualizadas);
+    const balance1Value = {
+      left: { total: 0, figures: {} },
+      right: { total: 0, figures: {} }
+    };
+    setBalance1(balance1Value);
+    updateLocalStorageItem("balance1", balance1Value);
+    const balance2Value = {
+      left: { total: 0, figures: {} },
+      right: { total: 0, figures: {} }
+    };
+    setBalance2(balance2Value);
+    updateLocalStorageItem("balance2", balance2Value);
+
+    setAttempt(!attempt);
+  };
 
   return (
     <>
@@ -286,8 +329,16 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
           </Row>
         )}
       </Container>
-      <Container className={`${styles.contorno} ${phase !== "DESAFIO" ? styles.contornoTeste : ""}`}>
-        <div className={`${styles.container} ${phase !== "DESAFIO" ? styles.smallerContainer : ""}`}>
+      <Container
+        className={`${styles.contorno} ${
+          phase !== "DESAFIO" ? styles.contornoTeste : ""
+        }`}
+      >
+        <div
+          className={`${styles.container} ${
+            phase !== "DESAFIO" ? styles.smallerContainer : ""
+          }`}
+        >
           <div className={styles.border}>
             <Row style={{ display: "flex", alignItems: "flex-end" }}>
               {formas.map((item, index) => (
@@ -307,7 +358,13 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
                     />
                     <p className={styles.qtd}>{item.quantidade}</p>
                   </div>
-                  {phase == "DESAFIO" && <ShapeInput key={index} oC={shapes[index].oC} shapeValue={shapes[index].shapeValue} />}
+                  {phase == "DESAFIO" && (
+                    <ShapeInput
+                      key={index}
+                      oC={shapes[index].oC}
+                      shapeValue={shapes[index].shapeValue}
+                    />
+                  )}
                 </Col>
               ))}
             </Row>
@@ -317,18 +374,19 @@ export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1,
           </div>
         </div>
       </Container>
-      <div className={`${styles.borderstyle} ${phase !== "DESAFIO" ? styles.borderstyleTest : ""}`} onClick={handleButtonClick}>
-        <div className={styles.button}>
-          CALCULAR
-        </div>
+      <div
+        className={`${styles.borderstyle} ${
+          phase !== "DESAFIO" ? styles.borderstyleTest : ""
+        }`}
+        onClick={handleButtonClick}
+      >
+        <div className={styles.button}>CALCULAR</div>
       </div>
-      {phase !== "DESAFIO" &&
+      {phase !== "DESAFIO" && (
         <div className={styles.borderstylecleanTest} onClick={cleanBalanca}>
-          <div className={styles.button}>
-            LIMPAR
-          </div>
+          <div className={styles.button}>LIMPAR</div>
         </div>
-      }
+      )}
     </>
   );
 }

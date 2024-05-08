@@ -27,6 +27,9 @@ export default function Balance({
     hitbox1: { top: "1.26em", left: "0.39em" },
     hitbox2: { top: "1.26em", left: "4.02em" },
   });
+
+  const [controlF5, setControlF5] = useState(0);
+  localStorage.setItem("controlF5", controlF5);
   const pesos = contextPeso;
   const images = {
     [pesos[0]]: quadrado,

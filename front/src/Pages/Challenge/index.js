@@ -131,6 +131,7 @@ export default function Challenge() {
   }, []);
 
   useEffect(() => {
+    console.log("foipraphase")
     setTimerStarted(true);
     if (phase === "FASE TESTE") {
       const savedPesos = localStorage.getItem("newPesos");
@@ -332,20 +333,6 @@ export default function Challenge() {
         navigate("/finished");
       }
     }
-    localStorage.setItem(
-      "balance1",
-      JSON.stringify({
-        left: { total: 0, figures: {} },
-        right: { total: 0, figures: {} },
-      })
-    );
-    localStorage.setItem(
-      "balance2",
-      JSON.stringify({
-        left: { total: 0, figures: {} },
-        right: { total: 0, figures: {} },
-      })
-    );
     localStorage.removeItem("tempo");
     setTimerStarted(true);
     setStatus("FINALIZAR");
@@ -392,7 +379,7 @@ export default function Challenge() {
                     clear={clear}
                     setClear={setClear}
                     startReal={startReal}
-                    phaseC = {phase}
+                    phaseC = {setPhase}
                     oC1={(e) => { setFig1(e.target.value) }}
                     oC2={(e) => { setFig2(e.target.value) }}
                     oC3={(e) => { setFig3(e.target.value) }}
