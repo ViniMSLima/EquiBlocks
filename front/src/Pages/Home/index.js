@@ -50,16 +50,6 @@ export default function Home() {
       bool = true;
     }
 
-    if (parseInt(data.substr(0, 4)) < d.getFullYear() - 22) {
-      alert("Ano inválido! Idade máxima: 22");
-      bool = true;
-    }
-
-    if (parseInt(data.substr(0, 4)) > d.getFullYear() - 16) {
-      alert("Ano inválido! Idade mínima: 16");
-      bool = true;
-    }
-
     if (bool === false) {
       localStorage.setItem("nome", nome);
       localStorage.setItem("data", data);
