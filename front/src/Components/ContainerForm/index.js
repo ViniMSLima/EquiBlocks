@@ -54,7 +54,6 @@ export default function ContainerForm({
     setPhase(localStorage.getItem("fase"));
     if (contextPeso.length === 5) {
       const storedFormas = getLocalStorageItem("forms", null);
-      console.log(storedFormas);
       if (storedFormas) {
         setFormas(storedFormas);
       } else {
@@ -123,7 +122,6 @@ export default function ContainerForm({
 
   function getLocalStorageItem(key, defaultValue) {
     const item = localStorage.getItem(key);
-    console.log(item);
     return item ? JSON.parse(item) : defaultValue;
   }
 

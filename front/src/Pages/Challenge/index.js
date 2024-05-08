@@ -131,7 +131,6 @@ export default function Challenge() {
   }, []);
 
   useEffect(() => {
-    console.log("foipraphase")
     setTimerStarted(true);
     if (phase === "FASE TESTE") {
       const savedPesos = localStorage.getItem("newPesos");
@@ -207,19 +206,26 @@ export default function Challenge() {
     const formas1 = localStorage.getItem("formas");
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
-    console.log(formas2)
-    console.log(palpites)
     let envio = [fig1, fig2, fig3, fig4, fig5];
-
+    
     let middleIndex = 0;
+    let index500form = formas2.findIndex((form) => form.peso === 500);
     let index500 = palpites.findIndex((form) => form === 1);
-
+    
     if (index500 !== -1 && index500 !== middleIndex) {
       let temp = palpites[middleIndex];
       palpites[middleIndex] = palpites[index500];
       palpites[index500] = temp;
     }
 
+    if (index500form !== -1 && index500form !== middleIndex) {
+      let temp = formas2[middleIndex];
+      formas2[middleIndex] = formas2[index500form];
+      formas2[index500form] = temp;
+    }
+
+    console.log(formas2)
+    console.log(palpites)
     let count = 0;
     let acertos = 0;
 
