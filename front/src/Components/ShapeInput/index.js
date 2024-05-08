@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import styles from "./styles.module.scss";
 
-export default function ShapeInput({ shapeImg, shapeValue, oC }) {
+export default function ShapeInput({ shapeValue, oC }) {
   const inputValue = shapeValue === 500 ? 500 : undefined;
   const isDisabled = shapeValue === 500;
 
@@ -18,7 +18,7 @@ export default function ShapeInput({ shapeImg, shapeValue, oC }) {
               <Form.Control
                 bg="primary"
                 className={`${styles.input} ${styles.inputColor}`}
-                type="number"
+                type="text"
                 value={inputValue}
                 placeholder = {inputValue? 500 : "???"}
                 onChange={oC}

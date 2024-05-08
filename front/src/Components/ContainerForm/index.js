@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef, useContext, useMemo} from "react";
-
+import React, { useState, useEffect, useRef, useContext, useMemo } from "react";
 import { PesoContext } from "../../Context/pesoContext";
 import Button from "../Button/index";
-
 import Container from "react-bootstrap/Container";
 import styles from "./styles.module.scss";
 import Row from "react-bootstrap/Row";
@@ -15,13 +13,14 @@ import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 import ShapeInput from "../ShapeInput";
 
-export default function ContainerForm({ clear, setClear, startReal, phasePro, oC1, oC2, oC3, oC4, oC5}) {
+export default function ContainerForm({ clear, setClear, startReal, phaseC, oC1, oC2, oC3, oC4, oC5 }) {
   const { contextPeso } = useContext(PesoContext);
   const [formas, setFormas] = useState([]);
   const [phase, setPhase] = useState("Fase de Teste");
   const [attempt, setAttempt] = useState(false);
   const [countAttempt, setCountAttempt] = useState(0);
   const [qtdFormas, setQtdFormas] = useState(0);
+
   const shapes = useMemo(() => {
     const shapeList = [
       { shapeImg: quadrado, shapeValue: contextPeso[0], oC: oC1 },
@@ -40,11 +39,12 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
     return shapeList;
   }, [contextPeso]);
 
-
   useEffect(() => {
     setPhase(localStorage.getItem("fase"));
+    const formasFromLocalStorage = JSON.parse(localStorage.getItem("formas"));
+    console.log(formasFromLocalStorage)
     if (contextPeso.length === 5) {
-      const formasIniciais = [
+      let formasIniciais = [
         {
           imagem: quadrado,
           quantidade: 5,
@@ -91,6 +91,7 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
     }
   }, [contextPeso]);
 
+
   const [balance1, setBalance1] = useState(
     getLocalStorageItem("balance1", {
       left: { total: 0, figures: {} },
@@ -119,9 +120,13 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
 
   disableF5.current = handleKeyDown;
 
-  let status = localStorage.getItem('status');
-
   document.addEventListener("keydown", handleKeyDown);
+
+  function updateLocalStorageItem(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  let status = localStorage.getItem('status');
 
   const handleDrop = (forma, balanca, lado) => {
     if (!forma) return;
@@ -143,9 +148,17 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
     });
 
     if (balanca === 1) {
-      setBalance1((prevBalance) => updateBalance(prevBalance));
+      setBalance1(prevBalance => {
+        const updatedBalance = updateBalance(prevBalance);
+        updateLocalStorageItem("balance1", updatedBalance);
+        return updatedBalance;
+      });
     } else {
-      setBalance2((prevBalance) => updateBalance(prevBalance));
+      setBalance2(prevBalance => {
+        const updatedBalance = updateBalance(prevBalance);
+        updateLocalStorageItem("balance2", updatedBalance);
+        return updatedBalance;
+      });
     }
 
     const updatedFormas = formas.map((item) => {
@@ -158,8 +171,7 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
       }
       return item;
     });
-    localStorage.setItem("formas", JSON.stringify(updatedFormas));
-    console.log(localStorage.getItem("formas"))
+    updateLocalStorageItem("formas", updatedFormas);
     setFormas(updatedFormas);
     setQtdFormas(qtdFormas + 1)
     localStorage.setItem("qtdFormas", qtdFormas);
@@ -173,6 +185,7 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
         onBalance: false,
       };
       setFormas(updatedFormas);
+      updateLocalStorageItem("formas", updatedFormas);
     }
   };
 
@@ -222,7 +235,8 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
 
   const startRealClean = () => {
     startReal()
-    setClear(true)
+    if (phaseC != "DESAFIO")
+      setClear(true);
   }
 
   return (
@@ -230,7 +244,6 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
       <Container fluid style={{ margin: 0, padding: 0 }}>
         <Row>
           <Col sm="12" lg="6" className={styles.coluna}>
-            {/* <Score balance={ balance1 }/> */}
             <Balance
               balance={balance1}
               balanca={1}
@@ -238,10 +251,8 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
               attempt={attempt}
               setAttempt={setAttempt}
             />
-            {/* <Score balance={ balance1 }/> */}
           </Col>
           <Col sm="12" lg="6" className={styles.coluna}>
-            {/* <Score balance={ balance2 }/> */}
             <Balance
               balance={balance2}
               balanca={2}
@@ -249,14 +260,13 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
               attempt={attempt}
               setAttempt={setAttempt}
             />
-            {/* <Score balance={ balance2 }/> */}
           </Col>
         </Row>
       </Container>
-      <Container className={styles.contorno}>
-        <div className={styles.container}>
+      <Container className={`${styles.contorno} ${phase !== "DESAFIO" ? styles.contornoTeste : ""}`}>
+        <div className={`${styles.container} ${phase !== "DESAFIO" ? styles.smallerContainer : ""}`}>
           <div className={styles.border}>
-            <Row>
+            <Row style={{ display: "flex", alignItems: "flex-end" }}>
               {formas.map((item, index) => (
                 <Col key={index} className={styles.imgInput}>
                   <div className={styles.divForm}>
@@ -274,7 +284,7 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
                     />
                     <p className={styles.qtd}>{item.quantidade}</p>
                   </div>
-                  <ShapeInput className={styles.input} key={index} oC={shapes[index].oC} shapeImg={shapes[index].shapeImg} shapeValue={shapes[index].shapeValue} />
+                  {phase == "DESAFIO" && <ShapeInput key={index} oC={shapes[index].oC} shapeValue={shapes[index].shapeValue} />}
                 </Col>
               ))}
             </Row>
@@ -284,15 +294,16 @@ export default function ContainerForm({ clear, setClear, startReal, phasePro, oC
           </div>
         </div>
       </Container>
-      <div className={styles.borderstyle} onClick={handleButtonClick}>
+      <div className={`${styles.borderstyle} ${phase !== "DESAFIO" ? styles.borderstyleTest : ""}`} onClick={handleButtonClick}>
         <div className={styles.button}>
           CALCULAR
         </div>
       </div>
-      {/* <div className={styles.count}>
-        <span className={styles.countText}>Tentativas: </span>
-        <span className={styles.countTextNumber}>{countAttempt}</span>
-      </div> */}
+      <div className={styles.borderstylecleanTest} onClick={handleButtonClick}>
+        <div className={styles.button}>
+          LIMPAR
+        </div>
+      </div>
     </>
   );
 }

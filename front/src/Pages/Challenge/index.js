@@ -131,21 +131,54 @@ export default function Challenge() {
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem("fase") === "Desafio") setStatus("Finalizar");
     setTimerStarted(true);
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+    if (phase === "FASE TESTE") {
+      const savedPesos = localStorage.getItem("newPesos");
+      if (savedPesos) {
+        const pesos = JSON.parse(savedPesos);
+        setContextPeso(pesos);
+      } else {
+        function shuffleArray(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        }
+
+        const pesos = [100, 200, 500, 700, 1000];
+        const newPesos = shuffleArray(pesos);
+
+        setContextPeso(newPesos);
+        localStorage.setItem("newPesos", JSON.stringify(newPesos));
       }
-      return array;
+    } else if (phase === "DESAFIO") {
+      const pesosUpdatedInDesafio = localStorage.getItem("pesosUpdatedInDesafio");
+
+      if (!pesosUpdatedInDesafio) {
+        function shuffleArray(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        }
+
+        const pesos = [100, 200, 500, 700, 1000];
+        const newPesos = shuffleArray(pesos);
+
+        setContextPeso(newPesos);
+        localStorage.setItem("newPesos", JSON.stringify(newPesos));
+        localStorage.setItem("pesosUpdatedInDesafio", "true");
+      } else {
+        const savedPesos = localStorage.getItem("newPesos");
+        if (savedPesos) {
+          const pesos = JSON.parse(savedPesos);
+          setContextPeso(pesos);
+        }
+      }
     }
-
-    const pesos = [100, 200, 500, 700, 1000];
-    const newPesos = shuffleArray(pesos);
-
-    setContextPeso(newPesos);
-  }, []);
+  }, [phase]);
 
   const [fig1, setFig1] = useState(1);
   const [fig2, setFig2] = useState(1);
@@ -163,6 +196,8 @@ export default function Challenge() {
     const formas1 = localStorage.getItem("formas");
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
+    console.log(formas2)
+    console.log(palpites)
     let envio = [fig1, fig2, fig3, fig4, fig5];
 
     let middleIndex = 0;
@@ -303,8 +338,6 @@ export default function Challenge() {
     setTimerStarted(true);
     setStatus("FINALIZAR");
     setPhase("DESAFIO");
-    // if(status == "COMEÇAR")
-    // window.location.reload()
   };
 
   // useEffect(() => {
@@ -347,6 +380,12 @@ export default function Challenge() {
                     clear={clear}
                     setClear={setClear}
                     startReal={startReal}
+                    phaseC = {phase}
+                    oC1={(e) => { setFig1(e.target.value) }}
+                    oC2={(e) => { setFig2(e.target.value) }}
+                    oC3={(e) => { setFig3(e.target.value) }}
+                    oC4={(e) => { setFig4(e.target.value) }}
+                    oC5={(e) => { setFig5(e.target.value) }}
                   />
                 </Col>
                 {/* <Col className={styles.inputCol} sm="10" lg="2">
