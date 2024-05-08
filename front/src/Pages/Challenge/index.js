@@ -56,6 +56,12 @@ export default function Challenge() {
 
   const prevPhaseRef = useRef(phase);
 
+  const [attempts, setAttempts] = useState(
+    localStorage.getItem("countAttempt") || 0
+  )
+  const [qtd, setQtd] = useState(
+    localStorage.getItem("qtdFormas") || 0
+  )
   useEffect(() => {
     localStorage.setItem("status", status);
     localStorage.setItem("fase", phase);
@@ -248,16 +254,13 @@ export default function Challenge() {
 
       count += 1;
     });
-
-    let attempts = 0;
-    if(localStorage.getItem("countAttempt")) {
-      attempts = parseInt(localStorage.getItem("countAttempt")) + 1;
+    
+    if(attempts && localStorage.getItem("fase") === "DESAFIO") {
+      setAttempts(attempts + 1);
     }
 
-    let qtd = 0;
-
-    if(localStorage.getItem("qtdFormas")) {
-      qtd = parseInt(localStorage.getItem("qtdFormas")) + 1;
+    if(qtd && localStorage.getItem("fase") === "DESAFIO") {
+      setQtd(qtd + 1);
     }
     
 
@@ -340,7 +343,7 @@ export default function Challenge() {
       if (window.confirm("Deseja Finalizar?")) {
         if (!checkInputs()) {
           alert("Não é possível finalizar a atividade com valores em branco.");
-          return;
+          return
         }
         playersToMongoDB();
         localStorage.clear();
