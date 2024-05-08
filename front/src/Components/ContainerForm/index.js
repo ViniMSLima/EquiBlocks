@@ -249,19 +249,22 @@ export default function ContainerForm({
   };
 
   const startRealClean = () => {
-    updateLocalStorageItem("forms", null);
-    const balance1Value = {
-      left: { total: 0, figures: {} },
-      right: { total: 0, figures: {} }
-    };
-    setBalance1(balance1Value);
-    updateLocalStorageItem("balance1", balance1Value);
-    const balance2Value = {
-      left: { total: 0, figures: {} },
-      right: { total: 0, figures: {} }
-    };
-    setBalance2(balance2Value);
-    updateLocalStorageItem("balance2", balance2Value);
+    if(phase !== "DESAFIO")
+    {
+      updateLocalStorageItem("forms", null);
+      const balance1Value = {
+        left: { total: 0, figures: {} },
+        right: { total: 0, figures: {} }
+      };
+      setBalance1(balance1Value);
+      updateLocalStorageItem("balance1", balance1Value);
+      const balance2Value = {
+        left: { total: 0, figures: {} },
+        right: { total: 0, figures: {} }
+      };
+      setBalance2(balance2Value);
+      updateLocalStorageItem("balance2", balance2Value);
+    }
     phaseC("DESAFIO")
     setAttempt(!attempt);
     startReal();
