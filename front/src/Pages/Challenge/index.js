@@ -209,8 +209,7 @@ export default function Challenge() {
     var data = localStorage.getItem("data");
     var tempo = localStorage.getItem("tempo");
 
-    const formas1 = localStorage.getItem("forms");
-    console.log(formas1)
+    const formas1 = localStorage.getItem("formas");
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
     let envio = [fig1, fig2, fig3, fig4, fig5];
@@ -254,7 +253,7 @@ export default function Challenge() {
 
       count += 1;
     });
-    
+
     if(attempts && localStorage.getItem("fase") === "DESAFIO") {
       setAttempts(attempts + 1);
     }
