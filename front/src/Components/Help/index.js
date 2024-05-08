@@ -16,7 +16,7 @@ export function Help() {
             <img src={request} className={styles.button}/>
         </div>
 
-        <Modal show={show} onHide={handleClose} className={styles.modal}>
+        <Modal show={show} onHide={handleClose}>
             <img src={help} className={styles.img}/>
         </Modal>
     </>

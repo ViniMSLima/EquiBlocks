@@ -12,6 +12,8 @@ import triangulo from "../../Img/formas/triangulo.png";
 import pentagono from "../../Img/formas/pentagono.png";
 import estrela from "../../Img/formas/star.png";
 import ShapeInput from "../ShapeInput";
+import desafio from "../../Img/DESAFIO.gif"
+import Modal from 'react-bootstrap/Modal';
 
 export default function ContainerForm({
   startReal,
@@ -28,6 +30,10 @@ export default function ContainerForm({
   const [attempt, setAttempt] = useState(false);
   const [countAttempt, setCountAttempt] = useState(1);
   const [qtdFormas, setQtdFormas] = useState(1);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const shapes = useMemo(() => {
     const shapeList = [
@@ -276,6 +282,7 @@ export default function ContainerForm({
     phaseC("DESAFIO")
     setAttempt(!attempt);
     startReal();
+    handleShow()
   };
 
   const cleanBalanca = () => {
@@ -396,6 +403,9 @@ export default function ContainerForm({
           <div className={styles.button}>LIMPAR</div>
         </div>
       )}
+      <Modal show={show} onHide={handleClose}>
+            <img src={desafio} className={styles.img}/>
+      </Modal>
     </>
   );
 }

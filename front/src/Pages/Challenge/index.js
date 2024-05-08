@@ -1,6 +1,9 @@
 import { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Modal from 'react-bootstrap/Modal';
+import teste from "../../Img/FASE DE TESTE.gif";
+
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -35,6 +38,11 @@ export default function Challenge() {
   );
 
   const [begin, setBegin] = useState(false);
+
+  const [show, setShow] = useState(true);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
 
   const [clear, setClear] = useState(false);
   const [phaseClear, setPhaseClear] = useState(true);
@@ -429,6 +437,9 @@ export default function Challenge() {
                 </Col> */}
               </Container>
             </Row>
+            <Modal show={show} onHide={handleClose}>
+              <img src={teste} className={styles.imgModal}/>
+            </Modal>
           </div>
         </>
       ) : (
