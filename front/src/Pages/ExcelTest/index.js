@@ -30,20 +30,16 @@ export default function Excel() {
   };
 
   // Função para obter o status a cada segundo
-  const getStatusPeriodically = () => {
-    const intervalId = setInterval(() => {
-      apiChallenge.get(`/getstatus`).then((response) => {
-        setStatus(response.data.status);
-      }).catch((error) => {
-        console.error(error);
-      });
-    }, 3000);
-    return intervalId;
+  const getStatus = () => {
+    apiChallenge.get(`/getstatus`).then((response) => {
+      setStatus(response.data.status);
+    }).catch((error) => {
+      console.error(error);
+    });
   };
 
   useEffect(() => {
-    const intervalId = getStatusPeriodically();
-    return () => clearInterval(intervalId);
+    getStatus();
   }, []);
 
 
@@ -56,7 +52,7 @@ export default function Excel() {
   };
 
   return (
-    <div style={{backgroundColor: 'white'}}>
+    <div style={{ backgroundColor: 'white' }}>
       <button onClick={() => logOut()} style={{ marginLeft: '1em' }}>Sair</button>
       <button onClick={() => Challenge()} style={{ marginLeft: '1em' }}>{status ? "Finalizar" : "Iniciar"}</button>
       <ExcelGenerator />

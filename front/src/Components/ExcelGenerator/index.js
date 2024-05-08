@@ -49,8 +49,8 @@ export default function ExcelGenerator() {
     }
 
     useEffect(() => {
-        getPlayers();
         getValues();
+        getPlayers();
     }, []);
 
     function sortData(column) {
@@ -147,11 +147,11 @@ export default function ExcelGenerator() {
                     <button onClick={clearMongoDB}>Limpar MongoDB</button>
                 </div>
                 <div>
-                    <input type="number" placeholder={f1} onChange={(e) => setF1(e.target.value)}></input>
-                    <input type="number" placeholder={f2} onChange={(e) => setF2(e.target.value)}></input>
-                    <input type="number" placeholder={f3} onChange={(e) => setF3(e.target.value)}></input>
-                    <input type="number" placeholder={f4} onChange={(e) => setF4(e.target.value)}></input>
-                    <input type="number" placeholder={f5} onChange={(e) => setF5(e.target.value)}></input>
+                    <input type="number" value={f1} onChange={(e) => setF1(e.target.value)}></input>
+                    <input type="number" value={f2} onChange={(e) => setF2(e.target.value)}></input>
+                    <input type="number" value={f3} onChange={(e) => setF3(e.target.value)}></input>
+                    <input type="number" value={f4} onChange={(e) => setF4(e.target.value)}></input>
+                    <input type="number" value={f5} onChange={(e) => setF5(e.target.value)}></input>
                     <button onClick={saveNewValues}> Salvar Valores</button>
                 </div>
                 <div>
@@ -170,11 +170,11 @@ export default function ExcelGenerator() {
                                 <th onClick={() => sortData('tentativas')}>Tentativas</th>
                                 <th onClick={() => sortData('qtd_formas')}>Quantidade</th>
                                 <th onClick={() => sortData('acertos')}>Acertos %</th>
-                                <th onClick={() => sortData('f1')}>100</th>
-                                <th onClick={() => sortData('f2')}>200</th>
-                                <th onClick={() => sortData('f3')}>500</th>
-                                <th onClick={() => sortData('f4')}>700</th>
-                                <th onClick={() => sortData('f5')}>1000</th>
+                                <th onClick={() => sortData('f1')}>{f1}</th>
+                                <th onClick={() => sortData('f2')}>{f2}</th>
+                                <th onClick={() => sortData('f3')}>{f3}</th>
+                                <th onClick={() => sortData('f4')}>{f4}</th>
+                                <th onClick={() => sortData('f5')}>{f5}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -186,11 +186,11 @@ export default function ExcelGenerator() {
                                     <td>{player.tentativas}</td>
                                     <td>{player.qtd_formas}</td>
                                     <td style={{ backgroundColor: player.acertos === 100 ? '#C6F7D0' :( player.acertos === 75 || player.acertos === 50) ? '#ffffb0' : '#FFC6C6'}}>{player.acertos}</td>
-                                    <td style={{ backgroundColor: player.f1 === 100 ? '#C6F7D0' : '#FFC6C6' }}>{player.f1}</td>
-                                    <td style={{ backgroundColor: player.f2 === 200 ? '#C6F7D0' : '#FFC6C6' }}>{player.f2}</td>
-                                    <td style={{ backgroundColor: player.f3 === 500 ? '#C6F7D0' : '#FFC6C6' }}>{player.f3}</td>
-                                    <td style={{ backgroundColor: player.f4 === 700 ? '#C6F7D0' : '#FFC6C6' }}>{player.f4}</td>
-                                    <td style={{ backgroundColor: player.f5 === 1000 ? '#C6F7D0' : '#FFC6C6' }}>{player.f5}</td>
+                                    <td style={{ backgroundColor: player.f1 == f1 ? '#C6F7D0' : '#FFC6C6' }}>{player.f1}</td>
+                                    <td style={{ backgroundColor: player.f2 == f2 ? '#C6F7D0' : '#FFC6C6' }}>{player.f2}</td>
+                                    <td style={{ backgroundColor: player.f3 == f3 ? '#C6F7D0' : '#FFC6C6' }}>{player.f3}</td>
+                                    <td style={{ backgroundColor: player.f4 == f4 ? '#C6F7D0' : '#FFC6C6' }}>{player.f4}</td>
+                                    <td style={{ backgroundColor: player.f5 == f5 ? '#C6F7D0' : '#FFC6C6' }}>{player.f5}</td>
                                 </tr>
                             ))}
                         </tbody>

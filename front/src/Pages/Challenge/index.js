@@ -119,7 +119,7 @@ export default function Challenge() {
         .catch((error) => {
           console.error(error);
         });
-    }, 3000);
+    }, 5000);
     return intervalId;
   };
 
