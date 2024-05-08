@@ -59,12 +59,6 @@ export default function Challenge() {
 
   const prevPhaseRef = useRef(phase);
 
-  const [attempts, setAttempts] = useState(
-    localStorage.getItem("countAttempt") || 0
-  )
-  const [qtd, setQtd] = useState(
-    localStorage.getItem("qtdFormas") || 0
-  )
   useEffect(() => {
     localStorage.setItem("status", status);
     localStorage.setItem("fase", phase);
@@ -164,7 +158,9 @@ export default function Challenge() {
         localStorage.setItem("newPesos", JSON.stringify(newPesos));
       }
     } else if (phase === "DESAFIO") {
-      const pesosUpdatedInDesafio = localStorage.getItem("pesosUpdatedInDesafio");
+      const pesosUpdatedInDesafio = localStorage.getItem(
+        "pesosUpdatedInDesafio"
+      );
 
       if (!pesosUpdatedInDesafio) {
         function shuffleArray(array) {
@@ -189,24 +185,27 @@ export default function Challenge() {
         }
       }
     }
-
   }, [phase]);
 
   async function getValues() {
     let serverPesos = [];
-    await apiChallenge.get(`/getvalues`).then((response) => {
-      serverPesos = response.data.values;
-    }).catch((error) => {
-      console.log("Error fetching values:")
-      console.error(error)
-    });
+    await apiChallenge
+      .get(`/getvalues`)
+      .then((response) => {
+        serverPesos = response.data.values;
+      })
+      .catch((error) => {
+        console.log("Error fetching values:");
+        console.error(error);
+      });
 
-    let intPesos = []
-    serverPesos.forEach(element => {
+    let intPesos = [];
+    serverPesos.forEach((element) => {
       intPesos.push(parseInt(element));
     });
     const middleIndex = Math.floor(intPesos.length / 2);
-    localStorage.setItem('middleValue', intPesos[middleIndex]);
+    localStorage.setItem("middleValue", intPesos[middleIndex]);
+    localStorage.setItem("intPesos", JSON.stringify(intPesos));
     setPesos(intPesos);
   }
 
@@ -220,6 +219,10 @@ export default function Challenge() {
     var nome = localStorage.getItem("nome");
     var data = localStorage.getItem("data");
     var tempo = localStorage.getItem("tempo");
+    const qtdFormas = parseInt(localStorage.getItem("qtdFormas"));
+    const countAttempt = parseInt(localStorage.getItem("countAttempt"));
+    const intPesos = localStorage.getItem("intPesos");
+    const valuesDefault = JSON.parse(intPesos);
 
     const formas1 = localStorage.getItem("forms");
     const formas2 = JSON.parse(formas1);
@@ -227,8 +230,10 @@ export default function Challenge() {
     let envio = [fig1, fig2, fig3, fig4, fig5];
 
     let middleIndex = 0;
-    let middleValue = localStorage.getItem('middleValue');
-    let index500form = formas2.findIndex((form) => form.peso === parseInt(middleValue));
+    let middleValue = parseInt(localStorage.getItem("middleValue"));
+    let index500form = formas2.findIndex(
+      (form) => form.peso === middleValue
+    );
     let index500 = palpites.findIndex((form) => form === 1);
 
     if (index500 !== -1 && index500 !== middleIndex) {
@@ -243,23 +248,24 @@ export default function Challenge() {
       formas2[index500form] = temp;
     }
 
-    console.log(formas2)
-    console.log(palpites)
     let count = 0;
     let acertos = 0;
 
     formas2.forEach((element) => {
-      if (palpites[count] == element.peso) {
+      console.log(element.peso)
+      console.log(palpites[count])
+      let pesoInt = parseInt(element.peso);
+      if (palpites[count] == pesoInt) {
         acertos += 25;
-        if (element.peso == 100) {
+        if (pesoInt == valuesDefault[0]) {
           envio[0] = palpites[count];
-        } else if (element.peso == 200) {
+        } else if (pesoInt == valuesDefault[1]) {
           envio[1] = palpites[count];
-        } else if (element.peso == 500) {
-          envio[2] = 500;
-        } else if (element.peso == 700) {
+        } else if (pesoInt == valuesDefault[2]) {
+          envio[2] = middleValue;
+        } else if (pesoInt == valuesDefault[3]) {
           envio[3] = palpites[count];
-        } else if (element.peso == 1000) {
+        } else if (pesoInt == valuesDefault[4]) {
           envio[4] = palpites[count];
         }
       } else palpites[count] = 1;
@@ -267,26 +273,17 @@ export default function Challenge() {
       count += 1;
     });
 
-    if(attempts && localStorage.getItem("fase") === "DESAFIO") {
-      setAttempts(attempts + 1);
-    }
-
-    if(qtd && localStorage.getItem("fase") === "DESAFIO") {
-      setQtd(qtd + 1);
-    }
-
-
     const playerInfo = {
       nome,
       data,
       tempo,
       f1: parseInt(envio[0]),
       f2: parseInt(envio[1]),
-      f3: 500,
+      f3: middleValue,
       f4: parseInt(envio[3]),
       f5: parseInt(envio[4]),
-      tentativas: attempts,
-      qtd_formas: qtd,
+      tentativas: countAttempt,
+      qtd_formas: qtdFormas,
       acertos,
     };
 
@@ -355,7 +352,7 @@ export default function Challenge() {
       if (window.confirm("Deseja Finalizar?")) {
         if (!checkInputs()) {
           alert("Não é possível finalizar a atividade com valores em branco.");
-          return
+          return;
         }
         playersToMongoDB();
         localStorage.clear();
@@ -411,11 +408,21 @@ export default function Challenge() {
                     setClear={setClear}
                     startReal={startReal}
                     phaseC={setPhase}
-                    oC1={(e) => { setFig1(e.target.value) }}
-                    oC2={(e) => { setFig2(e.target.value) }}
-                    oC3={(e) => { setFig3(e.target.value) }}
-                    oC4={(e) => { setFig4(e.target.value) }}
-                    oC5={(e) => { setFig5(e.target.value) }}
+                    oC1={(e) => {
+                      setFig1(e.target.value);
+                    }}
+                    oC2={(e) => {
+                      setFig2(e.target.value);
+                    }}
+                    oC3={(e) => {
+                      setFig3(e.target.value);
+                    }}
+                    oC4={(e) => {
+                      setFig4(e.target.value);
+                    }}
+                    oC5={(e) => {
+                      setFig5(e.target.value);
+                    }}
                   />
                 </Col>
                 {/* <Col className={styles.inputCol} sm="10" lg="2">
