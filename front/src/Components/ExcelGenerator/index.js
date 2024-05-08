@@ -37,13 +37,13 @@ export default function ExcelGenerator() {
 
     async function getValues() {
         apiChallenge.get(`/getvalues`).then((response) => {
-            setF1(response.data.F1)
-            setF2(response.data.F2)
-            setF3(response.data.F3)
-            setF4(response.data.F4)
-            setF5(response.data.F5)
+            setF1(response.data.values[0])
+            setF2(response.data.values[1])
+            setF3(response.data.values[2])
+            setF4(response.data.values[3])
+            setF5(response.data.values[4])
         }).catch((error) => {
-            console.log("Error fetching players data:")
+            console.log("Error fetching values:")
             console.error(error)
         })
     }
@@ -127,7 +127,7 @@ export default function ExcelGenerator() {
 
     function saveNewValues() {
         apiChallenge
-        .post(`/postvalues`, {f1, f2, f3, f4, f5})
+        .post(`/postvalues`, {"newValues": [f1, f2, f3, f4, f5]})
         .then((response) => {
             console.log(response);
         })
@@ -147,11 +147,11 @@ export default function ExcelGenerator() {
                     <button onClick={clearMongoDB}>Limpar MongoDB</button>
                 </div>
                 <div>
-                    <input placeholder={f1} onChange={(e) => setF1(e.target.value)}></input>
-                    <input placeholder={f2} onChange={(e) => setF2(e.target.value)}></input>
-                    <input placeholder={f3} onChange={(e) => setF3(e.target.value)}></input>
-                    <input placeholder={f4} onChange={(e) => setF4(e.target.value)}></input>
-                    <input placeholder={f5} onChange={(e) => setF5(e.target.value)}></input>
+                    <input type="number" placeholder={f1} onChange={(e) => setF1(e.target.value)}></input>
+                    <input type="number" placeholder={f2} onChange={(e) => setF2(e.target.value)}></input>
+                    <input type="number" placeholder={f3} onChange={(e) => setF3(e.target.value)}></input>
+                    <input type="number" placeholder={f4} onChange={(e) => setF4(e.target.value)}></input>
+                    <input type="number" placeholder={f5} onChange={(e) => setF5(e.target.value)}></input>
                     <button onClick={saveNewValues}> Salvar Valores</button>
                 </div>
                 <div>

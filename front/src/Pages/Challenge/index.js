@@ -54,6 +54,8 @@ export default function Challenge() {
   const { contextTimer, setContextTimer } = useContext(TimerContext);
   const { contextPeso, setContextPeso } = useContext(PesoContext);
 
+  const [pesitos, setPesos] = useState([]);
+
   const prevPhaseRef = useRef(phase);
 
   useEffect(() => {
@@ -131,6 +133,8 @@ export default function Challenge() {
   }, []);
 
   useEffect(() => {
+    getValues();
+
     setTimerStarted(true);
     if (phase === "FASE TESTE") {
       const savedPesos = localStorage.getItem("newPesos");
@@ -164,21 +168,9 @@ export default function Challenge() {
           return array;
         }
 
-        // let pesos = [];
-        // apiChallenge.get(`/getvalues`).then((response) => {
-        //   pesos[0] = (response.data.F1)
-        //   pesos[1] = (response.data.F2)
-        //   pesos[2] = (response.data.F3)
-        //   pesos[3] = (response.data.F4)
-        //   pesos[4] = (response.data.F5)
-        // }).catch((error) => {
-        //   console.log("Error fetching players data:")
-        //   console.error(error)
-        // })
+        const serverPesos = pesitos;
+        const newPesos = shuffleArray(serverPesos);
 
-        const pesos = [100, 200, 500, 700, 1000];
-        const newPesos = shuffleArray(pesos);
-    
         setContextPeso(newPesos);
         localStorage.setItem("newPesos", JSON.stringify(newPesos));
         localStorage.setItem("pesosUpdatedInDesafio", "true");
@@ -190,7 +182,26 @@ export default function Challenge() {
         }
       }
     }
+
   }, [phase]);
+
+  async function getValues() {
+    let serverPesos = [];
+    await apiChallenge.get(`/getvalues`).then((response) => {
+      serverPesos = response.data.values;
+    }).catch((error) => {
+      console.log("Error fetching values:")
+      console.error(error)
+    });
+
+    let intPesos = []
+    serverPesos.forEach(element => {
+      intPesos.push(parseInt(element));
+    });
+
+    setPesos(intPesos);
+    console.log(intPesos);
+  }
 
   const [fig1, setFig1] = useState(1);
   const [fig2, setFig2] = useState(1);
@@ -208,11 +219,11 @@ export default function Challenge() {
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
     let envio = [fig1, fig2, fig3, fig4, fig5];
-    
+
     let middleIndex = 0;
     let index500form = formas2.findIndex((form) => form.peso === 500);
     let index500 = palpites.findIndex((form) => form === 1);
-    
+
     if (index500 !== -1 && index500 !== middleIndex) {
       let temp = palpites[middleIndex];
       palpites[middleIndex] = palpites[index500];
@@ -250,16 +261,16 @@ export default function Challenge() {
     });
 
     let attempts = 0;
-    if(localStorage.getItem("countAttempt")) {
+    if (localStorage.getItem("countAttempt")) {
       attempts = parseInt(localStorage.getItem("countAttempt")) + 1;
     }
 
     let qtd = 0;
 
-    if(localStorage.getItem("qtdFormas")) {
+    if (localStorage.getItem("qtdFormas")) {
       qtd = parseInt(localStorage.getItem("qtdFormas")) + 1;
     }
-    
+
 
     const playerInfo = {
       nome,
@@ -394,7 +405,7 @@ export default function Challenge() {
                     clear={clear}
                     setClear={setClear}
                     startReal={startReal}
-                    phaseC = {setPhase}
+                    phaseC={setPhase}
                     oC1={(e) => { setFig1(e.target.value) }}
                     oC2={(e) => { setFig2(e.target.value) }}
                     oC3={(e) => { setFig3(e.target.value) }}
