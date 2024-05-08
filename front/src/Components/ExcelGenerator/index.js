@@ -144,19 +144,24 @@ export default function ExcelGenerator() {
             <div className='excel-btn'>
                 <div>
                     <button onClick={resetSort}>Redefinir ordem</button>
-                    <button onClick={clearMongoDB}>Limpar MongoDB</button>
+                    <button onClick={clearMongoDB} style={{ marginLeft: '1em' }}>Limpar MongoDB</button>
                 </div>
-                <div>
-                    <input type="number" value={f1} onChange={(e) => setF1(e.target.value)}></input>
-                    <input type="number" value={f2} onChange={(e) => setF2(e.target.value)}></input>
-                    <input type="number" value={f3} onChange={(e) => setF3(e.target.value)}></input>
-                    <input type="number" value={f4} onChange={(e) => setF4(e.target.value)}></input>
-                    <input type="number" value={f5} onChange={(e) => setF5(e.target.value)}></input>
-                    <button onClick={saveNewValues}> Salvar Valores</button>
+                <div className="inputsStyles">
+                    <div className='inputsTitle'>
+                        <h2>Alterar Valores</h2>
+                    </div>
+                    <div className='inputs'>
+                        <input type="number" value={f1} onChange={(e) => setF1(e.target.value)}></input>
+                        <input type="number" value={f2} onChange={(e) => setF2(e.target.value)}></input>
+                        <input type="number" value={f3} onChange={(e) => setF3(e.target.value)}></input>
+                        <input type="number" value={f4} onChange={(e) => setF4(e.target.value)}></input>
+                        <input type="number" value={f5} onChange={(e) => setF5(e.target.value)}></input>
+                    </div>
+                    <button onClick={saveNewValues} style={{ marginTop: '0.5em' }}> Salvar Valores</button>
                 </div>
-                <div>
+                <div className="saveFile">
                     <input type="file" onChange={loadExcelFile} />
-                    <button onClick={saveExcelFile}>Salvar arquivo</button>
+                    <button onClick={saveExcelFile} style={{ marginTop: '0.5em' }}>Salvar arquivo</button>
                 </div>
             </div>
             {playersData.length > 0 && (

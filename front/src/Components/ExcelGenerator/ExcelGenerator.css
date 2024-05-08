@@ -30,9 +30,12 @@ th {
     width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     padding: 1em;
+}
+.excel-btn button {
+    margin-top: 0;
 }
 
 .sort-button {
@@ -74,4 +77,29 @@ th {
 
 .table-container th:hover {
     background-color: #e2e2e2;
+}
+
+.inputsStyles {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.inputsTitle {
+    margin: 0;
+}
+
+.inputs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputs input {
+    width: 17%;
+}
+
+.saveFile {
+    display: flex;
+    flex-direction: column;
 }
