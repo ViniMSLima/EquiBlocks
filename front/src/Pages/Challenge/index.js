@@ -204,9 +204,9 @@ export default function Challenge() {
     serverPesos.forEach(element => {
       intPesos.push(parseInt(element));
     });
-
+    const middleIndex = Math.floor(intPesos.length / 2);
+    localStorage.setItem('middleValue', intPesos[middleIndex]);
     setPesos(intPesos);
-    console.log(intPesos);
   }
 
   const [fig1, setFig1] = useState(1);
@@ -220,13 +220,14 @@ export default function Challenge() {
     var data = localStorage.getItem("data");
     var tempo = localStorage.getItem("tempo");
 
-    const formas1 = localStorage.getItem("formas");
+    const formas1 = localStorage.getItem("forms");
     const formas2 = JSON.parse(formas1);
     const palpites = [fig1, fig2, fig3, fig4, fig5];
     let envio = [fig1, fig2, fig3, fig4, fig5];
 
     let middleIndex = 0;
-    let index500form = formas2.findIndex((form) => form.peso === 500);
+    let middleValue = localStorage.getItem('middleValue');
+    let index500form = formas2.findIndex((form) => form.peso === parseInt(middleValue));
     let index500 = palpites.findIndex((form) => form === 1);
 
     if (index500 !== -1 && index500 !== middleIndex) {

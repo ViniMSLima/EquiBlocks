@@ -37,8 +37,9 @@ export default function ContainerForm({
       { shapeImg: pentagono, shapeValue: contextPeso[3], oC: oC4 },
       { shapeImg: estrela, shapeValue: contextPeso[4], oC: oC5 },
     ];
+    let middleValue = parseInt(localStorage.getItem('middleValue'));
     const middleIndex = 0;
-    const index500 = shapeList.findIndex((shape) => shape.shapeValue === 500);
+    const index500 = shapeList.findIndex((shape) => shape.shapeValue === middleValue);
 
     if (index500 !== -1 && index500 !== middleIndex) {
       [shapeList[middleIndex], shapeList[index500]] = [
@@ -90,9 +91,10 @@ export default function ContainerForm({
           },
         ];
 
+        let middleValue = parseInt(localStorage.getItem('middleValue'));
         const middleIndex = 0;
         const index500 = formasIniciais.findIndex(
-          (forma) => forma.peso === 500
+          (forma) => forma.peso === middleValue
         );
 
         if (index500 !== -1 && index500 !== middleIndex) {

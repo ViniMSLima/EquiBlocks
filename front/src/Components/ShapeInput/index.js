@@ -2,8 +2,9 @@ import Form from "react-bootstrap/Form";
 import styles from "./styles.module.scss";
 
 export default function ShapeInput({ shapeValue, oC }) {
-  const inputValue = shapeValue === 500 ? 500 : undefined;
-  const isDisabled = shapeValue === 500;
+  let middleValue = parseInt(localStorage.getItem('middleValue'));
+  const inputValue = shapeValue === middleValue ? middleValue : undefined;
+  const isDisabled = shapeValue === middleValue;
 
   const preventDragHandler = (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ export default function ShapeInput({ shapeValue, oC }) {
                 style={{ width: '90%' }}
                 type="text"
                 value={inputValue}
-                placeholder = {inputValue? 500 : "???"}
+                placeholder = {inputValue? middleValue : "???"}
                 onChange={oC}
                 onDragOver={(e) => e.preventDefault()}
                 disabled={isDisabled}
