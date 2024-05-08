@@ -270,7 +270,7 @@
 
   .rowLines {
     width: 100%;
-    height: 5em;
+    height: 4em;
   }
 
   .greenDonutDiv {
@@ -319,7 +319,7 @@
 
   .rowLines {
     width: 100%;
-    height: 5em;
+    height: 4em;
   }
 
   .greenDonutDiv {
@@ -354,6 +354,19 @@
 }
 
 @media screen and (max-width: 1832px) {
+  .rowLines {
+    width: 100%;
+    height: 4em;
+  }
+  
+  .blueLine {
+    margin-top: 4em;
+  }
+  
+  .greenLine {
+    margin-top: 0.8em;
+  }
+
   @keyframes greenBlueLineMoving {
     0% {
       transform: translateX(-70vw);
