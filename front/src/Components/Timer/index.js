@@ -29,7 +29,9 @@ export default function Timer({ startTimer }) {
         const currentTime = Date.now();
         const elapsedTime = currentTime - startTimeRef.current;
         setTimer(formatTime(elapsedTime));
+        localStorage.setItem("tempo", formatTime(elapsedTime));
       }, 1000);
+      
     } else {
       clearInterval(intervalId);
     }

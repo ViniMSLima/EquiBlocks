@@ -203,8 +203,6 @@ export default function Challenge() {
     var nome = localStorage.getItem("nome");
     var data = localStorage.getItem("data");
     var tempo = localStorage.getItem("tempo");
-    var qtdTentativas = parseInt(localStorage.getItem("countAttempt")) + 1;
-    var qtdFormas = parseInt(localStorage.getItem("qtdFormas")) + 1;
 
     const formas1 = localStorage.getItem("formas");
     const formas2 = JSON.parse(formas1);
@@ -244,8 +242,17 @@ export default function Challenge() {
       count += 1;
     });
 
-    let attempts = parseInt(localStorage.getItem("countAttempt")) + 1;
-    let qtd = parseInt(localStorage.getItem("qtdFormas")) + 1;
+    let attempts = 0;
+    if(localStorage.getItem("countAttempt")) {
+      attempts = parseInt(localStorage.getItem("countAttempt")) + 1;
+    }
+
+    let qtd = 0;
+
+    if(localStorage.getItem("qtdFormas")) {
+      qtd = parseInt(localStorage.getItem("qtdFormas")) + 1;
+    }
+    
 
     const playerInfo = {
       nome,
@@ -370,6 +377,7 @@ export default function Challenge() {
                 {status}
               </div>
             </Col> */}
+            <Timer startTimer={begin}></Timer>
           </Row>
           <div>
             <Row className={styles.row}>
