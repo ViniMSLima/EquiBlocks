@@ -1,7 +1,8 @@
 import ExcelGenerator from "../../Components/ExcelGenerator";
 import { useNavigate } from "react-router-dom";
-import { apiChallenge } from '../../api/apiChallenge';
+import { apiChallenge } from "../../api/apiChallenge";
 import { useEffect, useState } from "react";
+import Header from "../../Components/Header";
 
 export default function Excel() {
   const navigate = useNavigate();
@@ -10,22 +11,34 @@ export default function Excel() {
   // Função para iniciar ou parar o desafio
   const Challenge = () => {
     // Lógica para iniciar ou parar o desafio
-    if (!status && window.confirm("Tem certeza que deseja iniciar o desafio?")) {
+    if (
+      !status &&
+      window.confirm("Tem certeza que deseja iniciar o desafio?")
+    ) {
       setStatus(true);
-      apiChallenge.get(`/start`).then((response) => {
-        console.log(response);
-      }).catch((error) => {
-        console.log("Error starting challenge");
-        console.error(error);
-      });
-    } else if (status && window.confirm("Tem certeza que deseja interromper o desafio?")) {
+      apiChallenge
+        .get(`/start`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log("Error starting challenge");
+          console.error(error);
+        });
+    } else if (
+      status &&
+      window.confirm("Tem certeza que deseja interromper o desafio?")
+    ) {
       setStatus(false);
-      apiChallenge.get(`/stop`).then((response) => {
-        console.log(response);
-      }).catch((error) => {
-        console.log("Error stopping challenge");
-        console.error(error);
-      });
+      apiChallenge
+        .get(`/stop`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log("Error stopping challenge");
+          console.error(error);
+        });
     }
   };
 
@@ -42,20 +55,26 @@ export default function Excel() {
     getStatus();
   }, []);
 
-
   // Função para sair
   const logOut = () => {
     if (window.confirm("Deseja Sair?")) {
       localStorage.clear();
-      navigate('/');
+      navigate("/");
     }
   };
 
   return (
-    <div style={{ backgroundColor: 'white' }}>
-      <button onClick={() => logOut()} style={{ marginLeft: '1em' }}>Sair</button>
-      <button onClick={() => Challenge()} style={{ marginLeft: '1em' }}>{status ? "Finalizar" : "Iniciar"}</button>
-      <ExcelGenerator />
-    </div>
+    <>
+    <Header />
+      <div style={{ backgroundColor: "white" }}>
+        <button onClick={() => logOut()} style={{ marginLeft: "1em" }}>
+          Sair
+        </button>
+        <button onClick={() => Challenge()} style={{ marginLeft: "1em" }}>
+          {status ? "Finalizar" : "Iniciar"}
+        </button>
+        <ExcelGenerator />
+      </div>
+    </>
   );
 }
