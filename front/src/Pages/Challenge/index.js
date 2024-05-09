@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 import teste from "../../Img/FASE DE TESTE.gif";
 
 import Row from "react-bootstrap/Row";
@@ -42,7 +42,6 @@ export default function Challenge() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
 
   const [clear, setClear] = useState(false);
   const [phaseClear, setPhaseClear] = useState(true);
@@ -126,26 +125,24 @@ export default function Challenge() {
       }
     };
 
-    document.addEventListener('keydown', disableDevTools);
+    document.addEventListener("keydown", disableDevTools);
 
     return () => {
-      document.removeEventListener('keydown', disableDevTools);
+      document.removeEventListener("keydown", disableDevTools);
     };
   }, []);
-
 
   useEffect(() => {
     const disableContextMenu = (event) => {
       event.preventDefault();
     };
 
-    document.addEventListener('contextmenu', disableContextMenu);
+    document.addEventListener("contextmenu", disableContextMenu);
 
     return () => {
-      document.removeEventListener('contextmenu', disableContextMenu);
+      document.removeEventListener("contextmenu", disableContextMenu);
     };
   }, []);
-  
 
   const getStatusPeriodically = () => {
     const intervalId = setInterval(() => {
@@ -281,9 +278,7 @@ export default function Challenge() {
 
     let middleIndex = 0;
     let middleValue = parseInt(localStorage.getItem("middleValue"));
-    let index500form = formas2.findIndex(
-      (form) => form.peso === middleValue
-    );
+    let index500form = formas2.findIndex((form) => form.peso === middleValue);
     let index500 = palpites.findIndex((form) => form === 1);
 
     if (index500 !== -1 && index500 !== middleIndex) {
@@ -298,27 +293,24 @@ export default function Challenge() {
       formas2[index500form] = temp;
     }
 
+    console.log(formas2);
+    console.log(palpites);
+
     let count = 0;
     let acertos = 0;
 
     formas2.forEach((element) => {
-      let pesoInt = parseInt(element.peso);
-      if (palpites[count] == pesoInt) {
+      if (element.peso == palpites[count]) {
         acertos += 25;
-        if (pesoInt == valuesDefault[0]) {
-          envio[0] = palpites[count];
-        } else if (pesoInt == valuesDefault[1]) {
-          envio[1] = palpites[count];
-        } else if (pesoInt == valuesDefault[2]) {
-          envio[2] = middleValue;
-        } else if (pesoInt == valuesDefault[3]) {
-          envio[3] = palpites[count];
-        } else if (pesoInt == valuesDefault[4]) {
-          envio[4] = palpites[count];
-        }
-      } else palpites[count] = 1;
+      }
 
-      count += 1;
+      if (element.peso == pesitos[0]) envio[0] = palpites[count];
+      if (element.peso == pesitos[1]) envio[1] = palpites[count];
+      if (element.peso == pesitos[2]) envio[2] = palpites[count];
+      if (element.peso == pesitos[3]) envio[3] = palpites[count];
+      if (element.peso == pesitos[4]) envio[4] = palpites[count];
+
+      count++;
     });
 
     const playerInfo = {
@@ -336,17 +328,6 @@ export default function Challenge() {
     };
 
     try {
-      //IP do senai
-      // const res = await axios.post(
-      //   "http://10.196.20.101:8080/api/postplayer",
-      //   playerInfo
-      //   );
-      // await axios.post("http://localhost:8080/api/postplayer", playerInfo);
-      // await axios.post(
-      //   "/postplayer",
-      //   playerInfo
-      // );
-
       apiEquiblocks
         .post(`/postPlayer`, playerInfo)
         .then((response) => {
@@ -478,7 +459,7 @@ export default function Challenge() {
               </Container>
             </Row>
             <Modal show={show} onHide={handleClose}>
-              <img src={teste} className={styles.imgModal}/>
+              <img src={teste} className={styles.imgModal} />
             </Modal>
           </div>
         </>
