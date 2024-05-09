@@ -98,13 +98,13 @@ export default function Balance({
     } else if (balance.right.total < balance.left.total) {
       balanceImage = balancee2;
       hitboxStyles = {
-        hitbox1: { top: "1.9em", left: "0.39em" },
+        hitbox1: { top: "1.9em", left: "0.36em" },
         hitbox2: { top: "0.8em", left: "4.2em" },
       };
     } else {
       balanceImage = balancee3;
       hitboxStyles = {
-        hitbox1: { top: "1.42em", left: "0.4em" },
+        hitbox1: { top: "1.42em", left: "0.28em" },
         hitbox2: { top: "1.42em", left: "4.25em" },
       };
     }
