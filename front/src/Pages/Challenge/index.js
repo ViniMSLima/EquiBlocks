@@ -302,8 +302,6 @@ export default function Challenge() {
     let acertos = 0;
 
     formas2.forEach((element) => {
-      console.log(element.peso)
-      console.log(palpites[count])
       let pesoInt = parseInt(element.peso);
       if (palpites[count] == pesoInt) {
         acertos += 25;
