@@ -39,7 +39,7 @@ export default function Challenge() {
 
   const [begin, setBegin] = useState(false);
 
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -187,6 +187,7 @@ export default function Challenge() {
 
     setTimerStarted(true);
     if (phase === "FASE TESTE") {
+      setShow(true)
       const savedPesos = localStorage.getItem("newPesos");
       if (savedPesos) {
         const pesos = JSON.parse(savedPesos);
