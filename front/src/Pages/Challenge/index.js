@@ -106,6 +106,47 @@ export default function Challenge() {
     localStorage.setItem("formas", JSON.stringify(updatedFormas));
   }, [phase]);
 
+  useEffect(() => {
+    const disableDevTools = (event) => {
+      // Tecla F12
+      if (event.keyCode === 123) {
+        event.preventDefault();
+      }
+
+      if (event.ctrlKey && event.shiftKey && event.keyCode === 73) {
+        event.preventDefault();
+      }
+
+      if (event.ctrlKey && event.shiftKey && event.keyCode === 74) {
+        event.preventDefault();
+      }
+
+      if (event.ctrlKey && event.keyCode === 85) {
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener('keydown', disableDevTools);
+
+    return () => {
+      document.removeEventListener('keydown', disableDevTools);
+    };
+  }, []);
+
+
+  useEffect(() => {
+    const disableContextMenu = (event) => {
+      event.preventDefault();
+    };
+
+    document.addEventListener('contextmenu', disableContextMenu);
+
+    return () => {
+      document.removeEventListener('contextmenu', disableContextMenu);
+    };
+  }, []);
+  
+
   const getStatusPeriodically = () => {
     const intervalId = setInterval(() => {
       apiChallenge
