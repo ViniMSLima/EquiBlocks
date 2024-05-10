@@ -19,6 +19,7 @@ export default function ExcelGenerator() {
     const [f3, setF3] = useState(0);
     const [f4, setF4] = useState(0);
     const [f5, setF5] = useState(0);
+    const [tempo, setTempo] = useState(0);
 
     async function getPlayers() {
         apiEquiblocks.get(`/getplayers`).then((response) => {
@@ -127,16 +128,36 @@ export default function ExcelGenerator() {
 
     function saveNewValues() {
         apiChallenge
-        .post(`/postvalues`, {"newValues": [f1, f2, f3, f4, f5]})
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-          console.log("Error fetching new values");
-          console.error(error);
-        });
+            .post(`/postvalues`, { "newValues": [f1, f2, f3, f4, f5] })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log("Error fetching new values");
+                console.error(error);
+            });
 
         alert("Novos valores enviados. Será atualizado em alguns instantes!")
+    }
+
+    function saveNewTempo() {
+        if (tempo.toString() == 0) {
+            alert("Tempo inválido!");
+        }
+
+        else {
+            apiChallenge
+                .post(`/posttempo`, { "hora": parseInt(tempo.toString().split(":")[0]), "minuto": parseInt(tempo.toString().split(":")[1]) })
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log("Error fetching new values");
+                    console.error(error);
+                });
+
+            alert("Novo tempo enviado. Será atualizado em alguns instantes!")
+        }
     }
 
     return (
@@ -144,7 +165,12 @@ export default function ExcelGenerator() {
             <div className='excel-btn'>
                 <div>
                     <button onClick={resetSort}>Redefinir ordem</button>
-                    <button onClick={clearMongoDB} style={{ marginLeft: '1em' }}>Limpar MongoDB</button>
+                    <button onClick={clearMongoDB} style={{ marginLeft: '1em' }}>Limpar Participantes</button>
+                </div>
+                <div className='inputsTitle'>
+                    <h2>Alterar Tempo</h2>
+                    <input type="time" value={tempo} onChange={(e) => setTempo(e.target.value)}></input>
+                    <button onClick={saveNewTempo} style={{ marginTop: '0.5em' }}> Salvar Tempo</button>
                 </div>
                 <div className="inputsStyles">
                     <div className='inputsTitle'>
@@ -190,7 +216,7 @@ export default function ExcelGenerator() {
                                     <td>{player.tempo}</td>
                                     <td>{player.tentativas}</td>
                                     <td>{player.qtd_formas}</td>
-                                    <td style={{ backgroundColor: player.acertos === 100 ? '#C6F7D0' :( player.acertos === 75 || player.acertos === 50) ? '#ffffb0' : '#FFC6C6'}}>{player.acertos}</td>
+                                    <td style={{ backgroundColor: player.acertos === 100 ? '#C6F7D0' : (player.acertos === 75 || player.acertos === 50) ? '#ffffb0' : '#FFC6C6' }}>{player.acertos}</td>
                                     <td style={{ backgroundColor: player.f1 == f1 ? '#C6F7D0' : '#FFC6C6' }}>{player.f1}</td>
                                     <td style={{ backgroundColor: player.f2 == f2 ? '#C6F7D0' : '#FFC6C6' }}>{player.f2}</td>
                                     <td style={{ backgroundColor: player.f3 == f3 ? '#C6F7D0' : '#FFC6C6' }}>{player.f3}</td>
