@@ -45,8 +45,13 @@ export default function Home() {
       return;
     }
 
-    if (nome == "" || data == "" || nome.trim().length < 3) {
-      alert("Nome ou Data inválidos");
+    if (nome == "" || data == "") {
+      alert("Nome ou Data vazios");
+      bool = true;
+    }
+
+    if(data.split("-")[0].length > 4) {
+      alert("Ano inválido!");
       bool = true;
     }
 
