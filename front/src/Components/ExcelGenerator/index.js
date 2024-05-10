@@ -163,16 +163,14 @@ export default function ExcelGenerator() {
     return (
         <div className="excel-generator-container">
             <div className='excel-btn'>
-                <div>
-                    <button onClick={resetSort}>Redefinir ordem</button>
-                    <button onClick={clearMongoDB} style={{ marginLeft: '1em' }}>Limpar Participantes</button>
-                </div>
-                <div className='inputsTitle'>
+                <div className='inputsTimer'>
                     <h2>Alterar Tempo</h2>
-                    <input type="time" value={tempo} onChange={(e) => setTempo(e.target.value)}></input>
-                    <button onClick={saveNewTempo} style={{ marginTop: '0.5em' }}> Salvar Tempo</button>
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                        <input type="time" value={tempo} onChange={(e) => setTempo(e.target.value)}></input>
+                        <button onClick={saveNewTempo} style={{ marginTop: '0.5em' }}> Salvar Tempo</button>
+                    </div>
                 </div>
-                <div className="inputsStyles">
+                <div className="inputsStyles" style={{ marginLeft: '2.5em' }}>
                     <div className='inputsTitle'>
                         <h2>Alterar Valores</h2>
                     </div>
@@ -183,15 +181,19 @@ export default function ExcelGenerator() {
                         <input type="number" value={f4} onChange={(e) => setF4(e.target.value)}></input>
                         <input type="number" value={f5} onChange={(e) => setF5(e.target.value)}></input>
                     </div>
-                    <button onClick={saveNewValues} style={{ marginTop: '0.5em' }}> Salvar Valores</button>
-                </div>
-                <div className="saveFile">
-                    <input type="file" onChange={loadExcelFile} />
-                    <button onClick={saveExcelFile} style={{ marginTop: '0.5em' }}>Salvar arquivo</button>
+                    <button onClick={saveNewValues} style={{ marginTop: '0.5em', width: '17%' }}> Salvar Valores</button>
                 </div>
             </div>
+                <div style={{ marginLeft: '1em', display: 'flex' }}>
+                    <button onClick={resetSort}>Redefinir ordem</button>
+                    <button onClick={clearMongoDB} style={{ marginLeft: '1em' }}>Limpar Participantes</button>
+                <div className="saveFile" style={{ marginLeft: '1em' }}>
+                    <input type="file" onChange={loadExcelFile} style={{ marginTop: '0.5em', marginLeft: '1em' }}/>
+                    <button onClick={saveExcelFile} style={{ marginTop: '0.5em', marginLeft: '0.5em' }}>Salvar arquivo</button>
+                </div>
+                </div>
             {playersData.length > 0 && (
-                <div className="table-container">
+                <div className="table-container" style={{ backgroundColor: 'white' }}>
                     <table>
                         <thead>
                             <tr>
