@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { apiChallenge } from "../../api/apiChallenge";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Header from "../../Components/Header";
 import Timer from "../../Components/Timer";
 
@@ -13,24 +13,64 @@ import styles from "./styles.module.scss";
 export default function Excel() {
   const navigate = useNavigate();
   const [status, setStatus] = useState(false);
+  const [begin, setBegin] = useState(false);
 
-  const getStatus = () => {
-    apiChallenge
-      .get(`/getstatus`)
-      .then((response) => {
-        setStatus(response.data.status);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const [hour, setHour] = useState(0);
+  const [minute, setMinute] = useState(0);
+
+  const [timer, setTimer] = useState("00:00");
+  const startTimeRef = useRef(null);
+
+  const getStatusPeriodically = () => {
+    const intervalId = setInterval(() => {
+      apiChallenge
+        .get(`/getstatus`)
+        .then((response) => {
+          if (response.data.status) {
+            setStatus(true);
+
+            setBegin(true);
+          } else {
+            setStatus(false);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, 2000);
+    return intervalId;
+  };
+
+  const formatTime = (milliseconds) => {
+    const totalSeconds = Math.floor(milliseconds / 1000);
+    const minutes = Math.floor(totalSeconds / 60)
+      .toString()
+      .padStart(2, "0");
+    const seconds = (totalSeconds % 60).toString().padStart(2, "0");
+
+    return `${minutes}:${seconds}`;
   };
 
   useEffect(() => {
-    getStatus();
+    getStatusPeriodically();
   }, []);
 
-  var minutes = "00";
-  var seconds = "00";
+  useEffect(() => {
+    let intervalId;
+
+    if (status) {
+      startTimeRef.current = Date.now();
+      intervalId = setInterval(() => {
+        const currentTime = Date.now();
+        const elapsedTime = currentTime - startTimeRef.current;
+        setTimer(formatTime(elapsedTime));
+      }, 1000);
+    } else {
+      clearInterval(intervalId);
+    }
+
+    return () => clearInterval(intervalId);
+  }, [status]);
 
   return (
     <div style={{ backgroundColor: "white", height: "100vh" }}>
@@ -51,9 +91,8 @@ export default function Excel() {
           }}
         >
           <div className={styles.card}>
-            {/* <img src={clock} className={styles.clockIcon} alt="Clock Icon" /> */}
             <div className={styles.time}>
-              {minutes}:{seconds}
+              {timer}
             </div>
           </div>
         </Container>
