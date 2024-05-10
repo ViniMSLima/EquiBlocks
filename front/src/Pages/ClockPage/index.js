@@ -8,6 +8,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
+import styles from "./styles.module.scss";
+
 export default function Excel() {
   const navigate = useNavigate();
   const [status, setStatus] = useState(false);
@@ -27,6 +29,9 @@ export default function Excel() {
     getStatus();
   }, []);
 
+  var minutes = "00";
+  var seconds = "00";
+
   return (
     <div style={{ backgroundColor: "white", height: "100vh" }}>
       <Header />
@@ -45,7 +50,12 @@ export default function Excel() {
             marginTop: "7em",
           }}
         >
-          <Timer />
+          <div className={styles.card}>
+            {/* <img src={clock} className={styles.clockIcon} alt="Clock Icon" /> */}
+            <div className={styles.time}>
+              {minutes}:{seconds}
+            </div>
+          </div>
         </Container>
       </Row>
     </div>
