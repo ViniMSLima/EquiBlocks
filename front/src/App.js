@@ -7,6 +7,7 @@ import Excel from "./Pages/ExcelTest";
 import ErrorPage from "./Pages/Error";
 import Finalized from "./Pages/Finalized";
 import Challenge from "./Pages/Challenge";
+import ClockPage from "./Pages/ClockPage";
 import ProtectedRoute from "./Pages/ProtectedRoute";
 
 import Header from "./Components/Header";
@@ -36,6 +37,15 @@ function App() {
                 <ProtectedRoute
                   errorPage={<ErrorPage />}
                   targetPage={<Excel />}
+                />
+              }
+            />
+            <Route
+              path="/clock"
+              element={
+                <ProtectedRoute
+                  errorPage={<ErrorPage />}
+                  targetPage={<ClockPage />}
                 />
               }
             />

@@ -1,22 +1,23 @@
 .card {
     background-color: #E3E3E3;
-    width: 8em;
-    height: 5.5em;
+    width: 40em;
+    height: 30em;
     border-radius: 1em;
     display: flex;
     justify-content: center;
     align-items: center;
     border: solid 2px hsla(0, 0, 0, 0.26);
     user-select: none;
+    flex-direction: column;
 }
 
 .time {
-    font-size: 2.5em;
+    font-size: 22em;
     font-family: "League Gothic", sans-serif;
 }
 
 .clockIcon {
-    width: 1.8em;
+    width: 3em;
 }
 
 @media screen and (max-width: 1850px) {
