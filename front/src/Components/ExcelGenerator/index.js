@@ -20,6 +20,7 @@ export default function ExcelGenerator() {
     const [f4, setF4] = useState(0);
     const [f5, setF5] = useState(0);
     const [tempo, setTempo] = useState(0);
+    const [savedTempo, setSavedTempo] = useState(0);
 
     async function getPlayers() {
         apiEquiblocks.get(`/getplayers`).then((response) => {
@@ -49,9 +50,27 @@ export default function ExcelGenerator() {
         })
     }
 
+    async function getTime() {
+        apiChallenge
+            .get(`/gettime`)
+            .then((response) => {
+                console.log(response.data.hora);
+                console.log(response.data.minuto);
+
+                const savedTime = response.data.hora.toString() +':'+ response.data.minuto.toString();
+                setSavedTempo(savedTime);
+                console.log(savedTempo)
+            })
+            .catch((error) => {
+                console.log("Error fetching new values");
+                console.error(error);
+            });
+    }
+
     useEffect(() => {
         getValues();
         getPlayers();
+        getTime();
     }, []);
 
     function sortData(column) {
