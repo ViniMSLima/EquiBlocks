@@ -44,11 +44,14 @@ export default function Excel() {
 
   // Função para obter o status a cada segundo
   const getStatus = () => {
-    apiChallenge.get(`/getstatus`).then((response) => {
-      setStatus(response.data.status);
-    }).catch((error) => {
-      console.error(error);
-    });
+    apiChallenge
+      .get(`/getstatus`)
+      .then((response) => {
+        setStatus(response.data.status);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {
@@ -63,9 +66,15 @@ export default function Excel() {
     }
   };
 
+  const goToTimer = () => {
+    if (window.confirm("Deseja Ir para o Timer?")) {
+      navigate("/clock");
+    }
+  };
+
   return (
     <>
-    <Header />
+      <Header />
       <div style={{ backgroundColor: "white" }}>
         <button onClick={() => logOut()} style={{ marginLeft: "1em" }}>
           Sair
@@ -73,6 +82,11 @@ export default function Excel() {
         <button onClick={() => Challenge()} style={{ marginLeft: "1em" }}>
           {status ? "Finalizar" : "Iniciar"}
         </button>
+        <a target="_blank" href="/clock">
+          <button style={{ marginLeft: "1em" }}>
+            Timer
+          </button>
+        </a>
         <ExcelGenerator />
       </div>
     </>
