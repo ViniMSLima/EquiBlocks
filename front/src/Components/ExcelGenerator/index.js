@@ -147,7 +147,7 @@ export default function ExcelGenerator() {
 
         else {
             apiChallenge
-                .post(`/posttempo`, { "hora": parseInt(tempo.toString().split(":")[0]), "minuto": parseInt(tempo.toString().split(":")[1]) })
+                .post(`/posttime`, { "hora": parseInt(tempo.toString().split(":")[0]), "minuto": parseInt(tempo.toString().split(":")[1]) })
                 .then((response) => {
                     console.log(response);
                 })
