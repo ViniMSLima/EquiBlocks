@@ -54,10 +54,16 @@ export default function ExcelGenerator() {
         apiChallenge
             .get(`/gettime`)
             .then((response) => {
-                console.log(response.data.hora);
-                console.log(response.data.minuto);
+                let hora = response.data.hora.toString();
+                let minuto = response.data.minuto.toString();
 
-                const savedTime = response.data.hora.toString() +':'+ response.data.minuto.toString();
+                if (parseInt(hora) < 10)
+                    hora = "0" + hora;
+
+                if (parseInt(minuto) < 10)
+                    minuto = "0" + minuto;
+
+                const savedTime = hora + ':' + minuto;
                 setSavedTempo(savedTime);
                 console.log(savedTempo)
             })
@@ -176,6 +182,8 @@ export default function ExcelGenerator() {
                 });
 
             alert("Novo tempo enviado. Será atualizado em alguns instantes!")
+
+            getTime();
         }
     }
 
@@ -183,7 +191,8 @@ export default function ExcelGenerator() {
         <div className="excel-generator-container">
             <div className='excel-btn'>
                 <div className='inputsTimer'>
-                    <h2>Alterar Tempo</h2>
+                    <h2>Tempo Atual: {savedTempo}</h2>
+                    <h6>HH:MM</h6>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                         <input type="time" value={tempo} onChange={(e) => setTempo(e.target.value)}></input>
                         <button onClick={saveNewTempo} style={{ marginTop: '0.5em' }}> Salvar Tempo</button>
@@ -192,6 +201,7 @@ export default function ExcelGenerator() {
                 <div className="inputsStyles" style={{ marginLeft: '2.5em' }}>
                     <div className='inputsTitle'>
                         <h2>Alterar Valores</h2>
+                        <h6>Valores Atuais</h6>
                     </div>
                     <div className='inputs'>
                         <input type="number" value={f1} onChange={(e) => setF1(e.target.value)}></input>
@@ -203,14 +213,14 @@ export default function ExcelGenerator() {
                     <button onClick={saveNewValues} style={{ marginTop: '0.5em', width: '17%' }}> Salvar Valores</button>
                 </div>
             </div>
-                <div style={{ marginLeft: '1em', display: 'flex' }}>
-                    <button onClick={resetSort}>Redefinir ordem</button>
-                    <button onClick={clearMongoDB} style={{ marginLeft: '1em' }}>Limpar Participantes</button>
+            <div style={{ marginLeft: '1em', display: 'flex' }}>
+                <button onClick={resetSort}>Redefinir ordem</button>
+                <button onClick={clearMongoDB} style={{ marginLeft: '1em' }}>Limpar Participantes</button>
                 <div className="saveFile" style={{ marginLeft: '1em' }}>
-                    <input type="file" onChange={loadExcelFile} style={{ marginTop: '0.5em', marginLeft: '1em' }}/>
+                    <input type="file" onChange={loadExcelFile} style={{ marginTop: '0.5em', marginLeft: '1em' }} />
                     <button onClick={saveExcelFile} style={{ marginTop: '0.5em', marginLeft: '0.5em' }}>Salvar arquivo</button>
                 </div>
-                </div>
+            </div>
             {playersData.length > 0 && (
                 <div className="table-container" style={{ backgroundColor: 'white' }}>
                     <table>
