@@ -27,8 +27,8 @@ export default function Excel() {
         .get(`/getstatus`)
         .then((response) => {
           if (response.data.status) {
-            setStatus(true);
-            setBegin(true);
+            setStatus(response.data.status);
+            setBegin(response.data.status);
           } else {
             setStatus(false);
           }
@@ -42,16 +42,47 @@ export default function Excel() {
 
   const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
-    const minutes = Math.floor(totalSeconds / 60)
-      .toString()
-      .padStart(2, "0");
+    const hours = Math.floor(totalSeconds / 3600).toString().padStart(2, "0");
+    const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, "0");
     const seconds = (totalSeconds % 60).toString().padStart(2, "0");
 
-    return `${minutes}:${seconds}`;
+    if (hours == hour && minutes == minute) {
+      finishChallenge();
+      alert("Tempo esgotado!");
+    }
+
+    return `${hours}:${minutes}:${seconds}`;
   };
+
+
+  const finishChallenge = () => {
+    apiChallenge
+      .get(`/finish`)
+      .then((response) => {
+        console.log(response);
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  const getTime = () => {
+    apiChallenge
+      .get(`/gettime`)
+      .then((response) => {
+        setHour(response.data.hora);
+        setMinute(response.data.minuto);
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   useEffect(() => {
     getStatusPeriodically();
+    getTime();
   }, []);
 
   useEffect(() => {
@@ -63,6 +94,7 @@ export default function Excel() {
         const currentTime = Date.now();
         const elapsedTime = currentTime - startTimeRef.current;
         setTimer(formatTime(elapsedTime));
+
       }, 1000);
     } else {
       clearInterval(intervalId);

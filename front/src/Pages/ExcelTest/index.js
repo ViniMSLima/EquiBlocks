@@ -7,7 +7,7 @@ import Header from "../../Components/Header";
 export default function Excel() {
   const navigate = useNavigate();
   const [status, setStatus] = useState(false);
-  const [finished, setFinished] = useState(false);
+  const [finished, setFinished] = useState(true);
 
   // Função para iniciar ou parar o desafio
   const Challenge = () => {
@@ -45,6 +45,7 @@ export default function Excel() {
 
   const FinishChallenge = () => {
     if (window.confirm("Tem certeza que deseja finalizar o desafio?")) {
+      setFinished(true);
       apiChallenge
         .get(`/finish`)
         .then((response) => {
@@ -65,8 +66,10 @@ export default function Excel() {
         .then((response) => {
           if (response.data.status) {
             setStatus(true);
+            setFinished(response.data.finished)
           } else {
             setStatus(false);
+            setFinished(response.data.finished)
           }
         })
         .catch((error) => {
@@ -88,12 +91,6 @@ export default function Excel() {
     }
   };
 
-  const goToTimer = () => {
-    if (window.confirm("Deseja Ir para o Timer?")) {
-      navigate("/clock");
-    }
-  };
-
   return (
     <>
       <Header />
@@ -109,10 +106,11 @@ export default function Excel() {
         <button onClick={() => Challenge()} style={{ marginLeft: "1em" }}>
           {status ? "Interromper" : "Iniciar"}
         </button>
-        {status ? (
+        {finished ? (null) : (
           <button onClick={() => FinishChallenge()} style={{ marginLeft: "1em" }}>
             Finalizar
-          </button>) : (null)
+          </button>
+        )
         }
         <ExcelGenerator />
       </div>

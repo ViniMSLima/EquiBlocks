@@ -149,7 +149,13 @@ export default function Challenge() {
       apiChallenge
         .get(`/getstatus`)
         .then((response) => {
-          if (response.data.status) {
+          if (response.data.finished) {
+            if (localStorage.getItem("tempo")) {
+              playersToMongoDB();
+            }
+            // alert("finished");
+          }
+          else if (response.data.status) {
             setBegin(true);
             // setStatus("Finalizar");
           } else {
@@ -266,10 +272,10 @@ export default function Challenge() {
     var nome = localStorage.getItem("nome");
     var data = localStorage.getItem("data");
     var tempo = localStorage.getItem("tempo");
-    const qtdFormas = parseInt(localStorage.getItem("qtdFormas"));
-    const countAttempt = parseInt(localStorage.getItem("countAttempt"));
-    const intPesos = localStorage.getItem("intPesos");
-    const valuesDefault = JSON.parse(intPesos);
+    let qtdFormas = parseInt(localStorage.getItem("qtdFormas"));
+    let countAttempt = parseInt(localStorage.getItem("countAttempt"));
+    let intPesos = localStorage.getItem("intPesos");
+    // const valuesDefault = JSON.parse(intPesos);
 
     const formas1 = localStorage.getItem("forms");
     const formas2 = JSON.parse(formas1);
@@ -277,41 +283,54 @@ export default function Challenge() {
     let envio = [fig1, fig2, fig3, fig4, fig5];
 
     let middleIndex = 0;
-    let middleValue = parseInt(localStorage.getItem("middleValue"));
-    let index500form = formas2.findIndex((form) => form.peso === middleValue);
-    let index500 = palpites.findIndex((form) => form === 1);
-
-    if (index500 !== -1 && index500 !== middleIndex) {
-      let temp = palpites[middleIndex];
-      palpites[middleIndex] = palpites[index500];
-      palpites[index500] = temp;
-    }
-
-    if (index500form !== -1 && index500form !== middleIndex) {
-      let temp = formas2[middleIndex];
-      formas2[middleIndex] = formas2[index500form];
-      formas2[index500form] = temp;
-    }
-
-    console.log(formas2);
-    console.log(palpites);
-
-    let count = 0;
+    let middleValue
+    let index500form
+    let index500
     let acertos = 0;
 
-    formas2.forEach((element) => {
-      if (element.peso == palpites[count]) {
-        acertos += 25;
+    if (formas2) {
+      middleValue = parseInt(localStorage.getItem("middleValue"));
+      index500form = formas2.findIndex((form) => form.peso === middleValue);
+      index500 = palpites.findIndex((form) => form === 1);
+      if (index500 !== -1 && index500 !== middleIndex) {
+        let temp = palpites[middleIndex];
+        palpites[middleIndex] = palpites[index500];
+        palpites[index500] = temp;
       }
 
-      if (element.peso == pesitos[0]) envio[0] = palpites[count];
-      if (element.peso == pesitos[1]) envio[1] = palpites[count];
-      if (element.peso == pesitos[2]) envio[2] = palpites[count];
-      if (element.peso == pesitos[3]) envio[3] = palpites[count];
-      if (element.peso == pesitos[4]) envio[4] = palpites[count];
+      if (index500form !== -1 && index500form !== middleIndex) {
+        let temp = formas2[middleIndex];
+        formas2[middleIndex] = formas2[index500form];
+        formas2[index500form] = temp;
+      }
 
-      count++;
-    });
+      // console.log(formas2);
+      // console.log(palpites);
+
+      let count = 0;
+
+      formas2.forEach((element) => {
+        if (element.peso == palpites[count]) {
+          acertos += 25;
+        }
+
+        if (element.peso == pesitos[0]) envio[0] = palpites[count];
+        if (element.peso == pesitos[1]) envio[1] = palpites[count];
+        if (element.peso == pesitos[2]) envio[2] = palpites[count];
+        if (element.peso == pesitos[3]) envio[3] = palpites[count];
+        if (element.peso == pesitos[4]) envio[4] = palpites[count];
+
+        count++;
+      });
+
+    }
+    else {
+      envio = [1, 1, 1, 1, 1];
+      countAttempt = 0;
+      qtdFormas = 0;
+      acertos = 0;
+      middleValue = 1;
+    }
 
     const playerInfo = {
       nome,
@@ -359,6 +378,9 @@ export default function Challenge() {
     setFig3("");
     setFig4("");
     setFig5("");
+
+    localStorage.clear();
+    navigate("/finished");
   }
 
   function checkInputs() {
