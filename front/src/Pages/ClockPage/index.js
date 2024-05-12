@@ -28,7 +28,6 @@ export default function Excel() {
         .then((response) => {
           if (response.data.status) {
             setStatus(true);
-
             setBegin(true);
           } else {
             setStatus(false);
@@ -91,9 +90,7 @@ export default function Excel() {
           }}
         >
           <div className={styles.card}>
-            <div className={styles.time}>
-              {timer}
-            </div>
+            <div className={styles.time}>{timer}</div>
           </div>
         </Container>
       </Row>

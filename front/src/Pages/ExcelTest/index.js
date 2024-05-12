@@ -7,6 +7,7 @@ import Header from "../../Components/Header";
 export default function Excel() {
   const navigate = useNavigate();
   const [status, setStatus] = useState(false);
+  const [finished, setFinished] = useState(false);
 
   // Função para iniciar ou parar o desafio
   const Challenge = () => {
@@ -42,20 +43,41 @@ export default function Excel() {
     }
   };
 
+  const FinishChallenge = () => {
+    if (window.confirm("Tem certeza que deseja finalizar o desafio?")) {
+      apiChallenge
+        .get(`/finish`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log("Error finishing challenge");
+          console.error(error);
+        });
+    }
+  };
+
   // Função para obter o status a cada segundo
-  const getStatus = () => {
-    apiChallenge
-      .get(`/getstatus`)
-      .then((response) => {
-        setStatus(response.data.status);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const getStatusPeriodically = () => {
+    const intervalId = setInterval(() => {
+      apiChallenge
+        .get(`/getstatus`)
+        .then((response) => {
+          if (response.data.status) {
+            setStatus(true);
+          } else {
+            setStatus(false);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, 5000);
+    return intervalId;
   };
 
   useEffect(() => {
-    getStatus();
+    getStatusPeriodically();
   }, []);
 
   // Função para sair
@@ -79,14 +101,19 @@ export default function Excel() {
         <button onClick={() => logOut()} style={{ marginLeft: "1em" }}>
           Sair
         </button>
-        <button onClick={() => Challenge()} style={{ marginLeft: "1em" }}>
-          {status ? "Finalizar" : "Iniciar"}
-        </button>
         <a target="_blank" href="/clock">
           <button style={{ marginLeft: "1em" }}>
             Timer
           </button>
         </a>
+        <button onClick={() => Challenge()} style={{ marginLeft: "1em" }}>
+          {status ? "Interromper" : "Iniciar"}
+        </button>
+        {status ? (
+          <button onClick={() => FinishChallenge()} style={{ marginLeft: "1em" }}>
+            Finalizar
+          </button>) : (null)
+        }
         <ExcelGenerator />
       </div>
     </>
