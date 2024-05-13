@@ -47,8 +47,10 @@ export default function Excel() {
     const seconds = (totalSeconds % 60).toString().padStart(2, "0");
 
     if (hours == hour && minutes == minute) {
-      finishChallenge();
+      // finishChallenge();
       alert("Tempo esgotado!");
+      setHour(0);
+      setMinute(0);
     }
 
     return `${hours}:${minutes}:${seconds}`;

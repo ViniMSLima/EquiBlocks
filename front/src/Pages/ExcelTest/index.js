@@ -108,7 +108,7 @@ export default function Excel() {
         </button>
         {finished ? (null) : (
           <button onClick={() => FinishChallenge()} style={{ marginLeft: "1em" }}>
-            Finalizar
+            Cancelar Processo
           </button>
         )
         }

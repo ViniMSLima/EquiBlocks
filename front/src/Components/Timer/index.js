@@ -30,6 +30,7 @@ export default function Timer({ startTimer }) {
         const elapsedTime = currentTime - startTimeRef.current;
         setTimer(formatTime(elapsedTime));
         localStorage.setItem("tempo", formatTime(elapsedTime));
+        setContextTimer(elapsedTime);
       }, 1000);
       
     } else {
@@ -47,12 +48,16 @@ export default function Timer({ startTimer }) {
 
   const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
-    const minutes = Math.floor(totalSeconds / 60)
-      .toString()
-      .padStart(2, "0");
+    const hours = Math.floor(totalSeconds / 3600).toString().padStart(2, "0");
+    const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, "0");
     const seconds = (totalSeconds % 60).toString().padStart(2, "0");
 
-    return `${minutes}:${seconds}`;
+    // if (hours == hour && minutes == minute) {
+    //   finishChallenge();
+    //   alert("Tempo esgotado!");
+    // }
+
+    return `${hours}:${minutes}:${seconds}`;
   };
 
   var minutes = "00";

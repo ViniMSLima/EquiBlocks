@@ -57,6 +57,8 @@ export default function Challenge() {
   );
 
   const [timerStarted, setTimerStarted] = useState(false);
+  const [hour, setHour] = useState("");
+  const [minute, setMinute] = useState("");
   const navigate = useNavigate();
 
   const { contextTimer, setContextTimer } = useContext(TimerContext);
@@ -133,6 +135,7 @@ export default function Challenge() {
   }, []);
 
   useEffect(() => {
+    getTime();
     const disableContextMenu = (event) => {
       event.preventDefault();
     };
@@ -149,13 +152,14 @@ export default function Challenge() {
       apiChallenge
         .get(`/getstatus`)
         .then((response) => {
-          if (response.data.finished) {
-            if (localStorage.getItem("tempo")) {
-              playersToMongoDB();
-            }
-            // alert("finished");
-          }
-          else if (response.data.status) {
+          // if (response.data.finished) {
+          //   if (localStorage.getItem("tempo")) {
+          //     playersToMongoDB();
+          //   }
+          //   // alert("finished");
+          // }
+          // else 
+          if (response.data.status) {
             setBegin(true);
             // setStatus("Finalizar");
           } else {
@@ -169,6 +173,29 @@ export default function Challenge() {
     }, 5000);
     return intervalId;
   };
+
+  async function getTime() {
+    apiChallenge
+      .get(`/gettime`)
+      .then((response) => {
+        let hora = response.data.hora.toString();
+        let minuto = response.data.minuto.toString();
+
+        if (parseInt(hora) < 10)
+          hora = "0" + hora;
+
+        if (parseInt(minuto) < 10)
+          minuto = "0" + minuto;
+
+        const savedTime = hora + ':' + minuto;
+        setHour(hora);
+        setMinute(minuto);
+      })
+      .catch((error) => {
+        console.log("Error fetching new values");
+        console.error(error);
+      });
+  }
 
   useEffect(() => {
     const storedTempo = localStorage.getItem("tempo");
@@ -416,16 +443,18 @@ export default function Challenge() {
     setPhase("DESAFIO");
   };
 
-  // useEffect(() => {
-  //   const fase = localStorage.getItem("fase");
-  //   if (fase === "FASE TESTE") {
-  //     alert("Tempo finalizado! Redirecionando para o Desafio");
-  //     startReal();
-  //   } else if (contextTimer > tempoDesafio) {
-  //     playersToMongoDB();
-  //     navigate("/finished");
-  //   }
-  // }, [contextTimer]);
+  useEffect(() => {
+    if (localStorage.getItem("fase") == "DESAFIO") {
+
+      let tempo = localStorage.getItem("tempo")
+      console.log(tempo.split(":")[0] + ":" + tempo.split(":")[1] + "." + tempo.split(":")[2])
+
+      if (localStorage.getItem("tempo").split(":")[0] == hour && localStorage.getItem("tempo").split(":")[1] == minute) {
+        playersToMongoDB();
+        navigate("/finished");
+      }
+    }
+  }, [contextTimer]);
 
   useEffect(() => {
     if (prevPhaseRef.current !== phase && phase == "Desafio") {
